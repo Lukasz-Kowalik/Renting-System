@@ -1,0 +1,11 @@
+{
+  "prettier.singleQuote": true,
+  "prettier.semi": true,
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "~/../css"
+    }
+  ]
+}
