@@ -1,0 +1,187 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Changelog for Kendo UI Core v2019.3.1023 (October 23, 2019)</title>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font: .75em/1.5 Tahoma, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            font-size: normal;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: normal;
+
+            margin: 1.2em 0 .3em;
+            padding-bottom: .2em;
+        }
+
+        .breaking {
+            background-color: #e10c01;
+            color: #fff;
+            border-radius: 3px;
+            padding: 3px 4px;
+            display: inline-block;
+            font-size: 11px;
+            line-height: 1;
+            font-weight: bold;
+        }
+
+        #page {
+            width: 50em;
+            margin: 0 auto 2em;
+            border-radius: 0 0 1em 1em;
+            box-shadow: 0 0 10px #ccc;
+            padding: 1em 2em 2em;
+        }
+
+        .poBoxIcon {
+            float: left;
+            font-size: 2em;
+            margin: 1.2em .5em 0 0;
+        }
+
+        .poTopLine {
+            border-top: 2px solid #e1e1e1;
+            margin: 17px 0 40px 0;
+        }
+    </style>
+
+    <base href="http://www.telerik.com/support/whats-new/kendo-ui-web/release-history">
+</head>
+<body>
+    <div id="page">
+        <h1 class="title">Release notes</h1>
+
+        <h1>Components</h1>
+        <div class="tClear poTopLine">
+            <div class="poBoxIconText">
+                
+                <p><strong>What's fixed</strong></p>
+<ul>
+<li>Invalid animation value in kendo.common-material.css (<a href="https://github.com/telerik/kendo-ui-core/issues/4450">#4450</a>)</li>
+</ul>
+            </div>
+        </div>
+
+
+        <div class="tClear poTopLine">
+            <h2>Calendar</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Calendar - Calling setOptions will break multiple selection support (<a href="https://github.com/telerik/kendo-ui-core/issues/5222">#5222</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>ComboBox</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Change event is not triggered, if text() method is used, and when Clear button is clicked to clear the selection (<a href="https://github.com/telerik/kendo-ui-core/issues/5237">#5237</a>)</li>
+<li>Click on associated Label with ComboBox, Multiselect and MultiColumnComboBox does not focus the input (<a href="https://github.com/telerik/kendo-ui-core/issues/4472">#4472</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DatePicker</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>DatePicker calendar is not refreshed after clearing value in picker (<a href="https://github.com/telerik/kendo-ui-core/issues/5223">#5223</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>DateTimePicker</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>DatePicker calendar is not refreshed after clearing value in picker (<a href="https://github.com/telerik/kendo-ui-core/issues/5223">#5223</a>)</li>
+<li>The popup.appendTo option is missing for the TimeView popup (<a href="https://github.com/telerik/kendo-ui-core/issues/5204">#5204</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Draggable</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Difficulty grouping a grid with a touch and mouse device (<a href="https://github.com/telerik/kendo-ui-core/issues/4911">#4911</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MobileListView</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Mobile ListView it does not scroll in  iOS13 (<a href="https://github.com/telerik/kendo-ui-core/issues/5276">#5276</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MultiColumnComboBox</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Click on associated Label with ComboBox, Multiselect and MultiColumnComboBox does not focus the input (<a href="https://github.com/telerik/kendo-ui-core/issues/4472">#4472</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>MultiSelect</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>MultiSelect selected tags cannot be removed through tag's delete button in iOS 13 Safari (<a href="https://github.com/telerik/kendo-ui-core/issues/5342">#5342</a>)</li>
+<li>MultiSelect with autoBind false replaces its value with the one set in its options (<a href="https://github.com/telerik/kendo-ui-core/issues/5291">#5291</a>)</li>
+<li>Readonly state is not removed from Kendo MultiSelect on calling the readonly method (<a href="https://github.com/telerik/kendo-ui-core/issues/5290">#5290</a>)</li>
+<li>Click on associated Label with ComboBox, Multiselect and MultiColumnComboBox does not focus the input (<a href="https://github.com/telerik/kendo-ui-core/issues/4472">#4472</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>PDFViewer</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Memory Leak in Kendo PDFViewer when loading files. (<a href="https://github.com/telerik/kendo-ui-core/issues/5337">#5337</a>)</li>
+<li>PDFViewer download does not work in iOS 13 (<a href="https://github.com/telerik/kendo-ui-core/issues/5336">#5336</a>)</li>
+<li>Wrong scroll position of PDF file content on paging through PDFViewer's Pager and jQuery 3.4.1 (<a href="https://github.com/telerik/kendo-ui-core/issues/5322">#5322</a>)</li>
+<li>Search dialog throws an error with jQuery 3.4.x (<a href="https://github.com/telerik/kendo-ui-core/issues/5280">#5280</a>)</li>
+<li>Unable to download PDFViewer's PDF file on iOS (<a href="https://github.com/telerik/kendo-ui-core/issues/5268">#5268</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>PivotGrid</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>PivotGrid Configurator messages should not be draggable (<a href="https://github.com/telerik/kendo-ui-core/issues/5181">#5181</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Scroller</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Mobile Application with nativeScrolling does not scroll on device with iOS 13.1 (<a href="https://github.com/telerik/kendo-ui-core/issues/5289">#5289</a>)</li>
+</ul>
+        </div>
+        <div class="tClear poTopLine">
+            <h2>Window</h2>
+            
+            <p><strong>What's fixed</strong></p>
+<ul>
+<li>Window animation duration option is not applied correctly (<a href="https://github.com/telerik/kendo-ui-core/issues/5269">#5269</a>)</li>
+<li>Window title method does not remove the wrapper padding (<a href="https://github.com/telerik/kendo-ui-core/issues/5260">#5260</a>)</li>
+</ul>
+        </div>
+    </div>
+</body>
+</html>
