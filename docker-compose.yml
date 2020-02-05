@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  rentingsystem:
+    image: ${DOCKER_REGISTRY-}rentingsystem
+    build:
+      context: .
+      dockerfile: Renting System/Dockerfile
+    ServerSQL:
+
