@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLogic.Model
 {
@@ -12,14 +13,10 @@ namespace DataLogic.Model
         public string Email { get; set; }
         public string Password { get; set; }
         public bool IsLogin { get; set; }
-        public AccountTypes AccountType { get; set; }
 
-        public enum AccountTypes
-        {
-            Visitor,
-            User,
-            Worker,
-            Admin
-        }
+        [ForeignKey("AccountType")]
+        public int AccountTypeId { get; set; }
+
+        public AccountTypes AccountType { get; set; }
     }
 }
