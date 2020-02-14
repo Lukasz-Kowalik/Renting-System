@@ -1,0 +1,37 @@
+version: '3.4'
+
+services:
+  rentingsystem:
+    container_name: rentingsystem
+    image: ${DOCKER_REGISTRY-}rentingsystem
+    build:
+      context: .
+      dockerfile: Renting System/Dockerfile
+    depends_on:
+        - rentingsystemapi
+    ports:
+        - "3000:80"
+        - "3001:443"
+
+  rentingsystemapi:
+    container_name: rentingsystemapi
+    image: ${DOCKER_REGISTRY-}rentingsystemapi
+    build:
+      context: .
+      dockerfile: RentingSystemAPI/Dockerfile
+    environment:
+        DBServer: DataBaseSQL
+    depends_on:
+        - DataBaseSQL
+    ports:
+        - "8000:80"
+        - "8001:443"
+  
+  DataBaseSQL:
+    container_name: DataBaseSQL
+    image: mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: Pa$$word2020
+    ports:
+        - "1433:1433"

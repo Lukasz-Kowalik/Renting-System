@@ -4,6 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renting System", "Renting System\Renting System.csproj", "{F13B845E-E494-448C-B254-E5139D525669}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D} = {C84CF11B-B974-4FBA-9B86-8DE82535C82D}
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3} = {681CCE53-1C38-481C-AEDA-6AF8434726F3}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLogic", "DataLogic\DataLogic.csproj", "{C84CF11B-B974-4FBA-9B86-8DE82535C82D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemAPI", "RentingSystemAPI\RentingSystemAPI.csproj", "{681CCE53-1C38-481C-AEDA-6AF8434726F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D} = {C84CF11B-B974-4FBA-9B86-8DE82535C82D}
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A0477FE-78CE-47B4-B6CA-C46453279549}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +28,18 @@ Global
 		{F13B845E-E494-448C-B254-E5139D525669}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F13B845E-E494-448C-B254-E5139D525669}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F13B845E-E494-448C-B254-E5139D525669}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
