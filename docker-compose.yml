@@ -35,4 +35,3 @@ services:
         SA_PASSWORD: Pa$$word2020
     ports:
         - "1433:1433"
-    
