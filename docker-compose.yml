@@ -12,6 +12,8 @@ services:
     ports:
         - "3000:80"
         - "3001:443"
+    networks:
+        - net
 
   rentingsystemapi:
     container_name: rentingsystemapi
@@ -26,12 +28,23 @@ services:
     ports:
         - "8000:80"
         - "8001:443"
+    networks:
+        - net
   
   DataBaseSQL:
     container_name: DataBaseSQL
     image: mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04
     environment:
         ACCEPT_EULA: Y
-        SA_PASSWORD: Pa$$word2020
+        SA_PASSWORD: Password2020
     ports:
         - "1433:1433"
+    volumes:
+        - ./DataBase:/var/opt/mssql/bak
+    networks:
+        - net
+    
+volumes:
+    DataBase:
+networks:
+    net:
