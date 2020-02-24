@@ -8,6 +8,7 @@ namespace DataLogic
     public class Rent
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [ForeignKey("User")]
