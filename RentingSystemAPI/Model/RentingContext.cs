@@ -15,7 +15,7 @@ namespace RentingSystemAPI.Model
         {
 
         }
-        public DbSet<AccountType> AccountTypes { get; set; }
+        public DbSet<AccountPermissions> AccountTypes { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Rent> Rents { get; set; }
         public DbSet<User> Users { get; set; }
