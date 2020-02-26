@@ -2,6 +2,6 @@
 {
     public interface IVisitor
     {
-        public AccountType AccountType { get; set; }
+        public AccountPermissions AccountPermissions { get; set; }
     }
 }
