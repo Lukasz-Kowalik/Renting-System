@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLogic.Model
@@ -13,12 +12,30 @@ namespace DataLogic.Model
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
-        public bool IsLogin { get; set; } = false;
+        public byte[] PasswordHash { get; set; }
+        public byte[] Salt { get; set; }
+        public int Iterations { get; set; }
 
         [ForeignKey("AccountPermissions")]
         public int AccountTypeId { get; set; }
 
         public AccountPermissions AccountPermissions { get; set; }
+
+        public User(string name, string surname, string email, string password,
+            int iterations, AccountPermissions accountPermissions)
+        {
+            var passwordHash = new PasswordHash(password);
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Salt = passwordHash.Salt;
+            Iterations = iterations;
+            PasswordHash = passwordHash.Hash;
+            AccountPermissions = accountPermissions;
+        }
+
+        public User()
+        {
+        }
     }
 }
