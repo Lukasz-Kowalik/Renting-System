@@ -2,6 +2,6 @@
 {
     public class Visitor : IVisitor
     {
-        public AccountTypes AccountTypes { get; set; }
+        public AccountPermissions AccountPermissions { get; set; }
     }
 }

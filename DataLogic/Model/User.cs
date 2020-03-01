@@ -6,17 +6,36 @@ namespace DataLogic.Model
     public class User
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public bool IsLogin { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] Salt { get; set; }
+        public int Iterations { get; set; }
 
-        [ForeignKey("AccountType")]
+        [ForeignKey("AccountPermissions")]
         public int AccountTypeId { get; set; }
 
-        public AccountTypes AccountType { get; set; }
+        public AccountPermissions AccountPermissions { get; set; }
+
+        public User(string name, string surname, string email, string password,
+            int iterations, AccountPermissions accountPermissions)
+        {
+            var passwordHash = new PasswordHash(password);
+            Name = name;
+            Surname = surname;
+            Email = email;
+            Salt = passwordHash.Salt;
+            Iterations = iterations;
+            PasswordHash = passwordHash.Hash;
+            AccountPermissions = accountPermissions;
+        }
+
+        public User()
+        {
+        }
     }
 }

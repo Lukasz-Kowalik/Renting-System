@@ -1,8 +1,9 @@
 ###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
+Renting[[:space:]]System/wwwroot/lib/* linguist-vendored
+Renting[[:space:]]System/wwwroot/lib/**/* linguist-vendored
 * text=auto
-
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -61,5 +62,3 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
-
-#Renting System/wwwroot/lib/* linguist-languale=csharp
