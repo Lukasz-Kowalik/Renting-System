@@ -62,4 +62,4 @@
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
 
-#Renting System/wwwroot/lib/* linguist-languale=csharp
+Renting[[:space:]]System/wwwroot/lib/* linguist-vendored
