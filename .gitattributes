@@ -2,7 +2,6 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-Renting[[:space:]]System/wwwroot/lib/* linguist-vendored
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -12,6 +11,10 @@ Renting[[:space:]]System/wwwroot/lib/* linguist-vendored
 ###############################################################################
 #*.cs     diff=csharp
 
+RentingSystem/wwwroot/lib/* linguist-detectable
+RentingSystem/wwwroot/lib/* linguist-documentation
+RentingSystem/wwwroot/lib/* linguist-vendored
+RentingSystem/wwwroot/lib/* linguist-language=csharp
 ###############################################################################
 # Set the merge driver for project and solution files
 #
