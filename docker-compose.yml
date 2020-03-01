@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.7'
 
 services:
   rentingsystem:
@@ -8,29 +8,30 @@ services:
       context: .
       dockerfile: Renting System/Dockerfile
     depends_on:
+        - DataBaseSQL
         - rentingsystemapi
     ports:
         - "3000:80"
         - "3001:443"
     networks:
         - net
-
+    
   rentingsystemapi:
     container_name: rentingsystemapi
     image: ${DOCKER_REGISTRY-}rentingsystemapi
     build:
       context: .
       dockerfile: RentingSystemAPI/Dockerfile
-    environment:
-        DBServer: DataBaseSQL
     depends_on:
         - DataBaseSQL
+    environment:
+        DBServer: DataBaseSQL
     ports:
         - "8000:80"
         - "8001:443"
     networks:
         - net
-  
+
   DataBaseSQL:
     container_name: DataBaseSQL
     image: mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04
@@ -43,7 +44,7 @@ services:
         - ./DataBase:/var/opt/mssql/bak
     networks:
         - net
-    
+
 volumes:
     DataBase:
 networks:
