@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Security.Permissions">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.AspNetCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Security.Permissions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

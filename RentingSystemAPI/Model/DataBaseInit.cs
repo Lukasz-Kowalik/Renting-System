@@ -1,8 +1,12 @@
-﻿using DataLogic.Model;
+﻿using DataLogic;
+using DataLogic.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Diagnostics;
+using System.Threading;
 
 namespace RentingSystemAPI.Model
 {
@@ -18,29 +22,19 @@ namespace RentingSystemAPI.Model
 
         private static void SeedData(RentingContext context)
         {
-            System.Console.WriteLine("Appling Migration...");
-            context.Database.Migrate();
-            SeedAccountTypes(context);
-            SeedItems(context);
-            System.Console.WriteLine("Migration done!");
-        }
-
-        private static void SeedAccountTypes(RentingContext context)
-        {
-            System.Console.WriteLine("Adding Account types...");
-            if (!context.AccountTypes.Any())
+            try
             {
-                context.AccountTypes.AddRange(
-                   new AccountPermissions(AccountTypes.Name.Visitor),
-                   new AccountPermissions(AccountTypes.Name.Customer),
-                   new AccountPermissions(AccountTypes.Name.Worker),
-                   new AccountPermissions(AccountTypes.Name.Admin)
-                );
-                context.SaveChanges();
+                System.Console.WriteLine("Appling Migration...");
+                Thread.Sleep(100000);//wait for loading container
+                context.Database.Migrate();
+                SeedItems(context);
+                SeedUsers(context);
+                SeedRents(context);
+                System.Console.WriteLine("Migration done!");
             }
-            else
+            catch (Exception e)
             {
-                System.Console.WriteLine("Account types already exists.");
+                Debug.WriteLine(e.Message);
             }
         }
 
@@ -50,43 +44,43 @@ namespace RentingSystemAPI.Model
             if (!context.Items.Any())
             {
                 context.Items.AddRange(
-                  new Item
-                  {
-                      Count = 50,
-                      Name = "Rezystor SMD 1206 510kΩ",
-                      Description = @"Specyfikacja
+                     new Item
+                     {
+                         Quantity = 50,
+                         Name = "Rezystor SMD 1206 510kΩ",
+                         Description = @"Specyfikacja
                                        -Rezystancja: 510 kΩ
                                        -Tolerancja: 5 %
                                        -Obudowa: SMD 1206",
-                      DocumentationURL = @$"https://www.cyfronika.com.pl/dokumentacje/smd_r_0402.pdf"
-                  },
-                  new Item
-                  {
-                      Count = 80,
-                      Name = "Dioda LED 5mm RGB WS2811 adresowana",
-                      Description = @$"Specyfikacja:
+                         DocumentationURL = @$"https://www.cyfronika.com.pl/dokumentacje/smd_r_0402.pdf"
+                     },
+                     new Item
+                     {
+                         Quantity = 80,
+                         Name = "Dioda LED 5mm RGB WS2811 adresowana",
+                         Description = @$"Specyfikacja:
                                         -Napięcie zasilania: 5 V
                                         -Pobór prądu If: do 50 mA
                                         -Średnica soczewki: 5 mm
                                         -Możliwość wyboru barwy z 24-bitowej palety
                                         -Sterowana cyfrowo poprzez interfejs 1-wire z możliwością podłączenia wielu urządzeń na jednej linii
                                         -Posiada indywidualny adres urządzenia",
-                      DocumentationURL = @$"https://cdn-shop.adafruit.com/datasheets/WS2811.pdf"
-                  },
-                  new Item
-                  {
-                      Count = 20,
-                      Name = "Przewody z haczykami",
-                      Description = @$"Zestaw 2 przewodów w kolorze czarnym i czerwonym o długości 25 cm zakończonych złączem z haczykiem. Dzięki konektorom ze sprężynką umożliwiają wielokrotne łączenie różnorakich elementów",
-                      DocumentationURL = null
-                  }, new Item
-                  {
-                      Count = 15,
-                      Name = "Karta pamięci SanDisk microSD 32GB 80MB/s klasa 10 (bez adaptera) + system NOOBs dla Raspberry Pi 4B/3B+/3B/2B",
-                      Description = @$"Karta pamięci microSD klasy 10, który pozwoli na pełne wykorzystanie atutów nowoczesnych smartfonów i tabletów. Urządzenie można wykorzystać jako nośnik pamięci w minikomputerze Raspberry Pi.",
-                      DocumentationURL = null
-                  }
-               );
+                         DocumentationURL = @$"https://cdn-shop.adafruit.com/datasheets/WS2811.pdf"
+                     },
+                     new Item
+                     {
+                         Quantity = 20,
+                         Name = "Przewody z haczykami",
+                         Description = @$"Zestaw 2 przewodów w kolorze czarnym i czerwonym o długości 25 cm zakończonych złączem z haczykiem. Dzięki konektorom ze sprężynką umożliwiają wielokrotne łączenie różnorakich elementów",
+                         DocumentationURL = null
+                     }, new Item
+                     {
+                         Quantity = 15,
+                         Name = "Karta pamięci SanDisk microSD 32GB 80MB/s klasa 10 (bez adaptera) + system NOOBs dla Raspberry Pi 4B/3B+/3B/2B",
+                         Description = @$"Karta pamięci microSD klasy 10, który pozwoli na pełne wykorzystanie atutów nowoczesnych smartfonów i tabletów. Urządzenie można wykorzystać jako nośnik pamięci w minikomputerze Raspberry Pi.",
+                         DocumentationURL = null
+                     }
+                  );
                 context.SaveChanges();
             }
             else
@@ -101,7 +95,42 @@ namespace RentingSystemAPI.Model
             if (!context.Rents.Any())
             {
                 context.Rents.AddRange(
+                    new Rent
+                    (
+                        1,
+                         2,
+                         5
+                    ),
+                    new Rent
+                   (
+                         2,
+                         1,
+                        5,
+                         10
+                    ),
+                    new Rent
+                    (
+                        3,
+                        3,
+                        2,
+                         new DateTime(2020, 1, 20)
+                    ), new Rent
+                    (
+                         1,
+                         3,
+                         13,
+                         new DateTime(2019, 1, 20),
+                         new DateTime(2019, 1, 24)
 
+                   ), new Rent
+                    (
+                         1,
+                         3,
+                        13,
+                         new DateTime(2019, 1, 20),
+                        new DateTime(2019, 2, 1)
+
+                    )
                );
                 context.SaveChanges();
             }
@@ -117,22 +146,41 @@ namespace RentingSystemAPI.Model
             if (!context.Users.Any())
             {
                 context.Users.AddRange(
-                    new User
-                    {
-                        Name = "Adam",
-                        Surname = "Kruk",
-                        Email = "akruk@poczta.com",
-                        PasswordHash = "",
-                        AccountPermissions = new AccountPermissions(AccountTypes.Name.Visitor)
-                    },
-                    new User
-                    {
-                        Name = "Jan",
-                        Surname = "Pietrzak",
-                        Email = "jpietrzak@poczta.com",
-                        PasswordHash = "",
-                        AccountPermissions = new AccountPermissions(AccountTypes.Name.Admin)
-                    }
+
+             new User("Adam",
+                 "Kruk",
+                 "akruk@poczta.com",
+                 "password",
+                 1000,
+                 new AccountPermissions(AccountTypes.Name.Visitor)
+                 ),
+
+               new User
+               (
+                    "Jan",
+                   "Pietrzak",
+                    "jpietrzak@poczta.com",
+                    "password",
+                    1000,
+                    new AccountPermissions(AccountTypes.Name.Customer)
+              ),
+                new User
+                (
+                    "Mikołaj",
+                     "Dudek",
+                    "mdudek@poczta.com",
+                     "password",
+                    1000,
+                     new AccountPermissions(AccountTypes.Name.Worker)
+                ), new User
+                (
+                     "Emilia",
+                     "Kasprzak",
+                     "ekasprzyk@poczta.com",
+                    "password",
+                     1000,
+                     new AccountPermissions(AccountTypes.Name.Admin)
+                )
                );
                 context.SaveChanges();
             }
