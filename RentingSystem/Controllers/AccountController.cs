@@ -17,7 +17,7 @@ namespace Renting_System.Controllers
         {
             _logger = logger;
         }
-        public IActionResult LogIn()
+        public IActionResult Login()
         {
             return View();
         }

@@ -18,6 +18,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataLogicTests", "DataLogic
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem", "RentingSystem\RentingSystem.csproj", "{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C84CF11B-B974-4FBA-9B86-8DE82535C82D} = {C84CF11B-B974-4FBA-9B86-8DE82535C82D}
+		{681CCE53-1C38-481C-AEDA-6AF8434726F3} = {681CCE53-1C38-481C-AEDA-6AF8434726F3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
