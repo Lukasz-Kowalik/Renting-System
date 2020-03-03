@@ -27,30 +27,34 @@
         <ul class="navbar-nav d-flex flex-column w-100 text-center align-self-start bg-dark">
             <li class="nav-item   border-bottom shadow  ">
                 <a class="nav-link text-white px-0 border-top bg-primary"
-                   href="index.html">
+                   asp-controller="Home" asp-action="Index">
                     Items
                 </a>
             </li>
             <li class="nav-itemborder-bottom shadow border-bottom">
                 <a class="nav-link  text-white px-0"
-                   href="Cart.html">Cart</a>
+                   asp-action="Index" asp-controller="Cart">Cart</a>
             </li>
             <li class="nav-item border-bottom shadow">
                 <a class="nav-link  text-white px-0"
-                   href="Rented.html">Rented</a>
+                   asp-action="Rented" asp-controller="UserPanel">Rented</a>
             </li>
             <li class="nav-item  border-bottom shadow">
                 <a class="nav-link  text-white px-0"
-                   href="Borrowers.html">Borrowers</a>
+                   asp-controller="AdminPanel" asp-action="Index">Borrowers</a>
             </li>
             <li class="nav-item border-bottom shadow">
                 <a class="nav-link  text-white px-0"
-                   href="Login.html">Logout</a>
+                   asp-controller="Account" asp-action="Login">Logout</a>
             </li>
 
             <li class="nav-item shadow">
                 <a class="nav-link  text-white px-0"
-                   href="Login.html">Login</a>
+                   asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+            <li class="nav-item shadow">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Register">Register</a>
             </li>
         </ul>
     </div>
