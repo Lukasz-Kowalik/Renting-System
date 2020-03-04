@@ -9,19 +9,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
     <Content Remove="Views\Account\Login.cshtml" />
     <Content Remove="Views\Account\Register.cshtml" />
-    <Content Remove="Views\AdminPanel\Borrowers.cshtml" />
-    <Content Remove="Views\Cart\Cart.cshtml" />
+    <Content Remove="Views\AdminPanel\Index.cshtml" />
+    <Content Remove="Views\Cart\Index.cshtml" />
     <Content Remove="Views\UserPanel\Item.cshtml" />
     <Content Remove="Views\UserPanel\Rented.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\style.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
     <None Include="Views\Account\Login.cshtml" />
     <None Include="Views\Account\Register.cshtml" />
-    <None Include="Views\AdminPanel\Borrowers.cshtml" />
-    <None Include="Views\Cart\Cart.cshtml" />
+    <None Include="Views\AdminPanel\Index.cshtml" />
+    <None Include="Views\Cart\Index.cshtml" />
     <None Include="Views\UserPanel\Item.cshtml" />
     <None Include="Views\UserPanel\Rented.cshtml" />
   </ItemGroup>

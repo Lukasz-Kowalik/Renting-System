@@ -1,0 +1,61 @@
+﻿@using Renting_System.Helpers
+<nav class="col-sm-12 col-lg-2 col-md-4
+            navbar navbar-expand-md navbar-light
+            d-flex flex-md-column flex-stretch
+           text-white p-0 bg-info ">
+    <div class="nav-brand py-2 pl-4 d-lg-none ">
+        user small
+    </div>
+
+    <div class="nav-brand py-2 text-center w-100
+             d-none d-lg-block shadow ">
+        user large
+    </div>
+
+    <button class="navbar-toggler mr-4 m-2"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarToggler"
+            aria-controls="navbarToggler"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse w-100 bg-light"
+         id="navbarToggler">
+
+        <ul class="navbar-nav d-flex flex-column w-100 text-center align-self-start bg-dark">
+            <li class="nav-item border-bottom shadow @Html.IsSelected("Home","Index","bg-primary")" >
+                <a class="nav-link text-white px-0 border-top "
+                   asp-controller="Home" asp-action="Index">
+                    Items
+                </a>
+            </li>
+            <li class="nav-itemborder-bottom shadow border-bottom @Html.IsSelected("Cart","Index","bg-primary")">
+                <a class="nav-link  text-white px-0"
+                   asp-action="Index" asp-controller="Cart">Cart</a>
+            </li>
+            <li class="nav-item border-bottom shadow @Html.IsSelected("UserPanel","Rented","bg-primary")">
+                <a class="nav-link  text-white px-0"
+                   asp-action="Rented" asp-controller="UserPanel">Rented</a>
+            </li>
+            <li class="nav-item  border-bottom shadow @Html.IsSelected("AdminPanel","Index","bg-primary")">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="AdminPanel" asp-action="Index">Borrowers</a>
+            </li>
+            <li class="nav-item border-bottom shadow ">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Login">Logout</a>
+            </li>
+            <li class="nav-item shadow">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+            <li class="nav-item shadow">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Register">Register</a>
+            </li>
+        </ul>
+    </div>
+</nav>

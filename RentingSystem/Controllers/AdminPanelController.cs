@@ -8,7 +8,7 @@ namespace Renting_System.Controllers
 {
     public class AdminPanelController : Controller
     {
-        public IActionResult Borrowers()
+        public IActionResult Index()
         {
             return View();
         }

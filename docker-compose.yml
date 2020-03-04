@@ -6,7 +6,7 @@ services:
     image: ${DOCKER_REGISTRY-}rentingsystem
     build:
       context: .
-      dockerfile: Renting System/Dockerfile
+      dockerfile: RentingSystem/Dockerfile
     depends_on:
         - DataBaseSQL
         - rentingsystemapi
