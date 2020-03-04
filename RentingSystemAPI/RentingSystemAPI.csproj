@@ -21,5 +21,9 @@
     <ProjectReference Include="..\DataLogic\DataLogic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>
