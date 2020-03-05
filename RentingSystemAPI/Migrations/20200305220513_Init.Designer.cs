@@ -10,7 +10,7 @@ using RentingSystemAPI.Model;
 namespace RentingSystemAPI.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200229201704_Init")]
+    [Migration("20200305220513_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

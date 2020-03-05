@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataLogic.Model
@@ -18,6 +19,9 @@ namespace DataLogic.Model
 
         [ForeignKey("AccountPermissions")]
         public int AccountTypeId { get; set; }
+
+        [NotMapped]
+        public List<Item> ShopingCatr = new List<Item>();
 
         public AccountPermissions AccountPermissions { get; set; }
 
