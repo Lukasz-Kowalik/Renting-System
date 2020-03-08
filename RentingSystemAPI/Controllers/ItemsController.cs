@@ -24,5 +24,10 @@ namespace RentingSystemAPI.Controllers
         {
             return await _context.Items.ToListAsync();
         }
+        [HttpGet]
+        public async  Task<Item> GetItemsAsync(int id)
+        {
+            return await _context.Items.FirstOrDefaultAsync(x=>x.Id==id);
+        }
     }
 }
