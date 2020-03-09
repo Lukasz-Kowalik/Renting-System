@@ -13,7 +13,9 @@
         </div>
         <form id="registerForm"
               class="needs-validation"
-              role="form">
+              role="form"
+              method="post"
+              action="http://localhost:8000/CreateUser">
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -74,5 +76,21 @@
                 Register
             </button>
         </form>
+        
+        <script type="text/javascript">
+            $("#registerForm").submit(function() {
+                const jqxhr = $.post('localhost:8000/CreateUser', $('#registerForm').serialize())
+                    .success(
+                        function() {
+                            const loc = jqxhr.getResponseHeader('Location');
+                        }).error(function() {
+                        $('#message').html("Error posting the update.");
+                    });
+                return false;
+            });
+
+                        
+         
+        </script>
     </div>
 </body>
