@@ -1,10 +1,9 @@
 ﻿using DataLogic.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.Model;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -20,14 +19,20 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Item>> GetItemsAsync()
+        public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
         {
             return await _context.Items.ToListAsync();
         }
-        [HttpGet]
-        public async  Task<Item> GetItemsAsync(int id)
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<IEnumerable<Item>>> GetRents(int id)
         {
-            return await _context.Items.FirstOrDefaultAsync(x=>x.Id==id);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            if (item== null)
+            {
+                return NotFound(item);
+            }
+            return Ok(item);
         }
     }
 }
