@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace DataLogic.Model
+namespace DAL.Models
 {//code from:http://csharptest.net/470/another-example-of-how-to-store-a-salted-password-hash/
     public sealed class PasswordHash
     {

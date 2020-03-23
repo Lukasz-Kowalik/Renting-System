@@ -1,4 +1,4 @@
-﻿namespace DataLogic.Model
+﻿namespace DAL.Models
 {
     public interface IVisitor
     {

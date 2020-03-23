@@ -1,10 +1,8 @@
-﻿using DataLogic.Model;
+﻿using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Renting_System.Models;
 using RentingSystemAPI.Model;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
@@ -14,6 +12,8 @@ namespace RentingSystemAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly RentingContext _context;
+        private readonly string _mainWebPage = "http://localhost:3000";
+        private readonly string _registerPage = "http://localhost:3000/Account/Register";
 
         public UsersController(RentingContext context)
         {
@@ -34,10 +34,16 @@ namespace RentingSystemAPI.Controllers
 
         [HttpPost]
         [Route("/CreateUser")]
-        public async Task<Register> CreateUser(Register register)
+        public async Task<ActionResult> CreateUser([FromForm]Register register)
         {
-            return register;
-            //Debug.WriteLine("created");
+            if (!ModelState.IsValid)
+            {
+                return Redirect(_registerPage);
+            }
+            else
+            {
+                return Redirect(_mainWebPage);
+            }
         }
     }
 }

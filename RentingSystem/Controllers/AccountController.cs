@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Renting_System.Models;
+using RentingSystem.Models;
+using System.Diagnostics;
 
-namespace Renting_System.Controllers
+namespace RentingSystem.Controllers
 {
     public class AccountController : Controller
     {
@@ -17,15 +13,20 @@ namespace Renting_System.Controllers
         {
             _logger = logger;
         }
+
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
+        [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
 
+        [HttpGet]
         public IActionResult ForgotPassword()
         {
             return View();
@@ -36,6 +37,5 @@ namespace Renting_System.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }

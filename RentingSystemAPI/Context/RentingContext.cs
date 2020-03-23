@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using DataLogic;
-using DataLogic.Model;
+using DAL;
+using DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace RentingSystemAPI.Model

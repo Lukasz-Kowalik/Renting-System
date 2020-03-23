@@ -1,5 +1,4 @@
-﻿using DataLogic;
-using DataLogic.Model;
+﻿
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -7,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Threading;
+using DAL;
+using DAL.Models;
 
 namespace RentingSystemAPI.Model
 {

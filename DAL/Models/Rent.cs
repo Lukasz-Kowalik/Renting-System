@@ -1,9 +1,9 @@
-﻿using DataLogic.Model;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DAL.Models;
 
-namespace DataLogic
+namespace DAL
 {
     public class Rent
     {

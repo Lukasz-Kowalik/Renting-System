@@ -25,15 +25,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataLogic\DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="Commands\" />
     <Folder Include="Hendlers\Commands\" />
     <Folder Include="Hendlers\Queries\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Model\" />
     <Folder Include="Queries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
   </ItemGroup>
 
 

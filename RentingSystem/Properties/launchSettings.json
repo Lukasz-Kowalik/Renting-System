@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "Renting_System": {
+    "RentingSystem": {
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {

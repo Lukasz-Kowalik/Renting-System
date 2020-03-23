@@ -1,4 +1,4 @@
-﻿using DataLogic.Model;
+﻿using DAL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.Model;
@@ -28,7 +28,7 @@ namespace RentingSystemAPI.Controllers
         public async Task<ActionResult<IEnumerable<Item>>> GetRents(int id)
         {
             var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
-            if (item== null)
+            if (item == null)
             {
                 return NotFound(item);
             }
