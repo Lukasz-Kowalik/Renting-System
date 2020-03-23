@@ -17,6 +17,7 @@ namespace RentingSystemAPI
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string _origins = "_allowedOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -34,6 +35,15 @@ namespace RentingSystemAPI
                                                                                                $"Password={password}"));
             services.AddDbContext<RentingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RentingDb")));
+
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000",
+                                        "https://localhost:3001")
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();
+                })
+            );
 
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -65,6 +75,8 @@ namespace RentingSystemAPI
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
