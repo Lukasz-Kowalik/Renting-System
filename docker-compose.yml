@@ -41,7 +41,7 @@ services:
     ports:
         - "1433:1433"
     volumes:
-        - ./DataBase:/var/opt/mssql/bak
+        - ./Database:/var/opt/mssql/bak
     networks:
         - net
 

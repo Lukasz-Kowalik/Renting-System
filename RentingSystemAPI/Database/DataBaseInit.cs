@@ -25,7 +25,6 @@ namespace RentingSystemAPI.Model
             try
             {
                 System.Console.WriteLine("Appling Migration...");
-                Thread.Sleep(100000);//wait for loading container
                 context.Database.Migrate();
                 SeedItems(context);
                 SeedUsers(context);
