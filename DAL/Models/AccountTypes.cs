@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataLogic.Model
+namespace DAL.Models
 {
    public static class AccountTypes
     {

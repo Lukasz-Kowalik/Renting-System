@@ -1,4 +1,4 @@
-using DataLogic.Model;
+using DAL.Models;
 using Xunit;
 
 namespace DataLogicTests

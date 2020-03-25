@@ -17,6 +17,7 @@ namespace RentingSystemAPI
         }
 
         public IConfiguration Configuration { get; }
+        private readonly string _origins = "_allowedOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,11 +36,20 @@ namespace RentingSystemAPI
             services.AddDbContext<RentingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RentingDb")));
 
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000",
+                                        "https://localhost:3001")
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();
+                })
+            );
+
             services.AddControllers();
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentingSystemApi", Version = "v1" });
             });
         }
 
@@ -51,6 +61,7 @@ namespace RentingSystemAPI
                 app.UseDeveloperExceptionPage();
             }
             // Enable middleware to serve generated Swagger as a JSON endpoint.
+
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
@@ -58,13 +69,14 @@ namespace RentingSystemAPI
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RentingSystemAPI");
-              
             });
             DatabaseInit.InitDataBase(app);
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 

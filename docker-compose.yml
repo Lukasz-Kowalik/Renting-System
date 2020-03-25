@@ -34,14 +34,14 @@ services:
 
   DataBaseSQL:
     container_name: DataBaseSQL
-    image: mcr.microsoft.com/mssql/server:2019-CU1-ubuntu-16.04
+    image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
     environment:
         ACCEPT_EULA: Y
         SA_PASSWORD: Password2020
     ports:
         - "1433:1433"
     volumes:
-        - ./DataBase:/var/opt/mssql/bak
+        - ./Database:/var/opt/mssql/bak
     networks:
         - net
 

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Renting_System.Controllers;
+using RentingSystem.Controllers;
 
-namespace Renting_System
+namespace RentingSystem
 {
     public class Startup
     {

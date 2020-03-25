@@ -10,18 +10,18 @@ using RentingSystemAPI.Model;
 namespace RentingSystemAPI.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200305220513_Init")]
-    partial class Init
+    [Migration("20200323101322_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.1")
+                .HasAnnotation("ProductVersion", "3.1.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataLogic.Model.AccountPermissions", b =>
+            modelBuilder.Entity("DAL.Models.AccountPermissions", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace RentingSystemAPI.Migrations
                     b.ToTable("AccountTypes");
                 });
 
-            modelBuilder.Entity("DataLogic.Model.Item", b =>
+            modelBuilder.Entity("DAL.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace RentingSystemAPI.Migrations
                     b.ToTable("Items");
                 });
 
-            modelBuilder.Entity("DataLogic.Model.User", b =>
+            modelBuilder.Entity("DAL.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +107,7 @@ namespace RentingSystemAPI.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("DataLogic.Rent", b =>
+            modelBuilder.Entity("DAL.Rent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -144,24 +144,24 @@ namespace RentingSystemAPI.Migrations
                     b.ToTable("Rents");
                 });
 
-            modelBuilder.Entity("DataLogic.Model.User", b =>
+            modelBuilder.Entity("DAL.Models.User", b =>
                 {
-                    b.HasOne("DataLogic.Model.AccountPermissions", "AccountPermissions")
+                    b.HasOne("DAL.Models.AccountPermissions", "AccountPermissions")
                         .WithMany()
                         .HasForeignKey("AccountTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("DataLogic.Rent", b =>
+            modelBuilder.Entity("DAL.Rent", b =>
                 {
-                    b.HasOne("DataLogic.Model.Item", "Item")
+                    b.HasOne("DAL.Models.Item", "Item")
                         .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataLogic.Model.User", "User")
+                    b.HasOne("DAL.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

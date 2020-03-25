@@ -1,15 +1,20 @@
-﻿<div class="sticky-top text-center d-none">
-    <h2 class=" m-0 p-0 text-danger bg-secondary ">
-        You have to return item
-    </h2>
-</div>
-<div class="vh-100 container-fluid">
-    <div class="row">
-        @Html.Partial("_Menu")
-        <div class="col-lg-10 col-md-8 col-sm-12 p-0 vh-100">
-            <div class="container d-flex justify-content-center m-0 p-0 ">
-                rented items
+﻿@{
+    ViewData["Title"] = "Rented items";
+}
+<body>
+    <div class="sticky-top text-center d-none">
+        <h2 class=" m-0 p-0 text-danger bg-secondary ">
+            You have to return item
+        </h2>
+    </div>
+    <div class="vh-100 container-fluid">
+        <div class="row">
+            @Html.Partial("_Menu")
+            <div class="col-lg-10 col-md-8 col-sm-12 p-0 vh-100">
+                <div class="container d-flex justify-content-center m-0 p-0 ">
+                    rented items
+                </div>
             </div>
         </div>
     </div>
-</div>
+</body>

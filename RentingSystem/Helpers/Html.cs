@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Renting_System.Helpers
+namespace RentingSystem.Helpers
 {//code from:https://stackoverflow.com/questions/20410623/how-to-add-active-class-to-html-actionlink-in-asp-net-mvc
     public static class Html
     {

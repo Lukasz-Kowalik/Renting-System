@@ -1,4 +1,4 @@
-﻿using DataLogic;
+﻿using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.Model;
