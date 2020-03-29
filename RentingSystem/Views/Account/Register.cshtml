@@ -1,6 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Register";
-    @model DAL.Models.Register
+    ViewData["Title"] = "RegisterUserRequest";
+    @model RentingSystem.Models.Accounts.RegisteredUser
 }
 <body class="vh-100 d-flex justify-content-center container-fluid">
 
@@ -8,16 +8,16 @@
       d-flex flex-column
       align-items-center
       align-self-center p-5
-      w-auto rounded bg-secondary">
+      w-auto rounded bg-secondary display-card">
         <div class="w-100 text-center">
-            <h1>Register</h1>
+            <h1>RegisteredUserRequest</h1>
             <hr />
         </div>
         <form id="registerForm"
               class="needs-validation"
               role="form"
               method="post"
-              action="http://localhost:8000/CreateUser">
+              >
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -34,7 +34,7 @@
                                asp-for="LastName"
                                class="form-control input-sm"
                                placeholder="Last Name" />
-                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                        <span class="text-danger" asp-validation-for="LastName"></span>
                     </div>
                 </div>
             </div>
@@ -54,17 +54,18 @@
                                asp-for="Password"
                                class="form-control input-sm"
                                placeholder="Password" />
-                    </div>
                     <span class="text-danger" asp-validation-for="Password"></span>
+
+                    </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="password"
-                               asp-for="PasswordConfirm"
+                               asp-for="ConfirmPassword"
                                class="form-control input-sm"
                                placeholder="Confirm Password" />
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
                     </div>
-                    <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
                 </div>
             </div>
 
