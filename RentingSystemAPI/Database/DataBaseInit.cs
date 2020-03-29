@@ -1,13 +1,11 @@
-﻿
+﻿using DAL;
+using DAL.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
-using System.Threading;
-using DAL;
-using DAL.Models;
 
 namespace RentingSystemAPI.Model
 {
@@ -146,22 +144,19 @@ namespace RentingSystemAPI.Model
             if (!context.Users.Any())
             {
                 context.Users.AddRange(
-
-             new User("Adam",
+                    new User(
+                 "Adam",
                  "Kruk",
                  "akruk@poczta.com",
-                 "password",
-                 1000,
+                 new Password("password"),
                  new AccountPermissions(AccountTypes.Name.Visitor)
                  ),
-
-               new User
+             new User
                (
                     "Jan",
                    "Pietrzak",
                     "jpietrzak@poczta.com",
-                    "password",
-                    1000,
+                    new Password("password"),
                     new AccountPermissions(AccountTypes.Name.Customer)
               ),
                 new User
@@ -169,16 +164,14 @@ namespace RentingSystemAPI.Model
                     "Mikołaj",
                      "Dudek",
                     "mdudek@poczta.com",
-                     "password",
-                    1000,
+                    new Password("password"),
                      new AccountPermissions(AccountTypes.Name.Worker)
                 ), new User
                 (
                      "Emilia",
                      "Kasprzak",
                      "ekasprzyk@poczta.com",
-                    "password",
-                     1000,
+                     new Password("password"),
                      new AccountPermissions(AccountTypes.Name.Admin)
                 )
                );
