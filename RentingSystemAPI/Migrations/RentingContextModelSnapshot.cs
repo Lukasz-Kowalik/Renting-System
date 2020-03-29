@@ -15,7 +15,7 @@ namespace RentingSystemAPI.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -70,6 +70,24 @@ namespace RentingSystemAPI.Migrations
                     b.ToTable("Items");
                 });
 
+            modelBuilder.Entity("DAL.Models.Password", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("Salt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Password");
+                });
+
             modelBuilder.Entity("DAL.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -83,17 +101,11 @@ namespace RentingSystemAPI.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Iterations")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("PasswordHash")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<byte[]>("Salt")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<int>("PasswordId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
@@ -101,6 +113,8 @@ namespace RentingSystemAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountTypeId");
+
+                    b.HasIndex("PasswordId");
 
                     b.ToTable("Users");
                 });
@@ -147,6 +161,12 @@ namespace RentingSystemAPI.Migrations
                     b.HasOne("DAL.Models.AccountPermissions", "AccountPermissions")
                         .WithMany()
                         .HasForeignKey("AccountTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DAL.Models.Password", "Password")
+                        .WithMany()
+                        .HasForeignKey("PasswordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

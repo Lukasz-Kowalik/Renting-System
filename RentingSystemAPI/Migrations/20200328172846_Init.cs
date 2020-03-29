@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentingSystemAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,6 +41,20 @@ namespace RentingSystemAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Password",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PasswordHash = table.Column<byte[]>(nullable: true),
+                    Salt = table.Column<byte[]>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Password", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -49,9 +63,7 @@ namespace RentingSystemAPI.Migrations
                     Name = table.Column<string>(nullable: true),
                     Surname = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    PasswordHash = table.Column<byte[]>(nullable: true),
-                    Salt = table.Column<byte[]>(nullable: true),
-                    Iterations = table.Column<int>(nullable: false),
+                    PasswordId = table.Column<int>(nullable: false),
                     AccountTypeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -61,6 +73,12 @@ namespace RentingSystemAPI.Migrations
                         name: "FK_Users_AccountTypes_AccountTypeId",
                         column: x => x.AccountTypeId,
                         principalTable: "AccountTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Users_Password_PasswordId",
+                        column: x => x.PasswordId,
+                        principalTable: "Password",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -110,6 +128,11 @@ namespace RentingSystemAPI.Migrations
                 name: "IX_Users_AccountTypeId",
                 table: "Users",
                 column: "AccountTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_PasswordId",
+                table: "Users",
+                column: "PasswordId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -125,6 +148,9 @@ namespace RentingSystemAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "AccountTypes");
+
+            migrationBuilder.DropTable(
+                name: "Password");
         }
     }
 }
