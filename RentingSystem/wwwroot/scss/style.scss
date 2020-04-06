@@ -5,6 +5,7 @@ $info: #333333;
 $btn-border-radius: 30px;
 $light: #C4C4C4;
 $dark: #8E8B8B;
+
 @import '../lib/bootstrap/scss/bootstrap.scss';
 
 h1 {
@@ -14,6 +15,6 @@ h1 {
 span.text-danger {
     font-size: 0.9em;
 }
-.display-card {
-    max-width: min-content;
-}
+.text-dark {
+    color: black !important;
+  }
