@@ -2,12 +2,13 @@
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
-
+EXPOSE 80
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["RentingSystem/RentingSystem.csproj", "RentingSystem/"]
-COPY ["DataLogic/DataLogic.csproj", "DataLogic/"]
+COPY ["DAL/DAL.csproj", "DAL/"]
 COPY ["RentingSystemAPI/RentingSystemAPI.csproj", "RentingSystemAPI/"]
 RUN dotnet restore "RentingSystem/RentingSystem.csproj"
 COPY . .
