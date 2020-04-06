@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL.Models
 {
-    public class User
+    public class User : Visitor
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -27,22 +27,17 @@ namespace DAL.Models
         [NotMapped]
         public HashSet<Item> ShopingCatr = new HashSet<Item>();
 
-
-        public AccountPermissions AccountPermissions { get; set; }
-
-
         public User(string name, string surname, string email, Password password, AccountPermissions accountPermissions)
+            : base(accountPermissions)
         {
             Name = name;
             Surname = surname;
             Email = email;
             Password = password;
-            AccountPermissions = accountPermissions;
         }
-        
+
         public User()
         {
-            
         }
     }
 }
