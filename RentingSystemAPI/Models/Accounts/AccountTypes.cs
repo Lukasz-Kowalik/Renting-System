@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DAL.Models
+﻿namespace DAL.Models
 {
-   public static class AccountTypes
+    public enum AccountTypes
     {
-        public enum Name
-        {
-            Visitor,
-            Customer,
-            Worker,
-            Admin,
-        }
+        Visitor,
+        Customer,
+        Worker,
+        Admin,
     }
 }

@@ -3,25 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentingSystemAPI.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AccountTypes",
+                name: "AccountsPermissions",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    AccountTypeName = table.Column<string>(nullable: true),
+                    AccountType = table.Column<string>(nullable: true),
                     Looking = table.Column<bool>(nullable: false),
                     Renting = table.Column<bool>(nullable: false),
-                    Resiving = table.Column<bool>(nullable: false),
-                    ChangingPermision = table.Column<bool>(nullable: false)
+                    Receiving = table.Column<bool>(nullable: false),
+                    ChangingPermission = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AccountTypes", x => x.Id);
+                    table.PrimaryKey("PK_AccountsPermissions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,9 +70,9 @@ namespace RentingSystemAPI.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_AccountTypes_AccountTypeId",
+                        name: "FK_Users_AccountsPermissions_AccountTypeId",
                         column: x => x.AccountTypeId,
-                        principalTable: "AccountTypes",
+                        principalTable: "AccountsPermissions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -147,7 +147,7 @@ namespace RentingSystemAPI.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "AccountTypes");
+                name: "AccountsPermissions");
 
             migrationBuilder.DropTable(
                 name: "Password");

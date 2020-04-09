@@ -149,7 +149,7 @@ namespace RentingSystemAPI.Model
                  "Kruk",
                  "akruk@poczta.com",
                  new Password("password"),
-                 new AccountPermissions(AccountTypes.Name.Visitor)
+                 new AccountPermissions(AccountTypes.Visitor)
                  ),
              new User
                (
@@ -157,7 +157,7 @@ namespace RentingSystemAPI.Model
                    "Pietrzak",
                     "jpietrzak@poczta.com",
                     new Password("password"),
-                    new AccountPermissions(AccountTypes.Name.Customer)
+                    new AccountPermissions(AccountTypes.Customer)
               ),
                 new User
                 (
@@ -165,14 +165,14 @@ namespace RentingSystemAPI.Model
                      "Dudek",
                     "mdudek@poczta.com",
                     new Password("password"),
-                     new AccountPermissions(AccountTypes.Name.Worker)
+                     new AccountPermissions(AccountTypes.Worker)
                 ), new User
                 (
                      "Emilia",
                      "Kasprzak",
                      "ekasprzyk@poczta.com",
                      new Password("password"),
-                     new AccountPermissions(AccountTypes.Name.Admin)
+                     new AccountPermissions(AccountTypes.Admin)
                 )
                );
                 context.SaveChanges();

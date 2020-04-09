@@ -9,54 +9,54 @@ namespace DAL.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string AccountTypeName { get; set; } = AccountTypes.Name.Visitor.ToString();
+        public string AccountType { get; set; } = AccountTypes.Visitor.ToString();
         public bool Looking { get; set; } = true;
         public bool Renting { get; set; } = false;
-        public bool Resiving { get; set; } = false;
-        public bool ChangingPermision { get; set; } = false;
+        public bool Receiving { get; set; } = false;
+        public bool ChangingPermission { get; set; } = false;
 
         public AccountPermissions()
         {
         }
 
-        public AccountPermissions(AccountTypes.Name type, bool looking, bool renting, bool resiving, bool changingPermision)
+        public AccountPermissions(AccountTypes type, bool looking, bool renting, bool receiving, bool changingPermission)
         {
-            AccountTypeName = type.ToString();
+            AccountType = type.ToString();
             Looking = looking;
             Renting = renting;
-            Resiving = resiving;
-            ChangingPermision = changingPermision;
+            Receiving = receiving;
+            ChangingPermission = changingPermission;
         }
 
-        public AccountPermissions(AccountTypes.Name typeName)
+        public AccountPermissions(AccountTypes typeName)
         {
             switch (typeName)
             {
-                case AccountTypes.Name.Customer:
+                case AccountTypes.Customer:
                     {
-                        AccountTypeName = AccountTypes.Name.Customer.ToString();
+                        AccountType = AccountTypes.Customer.ToString();
                         Looking = true;
                         Renting = true;
-                        Resiving = false;
-                        ChangingPermision = false;
+                        Receiving = false;
+                        ChangingPermission = false;
                         break;
                     }
-                case AccountTypes.Name.Worker:
+                case AccountTypes.Worker:
                     {
-                        AccountTypeName = AccountTypes.Name.Worker.ToString();
+                        AccountType = AccountTypes.Worker.ToString();
                         Looking = true;
                         Renting = true;
-                        Resiving = true;
-                        ChangingPermision = false;
+                        Receiving = true;
+                        ChangingPermission = false;
                         break;
                     }
-                case AccountTypes.Name.Admin:
+                case AccountTypes.Admin:
                     {
-                        AccountTypeName = AccountTypes.Name.Admin.ToString();
+                        AccountType = AccountTypes.Admin.ToString();
                         Looking = true;
                         Renting = true;
-                        Resiving = true;
-                        ChangingPermision = true;
+                        Receiving = true;
+                        ChangingPermission = true;
                         break;
                     }
             }

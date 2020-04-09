@@ -10,8 +10,8 @@ using RentingSystemAPI.Model;
 namespace RentingSystemAPI.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200328172846_Init")]
-    partial class Init
+    [Migration("20200409151918_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,24 +28,24 @@ namespace RentingSystemAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccountTypeName")
+                    b.Property<string>("AccountType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("ChangingPermision")
+                    b.Property<bool>("ChangingPermission")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Looking")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Renting")
+                    b.Property<bool>("Receiving")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Resiving")
+                    b.Property<bool>("Renting")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AccountTypes");
+                    b.ToTable("AccountsPermissions");
                 });
 
             modelBuilder.Entity("DAL.Models.Item", b =>
