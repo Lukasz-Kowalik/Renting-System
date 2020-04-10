@@ -10,7 +10,7 @@
       align-self-center p-5
       w-auto rounded bg-secondary display-card">
         <div class="w-100 text-center">
-            <h1>RegisteredUserRequest</h1>
+            <h1>Register</h1>
             <hr />
         </div>
         <form id="registerForm"
@@ -54,8 +54,7 @@
                                asp-for="Password"
                                class="form-control input-sm"
                                placeholder="Password" />
-                    <span class="text-danger" asp-validation-for="Password"></span>
-
+                        <span class="text-danger " asp-validation-for="Password"></span>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
@@ -64,7 +63,7 @@
                                asp-for="ConfirmPassword"
                                class="form-control input-sm"
                                placeholder="Confirm Password" />
-                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                        <span class="text-danger " asp-validation-for="ConfirmPassword"></span>
                     </div>
                 </div>
             </div>
