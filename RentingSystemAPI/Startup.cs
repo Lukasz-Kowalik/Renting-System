@@ -1,3 +1,4 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,10 +30,10 @@ namespace RentingSystemAPI
             var password = Configuration["DBPassword"] ?? "Password2020";
             var database = Configuration["Database"] ?? "Renting";
             services.AddDbContext<RentingContext>(options => options.UseSqlServer(
-                                                                                    $"Server={server},{port};" +
-                                                                                               $"Initial Catalog={database};" +
-                                                                                               $"User ID={user};" +
-                                                                                               $"Password={password}"));
+                                                                                    @$"Server={server},{port};
+                                                                                               Initial Catalog={database};
+                                                                                               User ID={user};
+                                                                                               Password={password}"));
             services.AddDbContext<RentingContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("RentingDb")));
 
@@ -40,13 +41,13 @@ namespace RentingSystemAPI
                 {
                     builder.WithOrigins("http://localhost:3000",
                                         "https://localhost:3001")
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod();
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
                 })
             );
-
+            services.AddMediatR(typeof(Startup));
             services.AddControllers();
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            // RegisterUserRequest the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentingSystemApi", Version = "v1" });

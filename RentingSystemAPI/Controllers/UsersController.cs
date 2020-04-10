@@ -1,9 +1,12 @@
-﻿using DAL.Models;
+﻿using System;
+using DAL.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
+using RentingSystemAPI.Queries;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -11,39 +14,46 @@ namespace RentingSystemAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly RentingContext _context;
-        private readonly string _mainWebPage = "http://localhost:3000";
-        private readonly string _registerPage = "http://localhost:3000/Account/Register";
+        private readonly IMediator _mediator;
 
-        public UsersController(RentingContext context)
+        public UsersController(IMediator mediator)
         {
-            this._context = context;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            var query = new GetAllUsersQuery();
+            var result =await _mediator.Send(query);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserAsync(int id)
+        public async Task<IActionResult> GetUserAsync(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
-        }
+            var query = new GetUserByIdQuery(id);
+            var result = await _mediator.Send(query); 
+            return result != null ?(IActionResult) Ok(result) : NotFound();
+           }
 
         [HttpPost]
         [Route("/CreateUser")]
-        public async Task<ActionResult> CreateUser([FromForm]Register register)
+        public async Task<ActionResult> CreateUser(string registeredUser)
         {
-            if (!ModelState.IsValid)
+            if (registeredUser==String.Empty)
             {
-                return Redirect(_registerPage);
+                return NotFound();
             }
-            else
-            {
-                return Redirect(_mainWebPage);
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Redirect(_registerPage);
+            //}
+            //else
+            //{
+            //    return Redirect(_mainWebPage);
+            //}
+            return Ok();
         }
     }
 }
