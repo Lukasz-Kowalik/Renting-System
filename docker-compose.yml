@@ -10,11 +10,14 @@ services:
     depends_on:
         - DataBaseSQL
         - rentingsystemapi
+    environment:
+        - API_URL=rentingsystemapi:5000
     ports:
         - "3000:80"
         - "3001:443"
     networks:
-        - net
+        net:
+            ipv4_address: 172.28.0.2
     
   rentingsystemapi:
     container_name: rentingsystemapi
@@ -29,8 +32,10 @@ services:
     ports:
         - "8000:80"
         - "8001:443"
+        - "0.0.0.0:80:5000"
     networks:
-        - net
+        net:
+            ipv4_address: 172.28.0.3
 
   DataBaseSQL:
     container_name: DataBaseSQL
@@ -43,9 +48,16 @@ services:
     volumes:
         - ./Database:/var/opt/mssql/bak
     networks:
-        - net
+        net:
+            ipv4_address: 172.28.0.4
+            
 
 volumes:
     DataBase:
 networks:
     net:
+        driver: bridge
+        name: net
+        ipam:
+            config:
+              -  subnet: 172.28.0.0/24                 
