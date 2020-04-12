@@ -1,13 +1,11 @@
 ﻿using System.Collections.Generic;
-using DAL.Models;
 using MediatR;
+using RentingSystemAPI.BAL.Entities;
 
-namespace RentingSystemAPI.Controllers
+namespace RentingSystemAPI.Queries
 {
     public class GetAllUsersQuery:IRequest<List<User>>
     {
-        public GetAllUsersQuery()
-        {
-        }
+     
     }
 }

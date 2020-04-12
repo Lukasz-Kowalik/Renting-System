@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["RentingSystemAPI/RentingSystemAPI.csproj", "RentingSystemAPI/"]
-COPY ["DAL/DAL.csproj", "DAL/"]
+COPY ["RentingSystemAPI.DAL/RentingSystemAPI.DAL.csproj", "RentingSystemAPI.DAL/"]
 RUN dotnet restore "RentingSystemAPI/RentingSystemAPI.csproj"
 COPY . .
 WORKDIR "/src/RentingSystemAPI"

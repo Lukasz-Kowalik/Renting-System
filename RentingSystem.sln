@@ -8,16 +8,15 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem", "RentingSystem\RentingSystem.csproj", "{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}"
 	ProjectSection(ProjectDependencies) = postProject
 		{681CCE53-1C38-481C-AEDA-6AF8434726F3} = {681CCE53-1C38-481C-AEDA-6AF8434726F3}
-		{4A79C1E3-6D9B-4300-A594-4380974F9159} = {4A79C1E3-6D9B-4300-A594-4380974F9159}
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{4A79C1E3-6D9B-4300-A594-4380974F9159}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DALTests", "DALTests\DALTests.csproj", "{B1E64A28-F280-48DD-B62B-201C0DB634E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemTests", "RentingSystemTests\RentingSystemTests.csproj", "{A6FAA572-E03C-4FFE-92C3-ECCF67750820}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A0477FE-78CE-47B4-B6CA-C46453279549}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingSystemAPI.DAL", "RentingSystemAPI.DAL\RentingSystemAPI.DAL.csproj", "{36925C4B-134E-47F2-8D50-B83BE8107852}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentingSystemAPI.BAL", "RentingSystemAPI.BAL\RentingSystemAPI.BAL.csproj", "{129E8940-A3DF-4FFD-8761-CED9F0975B7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,14 +32,6 @@ Global
 		{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A79C1E3-6D9B-4300-A594-4380974F9159}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A79C1E3-6D9B-4300-A594-4380974F9159}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A79C1E3-6D9B-4300-A594-4380974F9159}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A79C1E3-6D9B-4300-A594-4380974F9159}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B1E64A28-F280-48DD-B62B-201C0DB634E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1E64A28-F280-48DD-B62B-201C0DB634E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1E64A28-F280-48DD-B62B-201C0DB634E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1E64A28-F280-48DD-B62B-201C0DB634E2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6FAA572-E03C-4FFE-92C3-ECCF67750820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6FAA572-E03C-4FFE-92C3-ECCF67750820}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6FAA572-E03C-4FFE-92C3-ECCF67750820}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,6 +40,14 @@ Global
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36925C4B-134E-47F2-8D50-B83BE8107852}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36925C4B-134E-47F2-8D50-B83BE8107852}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36925C4B-134E-47F2-8D50-B83BE8107852}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36925C4B-134E-47F2-8D50-B83BE8107852}.Release|Any CPU.Build.0 = Release|Any CPU
+		{129E8940-A3DF-4FFD-8761-CED9F0975B7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{129E8940-A3DF-4FFD-8761-CED9F0975B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{129E8940-A3DF-4FFD-8761-CED9F0975B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{129E8940-A3DF-4FFD-8761-CED9F0975B7D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

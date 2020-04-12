@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 
 namespace RentingSystem.Validation
 {
-    public class RegisteredUserValidator : AbstractValidator<RegisteredUser>
+    public sealed class RegisteredUserValidator : AbstractValidator<RegisteredUser>
     {
         private const string PasswordRequiredMessage = "Password is required.";
         private const string PasswordsDoNotMatchMessage = "Passwords do not match.";
@@ -47,7 +47,7 @@ namespace RentingSystem.Validation
                 .WithMessage(PasswordLengthMessage);
         }
 
-        private bool IsPasswordIsStrong(string password)
+        private static bool IsPasswordIsStrong(string password)
         {
             var pattern = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))";
             var regex = new Regex(pattern);

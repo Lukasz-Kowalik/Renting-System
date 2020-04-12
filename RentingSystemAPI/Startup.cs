@@ -6,19 +6,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RentingSystemAPI.Model;
+using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.DAL.Database;
 
 namespace RentingSystemAPI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private readonly string _origins = "_allowedOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-        private readonly string _origins = "_allowedOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,7 +36,10 @@ namespace RentingSystemAPI
                                                                                                User ID={user};
                                                                                                Password={password}"));
             services.AddDbContext<RentingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("RentingDb")));
+                options.UseSqlServer(
+           Configuration.GetConnectionString("RentingDb"),
+             b => b.MigrationsAssembly("RentingSystemAPI.DAL"))
+            );
 
             services.AddCors(options => options.AddPolicy(_origins, builder =>
                 {

@@ -15,10 +15,7 @@ services:
     ports:
         - "3000:80"
         - "3001:443"
-    networks:
-        net:
-            ipv4_address: 172.28.0.2
-    
+   
   rentingsystemapi:
     container_name: rentingsystemapi
     image: ${DOCKER_REGISTRY-}rentingsystemapi
@@ -32,10 +29,6 @@ services:
     ports:
         - "8000:80"
         - "8001:443"
-        - "0.0.0.0:80:5000"
-    networks:
-        net:
-            ipv4_address: 172.28.0.3
 
   DataBaseSQL:
     container_name: DataBaseSQL
@@ -47,17 +40,6 @@ services:
         - "1433:1433"
     volumes:
         - ./Database:/var/opt/mssql/bak
-    networks:
-        net:
-            ipv4_address: 172.28.0.4
-            
-
+    
 volumes:
-    DataBase:
-networks:
-    net:
-        driver: bridge
-        name: net
-        ipam:
-            config:
-              -  subnet: 172.28.0.0/24                 
+    DataBase:         

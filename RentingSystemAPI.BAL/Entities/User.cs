@@ -1,0 +1,45 @@
+﻿using RentingSystemAPI.BAL.Authorization;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RentingSystemAPI.BAL.Entities
+{
+    public class User : Visitor
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public string Email { get; set; }
+
+        [ForeignKey("Password")]
+        public int PasswordId { get; set; }
+
+        public Password Password { get; set; }
+
+        [ForeignKey("AccountPermission")]
+        public int AccountPermissionId { get; set; }
+
+        public AccountPermission AccountPermission { get; set; }
+
+        [NotMapped]
+        public HashSet<Item> ShoppingCart = new HashSet<Item>();
+
+        public User(string name, string surname, string email, AccountPermission accountPermission)
+            : base(accountPermission)
+        {
+            Name = name;
+            Surname = surname;
+            Email = email;
+        }
+
+        public User()
+        {
+        }
+    }
+}

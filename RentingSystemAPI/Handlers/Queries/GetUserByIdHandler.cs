@@ -1,10 +1,10 @@
-﻿using DAL.Models;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Model;
 using RentingSystemAPI.Queries;
 using System.Threading;
 using System.Threading.Tasks;
+using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.DAL.Context;
 
 namespace RentingSystemAPI.Handlers.Queries
 {

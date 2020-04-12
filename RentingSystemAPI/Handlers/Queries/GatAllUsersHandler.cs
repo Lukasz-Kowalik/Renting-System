@@ -1,20 +1,17 @@
-﻿using System;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.Queries;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using DAL.Models;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Controllers;
-using RentingSystemAPI.Model;
 
 namespace RentingSystemAPI.Handlers.Queries
 {
-    public class GatAllUsersHandler:IRequestHandler<GetAllUsersQuery,List<User>>
+    public class GatAllUsersHandler : IRequestHandler<GetAllUsersQuery, List<User>>
     {
         private readonly RentingContext _context;
-       
 
         public GatAllUsersHandler(RentingContext context)
         {

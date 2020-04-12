@@ -1,11 +1,11 @@
 ﻿using System;
-using DAL.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Queries;
 
 namespace RentingSystemAPI.Controllers
