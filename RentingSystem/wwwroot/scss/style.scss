@@ -18,3 +18,21 @@ span.text-danger {
 .text-dark {
     color: black !important;
   }
+.pass-span {
+    display: block;
+    max-width: 200px;
+}
+
+@media(max-width:600px) {
+    .pass-span {
+        max-width: 400px;
+    }
+}
+@media(min-width:1920px){
+    .ultra-width{
+        width:50%;
+    }
+    .pass-span {
+        max-width: 600px;
+    }
+}
