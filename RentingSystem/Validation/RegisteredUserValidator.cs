@@ -9,7 +9,7 @@ namespace RentingSystem.Validation
         private const string PasswordRequiredMessage = "Password is required.";
         private const string PasswordsDoNotMatchMessage = "Passwords do not match.";
         private const string PasswordLengthMessage = "Password should be have at least 8 character length.";
-        private const string PasswordRequirementMessage = @"Select stronger password.(letters,numbers and symbols)";
+        private const string PasswordRequirementMessage = "Select stronger password.(letters,numbers and symbols)";
 
         public RegisteredUserValidator()
         {
@@ -33,7 +33,7 @@ namespace RentingSystem.Validation
                 .WithMessage(PasswordsDoNotMatchMessage)
                 .Must(IsPasswordIsStrong)
                 .WithMessage(PasswordRequirementMessage)
-                .Length(8)
+                .MinimumLength(8)
                 .WithMessage(PasswordLengthMessage);
 
             RuleFor(user => user.ConfirmPassword)
@@ -43,7 +43,7 @@ namespace RentingSystem.Validation
                 .WithMessage(PasswordsDoNotMatchMessage)
                 .Must(IsPasswordIsStrong)
                 .WithMessage(PasswordRequirementMessage)
-                .Length(8)
+                .MinimumLength(8)
                 .WithMessage(PasswordLengthMessage);
         }
 
