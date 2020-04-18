@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.Commands;
 using RentingSystemAPI.Queries;
 
 namespace RentingSystemAPI.Controllers

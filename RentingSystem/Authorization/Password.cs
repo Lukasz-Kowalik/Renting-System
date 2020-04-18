@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RentingSystem.Authorization
+﻿namespace RentingSystem.Authorization
 {
     public class Password
     {
@@ -10,9 +8,6 @@ namespace RentingSystem.Authorization
             Salt = passwordHash.Salt;
             PasswordHash = passwordHash.Hash;
         }
-
-        [Key]
-        public int Id { get; set; }
 
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }

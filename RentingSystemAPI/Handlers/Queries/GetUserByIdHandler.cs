@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 
+
 namespace RentingSystemAPI.Handlers.Queries
 {
     public class GetUserByIdHandler : IRequestHandler<GetUserByIdQuery, User>

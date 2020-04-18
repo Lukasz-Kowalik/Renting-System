@@ -3,13 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RentingSystem.Models;
 using RentingSystem.Models.Accounts;
-using System;
+using RentingSystem.Validation;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using RentingSystem.Requests;
 
 namespace RentingSystem.Controllers
 {

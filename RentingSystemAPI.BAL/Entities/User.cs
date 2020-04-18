@@ -5,41 +5,37 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingSystemAPI.BAL.Entities
 {
-    public class User : Visitor
+    public class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int UserId { get; set; }
 
         public string Name { get; set; }
 
         public string Surname { get; set; }
 
         public string Email { get; set; }
+        [Required]
+        public virtual Password Password { get; set; }
+        [Required]
+        public virtual  AccountPermission AccountPermission { get; set; }
 
-        [ForeignKey("Password")]
-        public int PasswordId { get; set; }
-
-        public Password Password { get; set; }
-
-        [ForeignKey("AccountPermission")]
-        public int AccountPermissionId { get; set; }
-
-        public AccountPermission AccountPermission { get; set; }
+        public virtual ICollection<Rent> Rents { get; set; }
 
         [NotMapped]
         public HashSet<Item> ShoppingCart = new HashSet<Item>();
 
         public User(string name, string surname, string email, AccountPermission accountPermission)
-            : base(accountPermission)
         {
             Name = name;
             Surname = surname;
             Email = email;
+            AccountPermission = accountPermission;
         }
 
         public User()
         {
+            Rents = new List<Rent>();
         }
     }
 }

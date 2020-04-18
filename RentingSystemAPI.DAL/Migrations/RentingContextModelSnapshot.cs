@@ -21,10 +21,8 @@ namespace RentingSystemAPI.DAL.Migrations
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Authorization.Password", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("PasswordId")
+                        .HasColumnType("int");
 
                     b.Property<byte[]>("PasswordHash")
                         .HasColumnType("varbinary(max)");
@@ -32,17 +30,15 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<byte[]>("Salt")
                         .HasColumnType("varbinary(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("PasswordId");
 
                     b.ToTable("Passwords");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.AccountPermission", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("AccountPermissionId")
+                        .HasColumnType("int");
 
                     b.Property<string>("AccountType")
                         .HasColumnType("nvarchar(max)");
@@ -59,14 +55,14 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<bool>("Renting")
                         .HasColumnType("bit");
 
-                    b.HasKey("Id");
+                    b.HasKey("AccountPermissionId");
 
                     b.ToTable("AccountPermission");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Item", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -77,31 +73,28 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<string>("DocumentationURL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("MaxQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("ItemId");
 
                     b.ToTable("Items");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Rent", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("MaxReturnTimeInDays")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("RentReturnTime")
@@ -110,30 +103,53 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<DateTime>("RentTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("UserId")
+                    b.Property<int?>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WhenShouldBeReturned")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("ItemId");
+                    b.HasKey("RentId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Rents");
                 });
 
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.User", b =>
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.RentedItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("RentedItemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountPermissionId")
+                    b.Property<bool>("IsReturned")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ItemId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RentedItemId");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("RentId");
+
+                    b.ToTable("RentedItem");
+                });
+
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.User", b =>
+                {
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -141,49 +157,48 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PasswordId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Surname")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccountPermissionId");
-
-                    b.HasIndex("PasswordId");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Rent", b =>
+            modelBuilder.Entity("RentingSystemAPI.BAL.Authorization.Password", b =>
                 {
-                    b.HasOne("RentingSystemAPI.BAL.Entities.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RentingSystemAPI.BAL.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                        .WithOne("Password")
+                        .HasForeignKey("RentingSystemAPI.BAL.Authorization.Password", "PasswordId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.User", b =>
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.AccountPermission", b =>
                 {
-                    b.HasOne("RentingSystemAPI.BAL.Entities.AccountPermission", "AccountPermission")
-                        .WithMany()
-                        .HasForeignKey("AccountPermissionId")
+                    b.HasOne("RentingSystemAPI.BAL.Entities.User", "User")
+                        .WithOne("AccountPermission")
+                        .HasForeignKey("RentingSystemAPI.BAL.Entities.AccountPermission", "AccountPermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("RentingSystemAPI.BAL.Authorization.Password", "Password")
-                        .WithMany()
-                        .HasForeignKey("PasswordId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Rent", b =>
+                {
+                    b.HasOne("RentingSystemAPI.BAL.Entities.User", null)
+                        .WithMany("Rents")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.RentedItem", b =>
+                {
+                    b.HasOne("RentingSystemAPI.BAL.Entities.Item", null)
+                        .WithMany("RentedItems")
+                        .HasForeignKey("ItemId");
+
+                    b.HasOne("RentingSystemAPI.BAL.Entities.Rent", null)
+                        .WithMany("RentedItems")
+                        .HasForeignKey("RentId");
                 });
 #pragma warning restore 612, 618
         }

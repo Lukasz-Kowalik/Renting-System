@@ -5,16 +5,16 @@ namespace RentingSystemAPI.BAL.Entities
 {
     public class AccountPermission
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+       [ForeignKey("User")]
+        public int AccountPermissionId { get; set; }
 
-        public string AccountType { get; set; } = AccountTypes.Visitor.ToString();
+        public string AccountType { get; set; } = AccountTypes.Customer.ToString();
         public bool Looking { get; set; } = true;
         public bool Renting { get; set; } = false;
         public bool Receiving { get; set; } = false;
         public bool ChangingPermission { get; set; } = false;
 
+        public virtual User User{ get; set; }
         public AccountPermission()
         {
         }
