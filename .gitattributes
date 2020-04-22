@@ -3,6 +3,11 @@
 ###############################################################################
 * text=auto
 RentingSystem/wwwroot/lib/* linguist-vendored
+*.css text=auto
+*.scss text=auto
+*.sass text=auto
+*.less text=auto
+*.js text=auto
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
