@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using RentingSystem.ViewModels.Models;
 using System;
 using System.Diagnostics;
 using System.Net;
@@ -12,12 +11,9 @@ namespace RentingSystem.Requests
     {
         public static async Task<HttpResponseMessage> SendPostAsync(this HttpClient client, string URL, object userVm)
         {
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
             HttpResponseMessage response = null;
             try
             {
-                //var URI = new Uri(URL);
                 var json = JsonConvert.SerializeObject(userVm);
 
                 using (var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json"))
@@ -25,13 +21,6 @@ namespace RentingSystem.Requests
                     // response = await client.PostAsync(URI, content);
                     response = await client.PostAsync(URL, content);
                 }
-
-                // Get the elapsed time as a TimeSpan value.
-                TimeSpan ts = stopWatch.Elapsed;
-                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
-                    ts.Hours, ts.Minutes, ts.Seconds,
-                    ts.Milliseconds / 10);
-                Debug.WriteLine(elapsedTime);
             }
             catch (Exception e)
             {
