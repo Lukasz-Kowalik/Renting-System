@@ -5,6 +5,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
 using System;
+using FluentValidation.AspNetCore;
+using RentingSystem.Services.Interfaces;
+using RentingSystem.Services.Models;
+using RentingSystem.Validation;
 
 namespace RentingSystem
 {
@@ -20,11 +24,10 @@ namespace RentingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Now let's register an API client for your AJAX call.
-            // Includes the configuration - base address & content type.
+           
             services.AddHttpClient("API Client", client =>
             {
-                client.BaseAddress = new Uri("http://localhost:8000/");
+                client.BaseAddress = new Uri("http://rentingsystemapi:80/");
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
             {
@@ -32,9 +35,10 @@ namespace RentingSystem
                 TimeSpan.FromSeconds(5),
                 TimeSpan.FromSeconds(10)
             }));
-
+            services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
