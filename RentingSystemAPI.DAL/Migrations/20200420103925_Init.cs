@@ -45,7 +45,6 @@ namespace RentingSystemAPI.DAL.Migrations
                 {
                     AccountPermissionId = table.Column<int>(nullable: false),
                     AccountType = table.Column<string>(nullable: true),
-                    Looking = table.Column<bool>(nullable: false),
                     Renting = table.Column<bool>(nullable: false),
                     Receiving = table.Column<bool>(nullable: false),
                     ChangingPermission = table.Column<bool>(nullable: false)

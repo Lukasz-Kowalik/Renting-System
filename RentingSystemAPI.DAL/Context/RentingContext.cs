@@ -8,7 +8,7 @@ namespace RentingSystemAPI.DAL.Context
         public RentingContext(DbContextOptions<RentingContext> options) : base(options)
         {
         }
-
+    
         public DbSet<Item> Items { get; set; }
         public DbSet<Rent> Rents { get; set; }
         public DbSet<User> Users { get; set; }

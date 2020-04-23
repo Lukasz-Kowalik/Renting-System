@@ -10,7 +10,7 @@ using RentingSystemAPI.DAL.Context;
 namespace RentingSystemAPI.DAL.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200418125231_Init")]
+    [Migration("20200420103925_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,9 +46,6 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("ChangingPermission")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("Looking")
                         .HasColumnType("bit");
 
                     b.Property<bool>("Receiving")

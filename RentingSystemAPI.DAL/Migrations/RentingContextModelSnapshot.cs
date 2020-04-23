@@ -46,9 +46,6 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<bool>("ChangingPermission")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("Looking")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("Receiving")
                         .HasColumnType("bit");
 
