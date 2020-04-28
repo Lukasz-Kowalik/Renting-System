@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
-using RentingSystem.Models.Accounts;
+using RentingSystem.ViewModels.Models;
 using System.Text.RegularExpressions;
 
 namespace RentingSystem.Validation
 {
-    public sealed class RegisteredUserValidator : AbstractValidator<RegisteredUser>
+    public sealed class RegisteredUserValidator : AbstractValidator<UserVm>
     {
         private const string PasswordRequiredMessage = "Password is required.";
         private const string PasswordsDoNotMatchMessage = "Passwords do not match.";
@@ -49,7 +49,7 @@ namespace RentingSystem.Validation
 
         private static bool IsPasswordIsStrong(string password)
         {
-            var pattern = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))";
+            const string pattern = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))";
             var regex = new Regex(pattern);
             return password != null && regex.IsMatch(password);
         }

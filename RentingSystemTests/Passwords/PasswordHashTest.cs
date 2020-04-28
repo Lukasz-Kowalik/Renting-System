@@ -1,5 +1,5 @@
-using RentingSystem.Authorization;
 using RentingSystem.Validation;
+using RentingSystem.ViewModels.Authorization;
 using Xunit;
 
 namespace RentingSystemTests.Passwords

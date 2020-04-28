@@ -18,9 +18,11 @@ namespace RentingSystemAPI.Handlers.Queries
             _context = context;
         }
 
+
+
         public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Users.FirstOrDefaultAsync(t => t.Id == request.UserId);
+            return await _context.Users.FirstOrDefaultAsync(t => t.UserId== request.UserId);
         }
     }
 }

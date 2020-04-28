@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.Queries;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,8 +21,16 @@ namespace RentingSystemAPI.Handlers.Queries
 
         public async Task<List<User>> Handle(GetAllUsersQuery request, CancellationToken cancellationToken)
         {
-            var result = await _context.Users.ToListAsync();
-            return result;
+            try
+            {
+                var result = await _context.Users.AsNoTracking().ToListAsync();
+                return result;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

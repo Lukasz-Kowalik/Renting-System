@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RentingSystem.Models;
-using RentingSystem.Models.Accounts;
-using RentingSystem.Validation;
+using RentingSystem.Services.Interfaces;
+using RentingSystem.ViewModels.Models;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
@@ -14,13 +14,14 @@ namespace RentingSystem.Controllers
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
-
+        private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public AccountController(ILogger<AccountController> logger, IHttpClientFactory httpClientFactory)
+        public AccountController(ILogger<AccountController> logger, IUserService userService, IHttpClientFactory httpClientFactory)
         {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+            //  ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             _logger = logger;
+            _userService = userService;
             _httpClientFactory = httpClientFactory;
         }
 
@@ -37,31 +38,26 @@ namespace RentingSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync([FromForm] RegisteredUser user)
+        public async Task<IActionResult> Register([FromForm] UserVm userVm)
         {
-            //
-            //https://github.com/dotnet/runtime/issues/20682
-            //
+            if (!ModelState.IsValid)
+            {
+                return View("Register", userVm);
+            }
             var client = _httpClientFactory.CreateClient("API Client");
-
-            try
+            var response = await _userService.RegisterAsync(userVm,client);
+           
+            if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                var response = await client.GetAsync("/Users");
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return RedirectToAction("Index", "Info");
-                }
-
-                return RedirectToAction("Index", "Home");
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e);
-                throw;
+                return RedirectToAction("Index", "Info");
             }
 
-            // //  var response = await client.SendPostAsync("http://rentingsystemapi:5000/CreateUser", user);
-            ////   to do check if pass get method
+            if (response.IsSuccessStatusCode)
+            {
+                //  var content = await response.Content.ReadAsStringAsync();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]

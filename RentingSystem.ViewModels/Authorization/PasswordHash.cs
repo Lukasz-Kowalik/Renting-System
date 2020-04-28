@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 
-namespace RentingSystem.Authorization
+namespace RentingSystem.ViewModels.Authorization
 {//code from:http://csharptest.net/470/another-example-of-how-to-store-a-salted-password-hash/
     public sealed class PasswordHash
     {

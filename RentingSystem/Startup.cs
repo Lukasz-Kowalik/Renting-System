@@ -7,8 +7,9 @@ using Polly;
 using System;
 using FluentValidation.AspNetCore;
 using RentingSystem.Services.Interfaces;
-using RentingSystem.Services.Models;
 using RentingSystem.Validation;
+using AutoMapper;
+using RentingSystem.Services.Services;
 
 namespace RentingSystem
 {
@@ -35,6 +36,9 @@ namespace RentingSystem
                 TimeSpan.FromSeconds(5),
                 TimeSpan.FromSeconds(10)
             }));
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();

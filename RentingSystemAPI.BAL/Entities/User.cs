@@ -23,7 +23,7 @@ namespace RentingSystemAPI.BAL.Entities
         public virtual ICollection<Rent> Rents { get; set; }
 
         [NotMapped]
-        public HashSet<Item> ShoppingCart = new HashSet<Item>();
+        public List<Item> ShoppingCart = new List<Item>();
 
         public User(string name, string surname, string email, AccountPermission accountPermission)
         {

@@ -7,7 +7,7 @@ namespace RentingSystemAPI.BAL.Authorization
     [Table("Passwords")]
     public class Password
     {
-       [ForeignKey("User")]
+       [Key,ForeignKey("User")]
         public int PasswordId { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }

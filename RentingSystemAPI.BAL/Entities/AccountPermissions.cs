@@ -5,16 +5,16 @@ namespace RentingSystemAPI.BAL.Entities
 {
     public class AccountPermission
     {
-       [ForeignKey("User")]
+        [Key, ForeignKey("User")]
         public int AccountPermissionId { get; set; }
 
         public string AccountType { get; set; } = AccountTypes.Customer.ToString();
-        public bool Looking { get; set; } = true;
         public bool Renting { get; set; } = false;
         public bool Receiving { get; set; } = false;
         public bool ChangingPermission { get; set; } = false;
 
-        public virtual User User{ get; set; }
+        public virtual User User { get; set; }
+
         public AccountPermission()
         {
         }
@@ -22,7 +22,6 @@ namespace RentingSystemAPI.BAL.Entities
         public AccountPermission(AccountTypes type, bool looking, bool renting, bool receiving, bool changingPermission)
         {
             AccountType = type.ToString();
-            Looking = looking;
             Renting = renting;
             Receiving = receiving;
             ChangingPermission = changingPermission;
@@ -35,7 +34,6 @@ namespace RentingSystemAPI.BAL.Entities
                 case AccountTypes.Customer:
                     {
                         AccountType = AccountTypes.Customer.ToString();
-                        Looking = true;
                         Renting = true;
                         Receiving = false;
                         ChangingPermission = false;
@@ -44,7 +42,6 @@ namespace RentingSystemAPI.BAL.Entities
                 case AccountTypes.Worker:
                     {
                         AccountType = AccountTypes.Worker.ToString();
-                        Looking = true;
                         Renting = true;
                         Receiving = true;
                         ChangingPermission = false;
@@ -53,7 +50,6 @@ namespace RentingSystemAPI.BAL.Entities
                 case AccountTypes.Admin:
                     {
                         AccountType = AccountTypes.Admin.ToString();
-                        Looking = true;
                         Renting = true;
                         Receiving = true;
                         ChangingPermission = true;

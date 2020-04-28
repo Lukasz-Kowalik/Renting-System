@@ -1,13 +1,13 @@
-﻿using System;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
 using RentingSystemAPI.Queries;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -26,26 +26,49 @@ namespace RentingSystemAPI.Controllers
         public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
         {
             var query = new GetAllUsersQuery();
-            var result =await _mediator.Send(query);
-            return Ok(result);
+            var result = await _mediator.Send(query);
+         return Ok(result);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             var query = new GetUserByIdQuery(id);
-            var result = await _mediator.Send(query); 
-            return result != null ?(IActionResult) Ok(result) : NotFound();
-           }
-
+            var result = await _mediator.Send(query);
+            Debug.WriteLine(result.Password);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
+        }
+        /// <summary>
+        /// Creates user account.
+        /// </summary>
+        /// <remarks>
+        /// Sample user data:
+        ///
+        ///    
+        ///     {
+        ///          "FirstName":"dsf",
+        ///          "LastName":"dsfa",
+        ///          "Email":"adsl@gmai.com",
+        ///          "PasswordHash":"+NSQGZzpjLxSzpyK03ToNGOlbwQ=",
+        ///          "Salt":"4IQ6cUgEz6E/997WLIB8ng=="
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="registeredUser"></param>
+        /// <returns>Response code</returns>
         [HttpPost]
+        [Produces("application/json")]
         [Route("/CreateUser")]
-        public async Task<ActionResult> CreateUser(string registeredUser)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> CreateUser(Object registeredUser)
         {
-            if (registeredUser==String.Empty)
-            {
-                return NotFound();
-            }
+            var command = new CreateUserCommand(registeredUser);
+            var result = await _mediator.Send(registeredUser);
+            //if (registeredUser==String.Empty)
+            //{
+            //    return NotFound();
+            //}
             //if (!ModelState.IsValid)
             //{
             //    return Redirect(_registerPage);

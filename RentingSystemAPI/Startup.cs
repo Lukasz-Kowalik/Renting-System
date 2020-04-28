@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using System.Reflection;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,17 +33,19 @@ namespace RentingSystemAPI
             var user = Configuration["DBUser"] ?? "SA";
             var password = Configuration["DBPassword"] ?? "Password2020";
             var database = Configuration["Database"] ?? "Renting";
-            services.AddDbContext<RentingContext>(options => options.UseSqlServer(
-                                                                                    @$"Server={server},{port};
-                                                                                               Initial Catalog={database};
-                                                                                               User ID={user};
-                                                                                               Password={password}"));
-            services.AddDbContext<RentingContext>(options =>
-                options.UseSqlServer(
-           Configuration.GetConnectionString("RentingDb"),
-             b => b.MigrationsAssembly("RentingSystemAPI.DAL"))
+            services.AddDbContextPool<RentingContext>(options =>
+            options.UseSqlServer(
+                        @$"Server={server},{port};
+                                     Initial Catalog={database};
+                                     User ID={user};
+                                     Password={password}")
             );
+            /*
 
+               TO DO:
+
+              - Make lazy loading works
+           */
             services.AddCors(options => options.AddPolicy(_origins, builder =>
                 {
                     builder.WithOrigins("http://localhost:3000",
@@ -55,6 +60,9 @@ namespace RentingSystemAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentingSystemApi", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 
