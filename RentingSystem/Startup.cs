@@ -25,7 +25,7 @@ namespace RentingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            //services.AddHttpClient<UserService>
             services.AddHttpClient("API Client", client =>
             {
                 client.BaseAddress = new Uri("http://rentingsystemapi:80/");

@@ -24,7 +24,7 @@ namespace RentingSystemAPI.DAL.Database
             try
             {
                 Debug.WriteLine("Applying Migration...");
-                if (!(context.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
+                if (!((RelationalDatabaseCreator) context.GetService<IDatabaseCreator>()).Exists())
                 {
                     context.Database.Migrate();
                 }

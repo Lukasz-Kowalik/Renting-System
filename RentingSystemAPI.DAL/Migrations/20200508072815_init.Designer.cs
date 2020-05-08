@@ -10,8 +10,8 @@ using RentingSystemAPI.DAL.Context;
 namespace RentingSystemAPI.DAL.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200420103925_Init")]
-    partial class Init
+    [Migration("20200508072815_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,7 +102,7 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<DateTime>("RentTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WhenShouldBeReturned")
@@ -125,13 +125,13 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<bool>("IsReturned")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("ItemId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RentId")
+                    b.Property<int>("RentId")
                         .HasColumnType("int");
 
                     b.HasKey("RentedItemId");
@@ -186,18 +186,24 @@ namespace RentingSystemAPI.DAL.Migrations
                 {
                     b.HasOne("RentingSystemAPI.BAL.Entities.User", null)
                         .WithMany("Rents")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.RentedItem", b =>
                 {
                     b.HasOne("RentingSystemAPI.BAL.Entities.Item", null)
                         .WithMany("RentedItems")
-                        .HasForeignKey("ItemId");
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RentingSystemAPI.BAL.Entities.Rent", null)
                         .WithMany("RentedItems")
-                        .HasForeignKey("RentId");
+                        .HasForeignKey("RentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

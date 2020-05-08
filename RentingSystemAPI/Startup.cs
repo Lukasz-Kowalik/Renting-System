@@ -40,12 +40,7 @@ namespace RentingSystemAPI
                                      User ID={user};
                                      Password={password}")
             );
-            /*
-
-               TO DO:
-
-              - Make lazy loading works
-           */
+        
             services.AddCors(options => options.AddPolicy(_origins, builder =>
                 {
                     builder.WithOrigins("http://localhost:3000",

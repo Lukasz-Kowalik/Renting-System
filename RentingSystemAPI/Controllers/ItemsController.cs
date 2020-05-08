@@ -27,7 +27,7 @@ namespace RentingSystemAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Item>>> GetRents(int id)
         {
-            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.ItemId == id);
             if (item == null)
             {
                 return NotFound(item);

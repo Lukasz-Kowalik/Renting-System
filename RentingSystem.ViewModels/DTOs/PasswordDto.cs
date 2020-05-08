@@ -12,22 +12,7 @@ namespace RentingSystem.ViewModels.DTOs
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
 
-        public PasswordDto()
-        {
-            if (Password == null || ConfirmPassword == null)
-            {
-                throw new ArgumentException("Value is null");
-            }
-            if (!Password.Equals(ConfirmPassword))
-            {
-                throw new ArgumentException("The passwords are different");
-            }
-            var passwordHash = new PasswordHash(Password);
-            Salt = passwordHash.Salt;
-            PasswordHash = passwordHash.Hash;
-        }
-
-        public PasswordDto(string password, string confirmPassword)
+        public PasswordDto(string password, string confirmPassword)//check if default constructor is needed
         {
             Password = password;
             ConfirmPassword = confirmPassword;

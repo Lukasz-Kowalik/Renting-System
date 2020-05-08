@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingSystemAPI.BAL.Entities
 {
@@ -10,7 +9,7 @@ namespace RentingSystemAPI.BAL.Entities
         [Key]
         public int RentId { get; set; }
 
-      //  public virtual ICollection<User> Users{ get; set; }
+        //  public virtual ICollection<User> Users{ get; set; }
         public int MaxReturnTimeInDays { get; set; } = 7;
 
         public DateTime RentTime { get; set; } = DateTime.Now;
@@ -18,7 +17,10 @@ namespace RentingSystemAPI.BAL.Entities
         public DateTime WhenShouldBeReturned { get; set; } = DateTime.Now.AddDays(7);
 
         public DateTime? RentReturnTime { get; set; } = null;
-        public virtual ICollection<RentedItem> RentedItems{ get; set; }
+        public virtual ICollection<RentedItem> RentedItems { get; set; }
+
+        public int UserId { get; set; }
+
         public Rent()
         {
         }

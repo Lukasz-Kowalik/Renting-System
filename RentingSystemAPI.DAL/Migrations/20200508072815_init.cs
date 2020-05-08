@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace RentingSystemAPI.DAL.Migrations
 {
-    public partial class Init : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -89,7 +89,7 @@ namespace RentingSystemAPI.DAL.Migrations
                     RentTime = table.Column<DateTime>(nullable: false),
                     WhenShouldBeReturned = table.Column<DateTime>(nullable: false),
                     RentReturnTime = table.Column<DateTime>(nullable: true),
-                    UserId = table.Column<int>(nullable: true)
+                    UserId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,7 @@ namespace RentingSystemAPI.DAL.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -110,8 +110,8 @@ namespace RentingSystemAPI.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<int>(nullable: false),
                     IsReturned = table.Column<bool>(nullable: false),
-                    ItemId = table.Column<int>(nullable: true),
-                    RentId = table.Column<int>(nullable: true)
+                    ItemId = table.Column<int>(nullable: false),
+                    RentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -121,13 +121,13 @@ namespace RentingSystemAPI.DAL.Migrations
                         column: x => x.ItemId,
                         principalTable: "Items",
                         principalColumn: "ItemId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RentedItem_Rents_RentId",
                         column: x => x.RentId,
                         principalTable: "Rents",
                         principalColumn: "RentId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

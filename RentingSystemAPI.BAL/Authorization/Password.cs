@@ -11,6 +11,6 @@ namespace RentingSystemAPI.BAL.Authorization
         public int PasswordId { get; set; }
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
-        public virtual User User { get; set; }
+        public User User { get; set; }
     }
 }
