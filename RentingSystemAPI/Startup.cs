@@ -1,3 +1,7 @@
+using System;
+using System.IO;
+using System.Reflection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,19 +9,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using RentingSystemAPI.Model;
+using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.DAL.Database;
 
 namespace RentingSystemAPI
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        private readonly string _origins = "_allowedOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-        private readonly string _origins = "_allowedOrigins";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -28,28 +33,31 @@ namespace RentingSystemAPI
             var user = Configuration["DBUser"] ?? "SA";
             var password = Configuration["DBPassword"] ?? "Password2020";
             var database = Configuration["Database"] ?? "Renting";
-            services.AddDbContext<RentingContext>(options => options.UseSqlServer(
-                                                                                    $"Server={server},{port};" +
-                                                                                               $"Initial Catalog={database};" +
-                                                                                               $"User ID={user};" +
-                                                                                               $"Password={password}"));
-            services.AddDbContext<RentingContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("RentingDb")));
-
+            services.AddDbContextPool<RentingContext>(options =>
+            options.UseSqlServer(
+                        @$"Server={server},{port};
+                                     Initial Catalog={database};
+                                     User ID={user};
+                                     Password={password}")
+            );
+        
             services.AddCors(options => options.AddPolicy(_origins, builder =>
                 {
                     builder.WithOrigins("http://localhost:3000",
                                         "https://localhost:3001")
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod();
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
                 })
             );
-
+            services.AddMediatR(typeof(Startup));
             services.AddControllers();
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            // RegisterUserRequest the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentingSystemApi", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
         }
 

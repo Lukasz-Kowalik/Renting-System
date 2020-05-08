@@ -1,14 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RentingSystem.Controllers;
+using Polly;
+using System;
+using FluentValidation.AspNetCore;
+using RentingSystem.Services.Interfaces;
+using RentingSystem.Validation;
+using AutoMapper;
+using RentingSystem.Services.Services;
 
 namespace RentingSystem
 {
@@ -24,9 +25,24 @@ namespace RentingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+            //services.AddHttpClient<UserService>
+            services.AddHttpClient("API Client", client =>
+            {
+                client.BaseAddress = new Uri("http://rentingsystemapi:80/");
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            }));
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
+            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

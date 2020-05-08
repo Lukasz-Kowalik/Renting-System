@@ -10,12 +10,12 @@ services:
     depends_on:
         - DataBaseSQL
         - rentingsystemapi
+    environment:
+        - API_URL=rentingsystemapi:5000
     ports:
         - "3000:80"
         - "3001:443"
-    networks:
-        - net
-    
+   
   rentingsystemapi:
     container_name: rentingsystemapi
     image: ${DOCKER_REGISTRY-}rentingsystemapi
@@ -29,8 +29,6 @@ services:
     ports:
         - "8000:80"
         - "8001:443"
-    networks:
-        - net
 
   DataBaseSQL:
     container_name: DataBaseSQL
@@ -42,10 +40,6 @@ services:
         - "1433:1433"
     volumes:
         - ./Database:/var/opt/mssql/bak
-    networks:
-        - net
-
+    
 volumes:
-    DataBase:
-networks:
-    net:
+    DataBase:         

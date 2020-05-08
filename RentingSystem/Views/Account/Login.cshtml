@@ -2,53 +2,55 @@
     ViewData["Title"] = "Login";
 }
 <body class="vh-100 d-flex justify-content-center">
-    <div class="
+<div class="row justify-content-center ultra-width" >
+
+<div class="
       d-flex flex-column
-      align-items-center
       align-self-center p-5
-      w-auto rounded bg-secondary">
-        <div class="w-100 text-center container-fluid">
-            <h1>Login</h1>
-            <hr />
-        </div>
-        <form id="logInForm"
-              class="needs-validation">
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fas fa-user"></i>
-                    </span>
-                </div>
-                <input class="form-control"
-                       type="email"
-                       id="email"
-                       placeholder="E-mail" />
-            </div>
-            <div class="input-group ">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <i class="fas fa-unlock-alt "></i>
-                    </span>
-                </div>
-                <input class="form-control"
-                       type="password"
-                       id="password"
-                       placeholder="Password" />
-            </div>
-            <div class="d-flex justify-content-between
-           input-group mt-2 ">
-                <a asp-controller="Account" asp-action="ForgotPassword"
-                   class="text-dark">Forgot password?</a>
-                <a asp-controller="Account" asp-action="Register"
-                   class="text-dark">Register</a>
-            </div>
-            <div class="text-center mt-2">
-                <button type="submit"
-                        id="loginBtn"
-                        class="btn btn-primary px-5">
-                    Login
-                </button>
-            </div>
-        </form>
+      rounded bg-secondary display-card ultra-width">
+    <div class="w-100 text-center container-fluid">
+        <h1>Login</h1>
+        <hr />
     </div>
+    <form id="logInForm"
+          class="needs-validation">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-user"></i>
+                </span>
+            </div>
+            <input class="form-control"
+                   type="email"
+                   id="email"
+                   placeholder="E-mail" />
+        </div>
+        <div class="input-group ">
+            <div class="input-group-prepend">
+                <span class="input-group-text">
+                    <i class="fas fa-unlock-alt "></i>
+                </span>
+            </div>
+            <input class="form-control"
+                   type="password"
+                   id="password"
+                   placeholder="PasswordDto" />
+        </div>
+        <div class="d-flex justify-content-between
+           input-group mt-2 ">
+            <a asp-controller="Account" asp-action="ForgotPassword"
+               class="text-dark">Forgot password?</a>
+            <a asp-controller="Account" asp-action="Register"
+               class="text-dark">Register</a>
+        </div>
+        <div class="text-center mt-2">
+            <button type="submit"
+                    id="loginBtn"
+                    class="btn btn-primary px-5">
+                Login
+            </button>
+        </div>
+    </form>
+</div>
+</div>
 </body>

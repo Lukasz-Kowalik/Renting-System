@@ -1,9 +1,13 @@
-﻿using DAL.Models;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Model;
+using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.Commands;
+using RentingSystemAPI.Queries;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -11,39 +15,69 @@ namespace RentingSystemAPI.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly RentingContext _context;
-        private readonly string _mainWebPage = "http://localhost:3000";
-        private readonly string _registerPage = "http://localhost:3000/Account/Register";
+        private readonly IMediator _mediator;
 
-        public UsersController(RentingContext context)
+        public UsersController(IMediator mediator)
         {
-            this._context = context;
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
         {
-            return await _context.Users.ToListAsync();
+            var query = new GetAllUsersQuery();
+            var result = await _mediator.Send(query);
+         return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUserAsync(int id)
+        public async Task<IActionResult> GetUserAsync(int id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            var query = new GetUserByIdQuery(id);
+            var result = await _mediator.Send(query);
+            Debug.WriteLine(result.Password);
+            return result != null ? (IActionResult)Ok(result) : NotFound();
         }
-
+        /// <summary>
+        /// Creates user account.
+        /// </summary>
+        /// <remarks>
+        /// Sample user data:
+        ///
+        ///    
+        ///     {
+        ///          "FirstName":"dsf",
+        ///          "LastName":"dsfa",
+        ///          "Email":"adsl@gmai.com",
+        ///          "PasswordHash":"+NSQGZzpjLxSzpyK03ToNGOlbwQ=",
+        ///          "Salt":"4IQ6cUgEz6E/997WLIB8ng=="
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="registeredUser"></param>
+        /// <returns>Response code</returns>
         [HttpPost]
+        [Produces("application/json")]
         [Route("/CreateUser")]
-        public async Task<ActionResult> CreateUser([FromForm]Register register)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult> CreateUser(Object registeredUser)
         {
-            if (!ModelState.IsValid)
-            {
-                return Redirect(_registerPage);
-            }
-            else
-            {
-                return Redirect(_mainWebPage);
-            }
+            var command = new CreateUserCommand(registeredUser);
+            var result = await _mediator.Send(registeredUser);
+            //if (registeredUser==String.Empty)
+            //{
+            //    return NotFound();
+            //}
+            //if (!ModelState.IsValid)
+            //{
+            //    return Redirect(_registerPage);
+            //}
+            //else
+            //{
+            //    return Redirect(_mainWebPage);
+            //}
+            return Ok();
         }
     }
 }

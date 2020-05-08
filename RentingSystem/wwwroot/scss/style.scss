@@ -5,6 +5,7 @@ $info: #333333;
 $btn-border-radius: 30px;
 $light: #C4C4C4;
 $dark: #8E8B8B;
+
 @import '../lib/bootstrap/scss/bootstrap.scss';
 
 h1 {
@@ -13,4 +14,25 @@ h1 {
 
 span.text-danger {
     font-size: 0.9em;
+}
+.text-dark {
+    color: black !important;
+  }
+.pass-span {
+    display: block;
+    max-width: 200px;
+}
+
+@media(max-width:600px) {
+    .pass-span {
+        max-width: 400px;
+    }
+}
+@media(min-width:1920px){
+    .ultra-width{
+        width:50%;
+    }
+    .pass-span {
+        max-width: 600px;
+    }
 }

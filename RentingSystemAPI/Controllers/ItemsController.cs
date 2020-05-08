@@ -1,9 +1,9 @@
-﻿using DAL.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.DAL.Context;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -27,7 +27,7 @@ namespace RentingSystemAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<IEnumerable<Item>>> GetRents(int id)
         {
-            var item = await _context.Items.FirstOrDefaultAsync(x => x.Id == id);
+            var item = await _context.Items.FirstOrDefaultAsync(x => x.ItemId == id);
             if (item == null)
             {
                 return NotFound(item);

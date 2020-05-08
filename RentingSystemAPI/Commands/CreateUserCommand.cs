@@ -1,0 +1,18 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
+
+namespace RentingSystemAPI.Commands
+{
+    public class CreateUserCommand:IRequest<Object>
+    {
+        public Object Json { get;} 
+
+        public CreateUserCommand(Object JSON)
+        {
+            Json = JSON;
+        }
+    }
+}

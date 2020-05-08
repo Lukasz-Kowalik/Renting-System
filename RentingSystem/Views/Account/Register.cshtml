@@ -1,30 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Register";
-    @model DAL.Models.Register
+    ViewData["Title"] = "RegisterUserRequest";
+    @model RentingSystem.ViewModels.Models.UserVm
 }
 <body class="vh-100 d-flex justify-content-center container-fluid">
+<div class="row justify-content-center ultra-width" >
 
     <div class="
       d-flex flex-column
-      align-items-center
       align-self-center p-5
-      w-auto rounded bg-secondary">
+      rounded bg-secondary display-card ultra-width">
         <div class="w-100 text-center">
             <h1>Register</h1>
-            <hr />
+            <hr/>
         </div>
         <form id="registerForm"
-              class="needs-validation"
-              role="form"
-              method="post"
-              action="http://localhost:8000/CreateUser">
+              asp-action="Register">
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="text"
                                asp-for="FirstName"
                                class="form-control input-sm "
-                               placeholder="First Name" />
+                               placeholder="First Name"/>
                         <span class="text-danger" asp-validation-for="FirstName"></span>
                     </div>
                 </div>
@@ -33,8 +30,8 @@
                         <input type="text"
                                asp-for="LastName"
                                class="form-control input-sm"
-                               placeholder="Last Name" />
-                        <span class="text-danger" asp-validation-for="FirstName"></span>
+                               placeholder="Last Name"/>
+                        <span class="text-danger" asp-validation-for="LastName"></span>
                     </div>
                 </div>
             </div>
@@ -43,7 +40,7 @@
                 <input type="email"
                        asp-for="Email"
                        class="form-control input-sm"
-                       placeholder="Email Address" />
+                       placeholder="Email Address"/>
                 <span class="text-danger" asp-validation-for="Email"></span>
             </div>
 
@@ -53,18 +50,18 @@
                         <input type="password"
                                asp-for="Password"
                                class="form-control input-sm"
-                               placeholder="Password" />
+                               placeholder="Password"/>
+                        <span class="text-danger pass-span" asp-validation-for="Password"></span>
                     </div>
-                    <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <input type="password"
-                               asp-for="PasswordConfirm"
+                               asp-for="ConfirmPassword"
                                class="form-control input-sm"
-                               placeholder="Confirm Password" />
+                               placeholder="Confirm Password"/>
+                        <span class="text-danger pass-span" asp-validation-for="ConfirmPassword"></span>
                     </div>
-                    <span class="text-danger" asp-validation-for="PasswordConfirm"></span>
                 </div>
             </div>
 
@@ -73,5 +70,8 @@
                 Register
             </button>
         </form>
+    </div>
+ 
+
     </div>
 </body>
