@@ -1,11 +1,11 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.Queries;
-using System.Threading;
-using System.Threading.Tasks;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
-
+using RentingSystemAPI.Queries;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Handlers.Queries
 {
@@ -18,11 +18,9 @@ namespace RentingSystemAPI.Handlers.Queries
             _context = context;
         }
 
-
-
         public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Users.FirstOrDefaultAsync(t => t.UserId== request.UserId);
+            return await _context.Users.OfType<User>().FirstOrDefaultAsync(t => t.Id == request.UserId, cancellationToken: cancellationToken);
         }
     }
 }

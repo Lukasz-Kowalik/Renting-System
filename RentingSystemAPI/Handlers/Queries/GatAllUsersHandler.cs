@@ -5,6 +5,7 @@ using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.Queries;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +24,7 @@ namespace RentingSystemAPI.Handlers.Queries
         {
             try
             {
-                var result = await _context.Users.AsNoTracking().ToListAsync();
+                var result = await _context.Users.OfType<User>().AsNoTracking().ToListAsync();
                 return result;
             }
             catch (Exception e)

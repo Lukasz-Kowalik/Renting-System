@@ -1,10 +1,11 @@
 ﻿using FluentValidation;
 using RentingSystem.ViewModels.Models;
 using System.Text.RegularExpressions;
+using RentingSystem.ViewModels.DTOs;
 
 namespace RentingSystem.Validation
 {
-    public sealed class RegisteredUserValidator : AbstractValidator<UserVm>
+    public sealed class RegisteredUserValidator : AbstractValidator<UserDto>
     {
         private const string PasswordRequiredMessage = "Password is required.";
         private const string PasswordsDoNotMatchMessage = "Passwords do not match.";

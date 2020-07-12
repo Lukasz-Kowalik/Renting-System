@@ -2,6 +2,7 @@
 {
     public enum AccountTypes
     {
+        User,
         Customer,
         Worker,
         Admin,

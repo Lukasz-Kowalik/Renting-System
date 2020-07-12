@@ -1,41 +1,23 @@
-﻿using RentingSystemAPI.BAL.Authorization;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingSystemAPI.BAL.Entities
 {
-    public class User
+    public class User : IdentityUser<int>
     {
         [Key]
         public int UserId { get; set; }
 
-        public string Name { get; set; }
-
-        public string Surname { get; set; }
-
-        public string Email { get; set; }
-        [Required]
-        public virtual Password Password { get; set; }
-        [Required]
-        public virtual  AccountPermission AccountPermission { get; set; }
-
-        public virtual ICollection<Rent> Rents { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public AccountPermission AccountPermission { get; set; }
+        public ICollection<Rent> Rents { get; set; }
+        public int UserType { get; set; }
+        public string Salt { get; set; }
 
         [NotMapped]
         public List<Item> ShoppingCart = new List<Item>();
-
-        public User(string name, string surname, string email, AccountPermission accountPermission)
-        {
-            Name = name;
-            Surname = surname;
-            Email = email;
-            AccountPermission = accountPermission;
-        }
-
-        public User()
-        {
-            Rents = new List<Rent>();
-        }
     }
 }

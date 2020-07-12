@@ -3,16 +3,14 @@ using System;
 
 namespace RentingSystem.ViewModels.DTOs
 {
-    public class PasswordDto
+    public class PasswordHasher
     {
         public string Password { get; set; }
-
         public string ConfirmPassword { get; set; }
-
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
 
-        public PasswordDto(string password, string confirmPassword)//check if default constructor is needed
+        public PasswordHasher(string password, string confirmPassword)//check if default constructor is needed
         {
             Password = password;
             ConfirmPassword = confirmPassword;

@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
-using RentingSystem.ViewModels.Models;
+using RentingSystem.ViewModels.DTOs;
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -38,26 +37,21 @@ namespace RentingSystem.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register([FromForm] UserVm userVm)
+        public async Task<IActionResult> Register([FromForm] UserDto userDto)
         {
             if (!ModelState.IsValid)
             {
-                return View("Register", userVm);
+                return View();
             }
             var client = _httpClientFactory.CreateClient("API Client");
-            var response = await _userService.RegisterAsync(userVm,client);
-           
-            if (response.StatusCode == HttpStatusCode.NotFound)
-            {
-                return RedirectToAction("Index", "Info");
-            }
+            var response = await _userService.RegisterAsync(userDto, client);
 
             if (response.IsSuccessStatusCode)
             {
-                //  var content = await response.Content.ReadAsStringAsync();
+                return RedirectToAction("Index", "Home");
             }
-
-            return RedirectToAction("Index", "Home");
+             return RedirectToAction("Index", "Info");
+            
         }
 
         [HttpGet]
