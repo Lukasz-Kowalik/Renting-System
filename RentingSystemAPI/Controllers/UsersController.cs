@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
 using RentingSystemAPI.Queries;
+using RentingSystemAPI.Validators;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -27,7 +27,7 @@ namespace RentingSystemAPI.Controllers
         {
             var query = new GetAllUsersQuery();
             var result = await _mediator.Send(query);
-         return Ok(result);
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
@@ -35,16 +35,17 @@ namespace RentingSystemAPI.Controllers
         {
             var query = new GetUserByIdQuery(id);
             var result = await _mediator.Send(query);
-            Debug.WriteLine(result.Password);
+            // Debug.WriteLine(result.Password);
             return result != null ? (IActionResult)Ok(result) : NotFound();
         }
+
         /// <summary>
         /// Creates user account.
         /// </summary>
         /// <remarks>
         /// Sample user data:
         ///
-        ///    
+        ///
         ///     {
         ///          "FirstName":"dsf",
         ///          "LastName":"dsfa",
@@ -59,25 +60,13 @@ namespace RentingSystemAPI.Controllers
         [HttpPost]
         [Produces("application/json")]
         [Route("/CreateUser")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult> CreateUser(Object registeredUser)
+        public async Task<HttpResponseMessage> CreateUser(Object registeredUser)
         {
             var command = new CreateUserCommand(registeredUser);
-            var result = await _mediator.Send(registeredUser);
-            //if (registeredUser==String.Empty)
-            //{
-            //    return NotFound();
-            //}
-            //if (!ModelState.IsValid)
-            //{
-            //    return Redirect(_registerPage);
-            //}
-            //else
-            //{
-            //    return Redirect(_mainWebPage);
-            //}
-            return Ok();
+            var result = await _mediator.Send(command);
+            var responseMessage = ResponseValidator.CheckResponse(result);
+
+            return responseMessage;
         }
     }
 }
