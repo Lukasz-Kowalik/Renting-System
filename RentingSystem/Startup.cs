@@ -1,15 +1,15 @@
+using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using Polly;
-using System;
-using FluentValidation.AspNetCore;
 using RentingSystem.Services.Interfaces;
-using RentingSystem.Validation;
-using AutoMapper;
 using RentingSystem.Services.Services;
+using RentingSystem.Validation;
+using System;
+using Microsoft.Extensions.Hosting;
 
 namespace RentingSystem
 {
@@ -42,7 +42,10 @@ namespace RentingSystem
             services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
-            services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>());
+            services.AddMvc()
+                .AddFluentValidation(
+                    fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
+                    );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,9 +58,13 @@ namespace RentingSystem
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseStatusCodePages("text/html",
+                    "<h1>Status code page</h1> <h2>Status Code: {0}</h2>");
+                //   The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            // app.UseStatusCodePages();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
