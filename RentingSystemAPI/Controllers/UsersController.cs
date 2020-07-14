@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
 using RentingSystemAPI.Queries;
-using RentingSystemAPI.Validators;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
@@ -60,13 +59,23 @@ namespace RentingSystemAPI.Controllers
         [HttpPost]
         [Produces("application/json")]
         [Route("/CreateUser")]
-        public async Task<HttpResponseMessage> CreateUser(Object registeredUser)
+        public async Task<IActionResult> CreateUser(Object registeredUser)
         {
             var command = new CreateUserCommand(registeredUser);
             var result = await _mediator.Send(command);
-            var responseMessage = ResponseValidator.CheckResponse(result);
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
 
-            return responseMessage;
+            var errorMessage = result.Errors.FirstOrDefault().Code;
+            switch (errorMessage)
+            {
+                case string message when message.Contains("Duplicate"): 
+                    return Conflict();
+                default:
+                    return NotFound();
+            }
         }
     }
 }

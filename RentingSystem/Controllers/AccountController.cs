@@ -5,6 +5,7 @@ using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.ViewModels.DTOs;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -50,8 +51,13 @@ namespace RentingSystem.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-             return RedirectToAction("Index", "Info");
-            
+
+            if (response.StatusCode == HttpStatusCode.Conflict)
+            {
+                ViewData["ResponseMessage"] = "Email is unavailable";
+            }
+
+            return View();
         }
 
         [HttpGet]

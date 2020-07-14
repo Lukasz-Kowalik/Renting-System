@@ -40,8 +40,10 @@
                 <input type="email"
                        asp-for="Email"
                        class="form-control input-sm"
-                       placeholder="Email Address"/>
+                       placeholder="Email Address" />
                 <span class="text-danger" asp-validation-for="Email"></span>
+                <span class="text-danger">@ViewData["ResponseMessage"]</span>
+
             </div>
 
             <div class="row">
