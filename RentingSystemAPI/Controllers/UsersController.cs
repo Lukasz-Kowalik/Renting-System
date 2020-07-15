@@ -59,7 +59,7 @@ namespace RentingSystemAPI.Controllers
         [HttpPost]
         [Produces("application/json")]
         [Route("/CreateUser")]
-        public async Task<IActionResult> CreateUser(Object registeredUser)
+        public async Task<IActionResult> CreateUserAsync(Object registeredUser)
         {
             var command = new CreateUserCommand(registeredUser);
             var result = await _mediator.Send(command);
@@ -69,13 +69,32 @@ namespace RentingSystemAPI.Controllers
             }
 
             var errorMessage = result.Errors.FirstOrDefault().Code;
-            switch (errorMessage)
+            return errorMessage switch
             {
-                case string message when message.Contains("Duplicate"): 
-                    return Conflict();
-                default:
-                    return NotFound();
-            }
+                string message when message.Contains("Duplicate") => Conflict(),
+                _ => NotFound()
+            };
+        }
+
+        [HttpPost]
+        [Produces("application/json")]
+        [Route("/Login")]
+        public async Task<Object> Login(Object loggedInUser)
+        {
+            var command = new FindUserCommand(loggedInUser);
+            var result = await _mediator.Send(command);
+            return result;
+            //if (result.Succeeded)
+            //{
+            //    return Ok();
+            //}
+
+            //var errorMessage = result.Errors.FirstOrDefault().Code;
+            //return errorMessage switch
+            //{
+            //    string message when message.Contains("Duplicate") => Conflict(),
+            //    _ => NotFound()
+            //};
         }
     }
 }

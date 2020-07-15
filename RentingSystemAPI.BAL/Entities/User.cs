@@ -16,7 +16,7 @@ namespace RentingSystemAPI.BAL.Entities
         public ICollection<Rent> Rents { get; set; }
         public int UserType { get; set; }
         public string Salt { get; set; }
-
+        
         [NotMapped]
         public List<Item> ShoppingCart = new List<Item>();
     }

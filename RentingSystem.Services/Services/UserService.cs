@@ -37,5 +37,24 @@ namespace RentingSystem.Services.Services
                 throw;
             }
         }
+
+        public async Task<HttpResponseMessage> LoginAsync(LoginDto userDto, HttpClient client)
+        {
+            try
+            {
+                var passwordHasher = _mapper.Map<PasswordHasher>(userDto);
+                var loggedUser = _mapper.Map<LoggedUser>(userDto);
+                _mapper.Map<PasswordHasher, LoggedUser>(passwordHasher, loggedUser);
+
+                var response = await client.PostAsJsonAsync("/Login", loggedUser);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

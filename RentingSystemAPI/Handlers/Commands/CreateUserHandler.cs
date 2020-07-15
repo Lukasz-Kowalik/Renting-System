@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
-using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,13 +12,11 @@ namespace RentingSystemAPI.Handlers.Commands
 {
     public class CreateUserHandler : IRequestHandler<CreateUserCommand, IdentityResult>
     {
-        private readonly RentingContext _context;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public CreateUserHandler(RentingContext context, UserManager<User> userManager, IMapper mapper)
+        public CreateUserHandler(UserManager<User> userManager, IMapper mapper)
         {
-            _context = context;
             _userManager = userManager;
             _mapper = mapper;
         }

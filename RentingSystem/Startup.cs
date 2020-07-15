@@ -9,6 +9,7 @@ using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
 
 namespace RentingSystem
@@ -42,7 +43,11 @@ namespace RentingSystem
             services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
-            services.AddMvc()
+            services.AddMvc(option =>
+                {
+                    option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+
+                })
                 .AddFluentValidation(
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
                     );

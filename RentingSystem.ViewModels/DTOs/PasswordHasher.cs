@@ -10,6 +10,22 @@ namespace RentingSystem.ViewModels.DTOs
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
 
+        public PasswordHasher()
+        {
+        }
+
+        public PasswordHasher(string password)
+        {
+            Password = password;
+            if (Password == null)
+            {
+                throw new ArgumentException("Value is null");
+            }
+            var passwordHash = new PasswordHash(Password);
+            Salt = passwordHash.Salt;
+            PasswordHash = passwordHash.Hash;
+        }
+
         public PasswordHasher(string password, string confirmPassword)//check if default constructor is needed
         {
             Password = password;

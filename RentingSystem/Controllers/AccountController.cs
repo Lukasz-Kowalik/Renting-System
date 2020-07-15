@@ -31,6 +31,19 @@ namespace RentingSystem.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login([FromForm] LoginDto userDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+            var client = _httpClientFactory.CreateClient("API Client");
+            var response = await _userService.LoginAsync(userDto, client);
+
+            return View();
+        }
+
         [HttpGet]
         public IActionResult Register()
         {

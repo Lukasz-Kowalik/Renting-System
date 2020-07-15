@@ -1,12 +1,13 @@
-﻿using RentingSystem.ViewModels.Models;
+﻿using RentingSystem.ViewModels.DTOs;
 using System.Net.Http;
 using System.Threading.Tasks;
-using RentingSystem.ViewModels.DTOs;
 
 namespace RentingSystem.Services.Interfaces
 {
     public interface IUserService
     {
-         Task<HttpResponseMessage> RegisterAsync(UserDto userDto, HttpClient client);
+        Task<HttpResponseMessage> RegisterAsync(UserDto userDto, HttpClient client);
+
+        Task<HttpResponseMessage> LoginAsync(LoginDto userDto, HttpClient client);
     }
 }
