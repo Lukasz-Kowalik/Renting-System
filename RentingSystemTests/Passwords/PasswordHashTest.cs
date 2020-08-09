@@ -1,3 +1,4 @@
+using Hasher.Models;
 using RentingSystem.Validation;
 using RentingSystem.ViewModels.Authorization;
 using Xunit;
