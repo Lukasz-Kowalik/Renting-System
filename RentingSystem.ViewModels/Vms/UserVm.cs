@@ -1,4 +1,4 @@
-﻿namespace RentingSystem.ViewModels.Models
+﻿namespace RentingSystem.ViewModels.Vms
 {
     public class UserVm
     {

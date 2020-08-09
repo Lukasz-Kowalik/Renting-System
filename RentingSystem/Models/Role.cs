@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace RentingSystemAPI.BAL.Entities
+namespace RentingSystem.Models
 {
     public sealed class Role : IdentityRole<int>
     {

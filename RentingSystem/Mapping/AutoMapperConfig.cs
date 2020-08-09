@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Hasher.Wrappers;
 using RentingSystem.ViewModels.Authorization;
 using RentingSystem.ViewModels.DTOs;
-using RentingSystem.ViewModels.Models;
+using RentingSystem.ViewModels.Vms;
 
 namespace RentingSystem.Mapping
 {
@@ -12,14 +13,14 @@ namespace RentingSystem.Mapping
             CreateMap<UserVm, UserDto>();
 
             //user registration
-            CreateMap<UserDto, PasswordHasher>();
+            CreateMap<UserDto, PasswordHasherWrapper>();
             CreateMap<UserDto, RegisteredUser>();
-            CreateMap<PasswordHasher, RegisteredUser>();
+            CreateMap<PasswordHasherWrapper, RegisteredUser>();
 
             //user logging
             CreateMap<LoginDto, LoggedUser>();
-            CreateMap<LoginDto, PasswordHasher>();
-            CreateMap<PasswordHasher, LoggedUser>();
+            CreateMap<LoginDto, PasswordHasherWrapper>();
+            CreateMap<PasswordHasherWrapper, LoggedUser>();
         }
     }
 }

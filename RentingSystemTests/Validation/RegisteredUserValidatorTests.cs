@@ -1,7 +1,6 @@
 using FluentValidation.TestHelper;
 using RentingSystem.Validation;
 using RentingSystem.ViewModels.DTOs;
-using RentingSystem.ViewModels.Models;
 using Xunit;
 
 namespace RentingSystemTests.Validation

@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using RentingSystem.ViewModels.Models;
-using System.Text.RegularExpressions;
 using RentingSystem.ViewModels.DTOs;
+using System.Text.RegularExpressions;
 
 namespace RentingSystem.Validation
 {
