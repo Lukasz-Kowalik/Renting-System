@@ -4,14 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemAPI", "RentingSystemAPI\RentingSystemAPI.csproj", "{681CCE53-1C38-481C-AEDA-6AF8434726F3}"
-	ProjectSection(ProjectDependencies) = postProject
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C} = {94F5FDB9-0E86-4A0E-BB6B-C525761A622C}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem", "RentingSystem\RentingSystem.csproj", "{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}"
 	ProjectSection(ProjectDependencies) = postProject
 		{681CCE53-1C38-481C-AEDA-6AF8434726F3} = {681CCE53-1C38-481C-AEDA-6AF8434726F3}
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C} = {94F5FDB9-0E86-4A0E-BB6B-C525761A622C}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemTests", "RentingSystemTests\RentingSystemTests.csproj", "{A6FAA572-E03C-4FFE-92C3-ECCF67750820}"
@@ -23,8 +19,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem.ViewModels", "RentingSystem.ViewModels\RentingSystem.ViewModels.csproj", "{9C2BE24B-117A-4DDE-A769-3B8378DDC20B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem.Services", "RentingSystem.Services\RentingSystem.Services.csproj", "{A3EAC82D-AF64-49BE-907E-650AB1E1EC7D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hasher", "Hasher\Hasher.csproj", "{94F5FDB9-0E86-4A0E-BB6B-C525761A622C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8A0477FE-78CE-47B4-B6CA-C46453279549}"
 EndProject
@@ -62,10 +56,6 @@ Global
 		{A3EAC82D-AF64-49BE-907E-650AB1E1EC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3EAC82D-AF64-49BE-907E-650AB1E1EC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3EAC82D-AF64-49BE-907E-650AB1E1EC7D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94F5FDB9-0E86-4A0E-BB6B-C525761A622C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A0477FE-78CE-47B4-B6CA-C46453279549}.Release|Any CPU.ActiveCfg = Release|Any CPU

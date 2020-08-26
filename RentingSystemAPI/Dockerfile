@@ -9,7 +9,6 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["RentingSystemAPI/RentingSystemAPI.csproj", "RentingSystemAPI/"]
 COPY ["RentingSystemAPI.BAL/RentingSystemAPI.BAL.csproj", "RentingSystemAPI.BAL/"]
-COPY ["Hasher/Hasher.csproj", "Hasher/"]
 COPY ["RentingSystemAPI.DAL/RentingSystemAPI.DAL.csproj", "RentingSystemAPI.DAL/"]
 RUN dotnet restore "RentingSystemAPI/RentingSystemAPI.csproj"
 COPY . .

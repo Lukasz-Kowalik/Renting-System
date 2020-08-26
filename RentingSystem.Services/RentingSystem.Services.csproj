@@ -10,7 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Hasher\Hasher.csproj" />
     <ProjectReference Include="..\RentingSystem.ViewModels\RentingSystem.ViewModels.csproj" />
   </ItemGroup>
 

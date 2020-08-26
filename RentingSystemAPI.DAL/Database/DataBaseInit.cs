@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using System;
 using System.Diagnostics;
@@ -23,12 +23,19 @@ namespace RentingSystemAPI.DAL.Database
         {
             try
             {
-                Debug.WriteLine("Applying Migration...");
-                if (!((RelationalDatabaseCreator) context.GetService<IDatabaseCreator>()).Exists())
+                Debug.WriteLine("Seeding...");
+                if (!((RelationalDatabaseCreator)context.GetService<IDatabaseCreator>()).Exists())
                 {
-                    context.Database.Migrate();
+                    context.Roles.AddRange(new[]
+                      {
+                        new Role(nameof(AccountTypes.User)),
+                        new Role(nameof(AccountTypes.Customer)),
+                        new Role(nameof(AccountTypes.Worker)),
+                        new Role(nameof(AccountTypes.Admin)),
+                    });
+                    context.SaveChanges();
                 }
-                Debug.WriteLine("Migration done!");
+                Debug.WriteLine("Seeding done!");
             }
             catch (Exception e)
             {
