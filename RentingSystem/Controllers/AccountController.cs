@@ -5,9 +5,13 @@ using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.ViewModels.DTOs;
 using System.Diagnostics;
+using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 
 namespace RentingSystem.Controllers
 {
@@ -16,18 +20,21 @@ namespace RentingSystem.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _config;
 
-        public AccountController(ILogger<AccountController> logger, IUserService userService, IHttpClientFactory httpClientFactory)
+        public AccountController(ILogger<AccountController> logger, IUserService userService, IHttpClientFactory httpClientFactory,IConfiguration config)
         {
             //  ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             _logger = logger;
             _userService = userService;
             _httpClientFactory = httpClientFactory;
+            _config = config;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
+            //return Redirect(_config["LocalHosts:API"] + "OAuth/Login");
             return View();
         }
 
@@ -41,6 +48,8 @@ namespace RentingSystem.Controllers
             var client = _httpClientFactory.CreateClient("API Client");
             var response = await _userService.LoginAsync(userDto, client);
 
+            //to do 
+            // await HttpContext.SignInAsync();
             return View();
         }
 

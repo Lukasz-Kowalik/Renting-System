@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>ac5af326-4b75-44f3-a892-a8f5ce43f347</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,5 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\RentingSystemAPI.BAL\RentingSystemAPI.BAL.csproj" />
   </ItemGroup>
-  
 </Project>

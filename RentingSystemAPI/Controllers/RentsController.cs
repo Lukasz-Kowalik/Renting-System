@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.Queries;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.DAL.Context;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -12,28 +13,26 @@ namespace RentingSystemAPI.Controllers
     [ApiController]
     public class RentsController : ControllerBase
     {
-        private readonly RentingContext _context;
+        private readonly IMediator _mediator;
 
-        public RentsController(RentingContext context)
+        public RentsController(IMediator mediator)
         {
-            _context = context;
+            _mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
-        {
-            return await _context.Rents.ToListAsync();
-        }
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
+        //{
+        //    return await _context.Rents.ToListAsync();
+        //}
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Rent>>> GetRents(int id)
+        [HttpGet("{userId}")]
+        [Authorize]
+        public async Task<ActionResult<List<Rent>>> GetRents(int userId)
         {
-            var rent = await _context.Rents.Where(x => x.UserId == id).ToListAsync();
-            if (rent.Count == 0)
-            {
-                return NotFound(rent);
-            }
-            return Ok(rent);
+            var query = new GetAllRentsByUserIdQuery(userId);
+            var result = await _mediator.Send(query);
+            return !result.Any() ? (ActionResult<List<Rent>>)NoContent() : Ok(result);
         }
     }
 }

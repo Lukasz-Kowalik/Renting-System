@@ -2,15 +2,15 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Polly;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting;
 
 namespace RentingSystem
 {
@@ -26,10 +26,12 @@ namespace RentingSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region config
+
             //services.AddHttpClient<UserService>
             services.AddHttpClient("API Client", client =>
             {
-                client.BaseAddress = new Uri("http://rentingsystemapi:80/");
+                client.BaseAddress = new Uri(Configuration["Container:AddressAPI"]);
                 client.DefaultRequestHeaders.Add("Accept", "application/json");
             }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
             {
@@ -42,15 +44,17 @@ namespace RentingSystem
 
             services.AddScoped<IUserService, UserService>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+
             services.AddControllersWithViews();
             services.AddMvc(option =>
                 {
                     option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-
                 })
                 .AddFluentValidation(
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
                     );
+
+            #endregion config
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,6 +79,7 @@ namespace RentingSystem
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -1,14 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class ItemsController : ControllerBase
     {
         private readonly RentingContext _context;
@@ -19,6 +22,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
+       // [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
         {
             return await _context.Items.ToListAsync();

@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Configuration;
-using RentingSystemAPI.DAL.Seeds;
 
 namespace RentingSystemAPI.DAL.Context
 {
@@ -33,7 +32,6 @@ namespace RentingSystemAPI.DAL.Context
                 .HasForeignKey(p => p.AccountPermissionId);
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-         
         }
     }
 }

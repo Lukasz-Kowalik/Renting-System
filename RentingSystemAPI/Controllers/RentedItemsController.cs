@@ -8,11 +8,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using RentingSystemAPI.Queries;
-using Hasher;
+
 namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class RentedItemsController : ControllerBase
     {
         private readonly IMediator _mediator;

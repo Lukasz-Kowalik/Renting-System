@@ -11,6 +11,9 @@ using Microsoft.OpenApi.Models;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DAL.Database;
+using RentingSystemAPI.Helpers;
+using RentingSystemAPI.Interfaces;
+using RentingSystemAPI.Services;
 using System;
 using System.IO;
 using System.Reflection;
@@ -20,16 +23,14 @@ namespace RentingSystemAPI
     public class Startup
     {
         public IConfiguration Configuration { get; }
+        public static IConfiguration StaticConfiguration { get; private set; }
         private readonly string _origins = "_allowedOrigins";
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            StaticConfiguration = configuration;
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -47,17 +48,19 @@ namespace RentingSystemAPI
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RentingSystemAPI");
+                c.RoutePrefix = string.Empty;
             });
             DatabaseInit.InitDataBase(app);
 
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseRouting();
-
-            app.UseCors();
-
-            app.UseAuthorization();
-            // app.UseAuthentication();
+            app.UseMiddleware<JwtMiddleware>();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -66,6 +69,8 @@ namespace RentingSystemAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            #region dbConfig
+
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
             var port = Configuration["DBPort"] ?? "1433";
             //using SA isn't good on production, better practice would be using account with lower permission
@@ -77,8 +82,21 @@ namespace RentingSystemAPI
                     @$"Server={server},{port};
                                      Initial Catalog={database};
                                      User ID={user};
-                                     Password={password}")
+                                     Password={password}",
+                    x => x.MigrationsAssembly("RentingSystemAPI.DAL")));
+
+            #endregion dbConfig
+
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.WithOrigins(Configuration["Cors:https"],
+                            Configuration["Cors:http"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                })
             );
+
+            #region authentication
 
             services.AddIdentity<User, Role>()
                 .AddUserManager<UserManager<User>>()
@@ -88,16 +106,19 @@ namespace RentingSystemAPI
                 .AddEntityFrameworkStores<RentingContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddCors(options => options.AddPolicy(_origins, builder =>
-                {
-                    builder.WithOrigins("http://localhost:3000",
-                                        "https://localhost:3001")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                })
-            );
+            services.Configure<AppSettings>(Configuration.GetSection("Jwt"));
+
+            #endregion authentication
+
+            #region Scopes
+
+            services.AddScoped<IUserService, UserService>();
+
+            #endregion Scopes
+
             services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(typeof(Startup));
+
             services.AddControllers();
             // RegisterUserRequest the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
