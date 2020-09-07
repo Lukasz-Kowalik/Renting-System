@@ -67,11 +67,11 @@ namespace RentingSystemAPI.Services
                 var userDto = JsonConvert.DeserializeObject<UserDto>(Json.ToString() ?? string.Empty);
                 var user = _mapper.Map<User>(userDto);
                 var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Email, user.Email));
-                claims.Add(new Claim(ClaimTypes.Role, AccountTypes.Customer.ToString()));
+               // claims.Add(new Claim(ClaimTypes.Email, user.Email));
+              //  claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
                 var result = await _userManager.CreateAsync(user, userDto.Password);
-                await _userManager.AddClaimsAsync(user, claims);
-                await _userManager.AddToRoleAsync(user, AccountTypes.Customer.ToString());
+                //await _userManager.AddClaimsAsync(user, claims);
+                //await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
                 return result;
             }
             catch (Exception exception)
