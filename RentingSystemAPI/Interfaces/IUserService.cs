@@ -4,6 +4,7 @@ using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
 using System;
 using System.Threading.Tasks;
+using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Interfaces
 {
@@ -11,7 +12,7 @@ namespace RentingSystemAPI.Interfaces
     {
         Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest Json);
 
-        Task<IdentityResult> RegisterAsync(Object Json);
+        Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest);
 
         User GetById(int id);
     }

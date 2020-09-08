@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DTOs;
+using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Mapping
 {
@@ -8,8 +9,9 @@ namespace RentingSystemAPI.Mapping
     {
         public AutoMapperConfig()
         {
-            CreateMap<UserDto, User>()
-                .ForMember(u => u.UserName, m => m.MapFrom(u => u.Email));
+            CreateMap<RegisterUserRequest, User>()
+                .ForMember(u => u.UserName, m => m.MapFrom(u => u.Email))
+                .ReverseMap();
         }
     }
 }

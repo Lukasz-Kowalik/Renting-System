@@ -5,16 +5,17 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Commands
 {
-    public class RegisterUserCommand: IRequest<IdentityResult>
+    public class RegisterUserCommand : IRequest<IdentityResult>
     {
-        public Object Json { get;} 
+        public RegisterUserRequest User { get; }
 
-        public RegisterUserCommand(Object JSON)
+        public RegisterUserCommand(RegisterUserRequest user)
         {
-            Json = JSON;
+            User = user;
         }
     }
 }

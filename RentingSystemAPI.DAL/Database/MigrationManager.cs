@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.DAL.Seeds;
 using System;
 
 namespace RentingSystemAPI.DAL.Database
@@ -17,6 +18,11 @@ namespace RentingSystemAPI.DAL.Database
                     try
                     {
                         appContext.Database.Migrate();
+
+                        if (appContext.Database.EnsureCreated())
+                        {
+                            RollsInitializer.Seed(appContext);
+                        }
                     }
                     catch (Exception e)
                     {

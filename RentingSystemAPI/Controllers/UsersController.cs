@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -68,7 +69,7 @@ namespace RentingSystemAPI.Controllers
         [HttpPost]
         [Produces("application/json")]
         [Route("/RegisterUser")]
-        public async Task<IActionResult> RegisterUserAsync([FromBody] Object registeredUser)
+        public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequest registeredUser)
         {
             var command = new RegisterUserCommand(registeredUser);
             var result = await _mediator.Send(command);

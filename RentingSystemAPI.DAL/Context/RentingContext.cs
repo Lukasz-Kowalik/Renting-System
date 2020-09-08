@@ -19,13 +19,6 @@ namespace RentingSystemAPI.DAL.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>().ToTable("AspNetUsers")
-                .HasDiscriminator<int>("UserType")
-                .HasValue<User>((int)AccountTypes.User)
-                .HasValue<Customer>((int)AccountTypes.Customer)
-                .HasValue<Worker>((int)AccountTypes.Worker)
-                .HasValue<Admin>((int)AccountTypes.Admin);
-
             modelBuilder.Entity<AccountPermission>()
                 .HasOne(ap => ap.User)
                 .WithMany()

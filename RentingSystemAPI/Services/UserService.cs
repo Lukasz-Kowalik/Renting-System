@@ -17,6 +17,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Services
 {
@@ -42,7 +43,7 @@ namespace RentingSystemAPI.Services
 
         public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest Json)
         {
-            //  var userDto = JsonConvert.DeserializeObject<UserDto>(Json.ToString() ?? string.Empty);
+            //  var userDto = JsonConvert.DeserializeObject<UserDto>(userRequest.ToString() ?? string.Empty);
 
             var user = await _userManager.FindByEmailAsync(Json.Email);
 
@@ -60,18 +61,18 @@ namespace RentingSystemAPI.Services
             }
         }
 
-        public async Task<IdentityResult> RegisterAsync(Object Json)
+        public async Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest)
         {
             try
             {
-                var userDto = JsonConvert.DeserializeObject<UserDto>(Json.ToString() ?? string.Empty);
-                var user = _mapper.Map<User>(userDto);
+                // var userDto = JsonConvert.DeserializeObject<UserDto>(userRequest.ToString() ?? string.Empty);
+                var user = _mapper.Map<User>(userRequest);
                 var claims = new List<Claim>();
-               // claims.Add(new Claim(ClaimTypes.Email, user.Email));
-              //  claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
-                var result = await _userManager.CreateAsync(user, userDto.Password);
-                //await _userManager.AddClaimsAsync(user, claims);
-                //await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
+                claims.Add(new Claim(ClaimTypes.Email, user.Email));
+                claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
+                var result = await _userManager.CreateAsync(user, userRequest.Password);
+                await _userManager.AddClaimsAsync(user, claims);
+                await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
                 return result;
             }
             catch (Exception exception)

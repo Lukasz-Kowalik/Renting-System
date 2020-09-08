@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="DTOs\Response\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

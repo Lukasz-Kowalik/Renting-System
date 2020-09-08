@@ -16,7 +16,7 @@ namespace RentingSystemAPI.Handlers.Commands
 {
     public class RegisterUserHandler : IRequestHandler<RegisterUserCommand, IdentityResult>
     {
-        private readonly IUserService _userService ;
+        private readonly IUserService _userService;
 
         public RegisterUserHandler(IUserService userService)
         {
@@ -25,7 +25,7 @@ namespace RentingSystemAPI.Handlers.Commands
 
         public async Task<IdentityResult> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
         {
-            return await _userService.RegisterAsync(request.Json);
+            return await _userService.RegisterAsync(request.User);
         }
     }
 }
