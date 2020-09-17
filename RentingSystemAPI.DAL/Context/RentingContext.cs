@@ -1,16 +1,30 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.DAL.Seeds;
 
 namespace RentingSystemAPI.DAL.Context
 {
-    public class RentingContext : DbContext
+    public class RentingContext : IdentityDbContext<User, Role, int>
     {
+        public Microsoft.EntityFrameworkCore.DbSet<Item> Items { get; set; }
+        public Microsoft.EntityFrameworkCore.DbSet<Rent> Rents { get; set; }
+        //  public DbSet<AccountPermission> AccountPermissions { get; set; }
+
         public RentingContext(DbContextOptions<RentingContext> options) : base(options)
         {
         }
-    
-        public DbSet<Item> Items { get; set; }
-        public DbSet<Rent> Rents { get; set; }
-        public DbSet<User> Users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AccountPermission>()
+                .HasOne(ap => ap.User)
+                .WithMany()
+                .HasForeignKey(p => p.AccountPermissionId);
+
+            modelBuilder.ApplyConfiguration(new RollsInitializer());
+        }
     }
 }

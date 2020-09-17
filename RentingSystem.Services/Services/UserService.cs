@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Requests;
+using RentingSystem.ViewModels.Authorization;
 using RentingSystem.ViewModels.DTOs;
-using RentingSystem.ViewModels.Models;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -18,16 +18,29 @@ namespace RentingSystem.Services.Services
         {
             _mapper = mapper;
         }
-        
-        public async Task<HttpResponseMessage> RegisterAsync(UserVm userVm, HttpClient client)
+
+        public async Task<HttpResponseMessage> RegisterAsync(UserDto userDto, HttpClient client)
         {
             try
             {
-                var passwordDto = _mapper.Map<PasswordDto>(userVm);
-                var userDto = _mapper.Map<UserDto>(userVm);
-                _mapper.Map<PasswordDto, UserDto>(passwordDto, userDto);
+                var registeredUser = _mapper.Map<RegisteredUser>(userDto);
 
-                var response = await client.SendPostAsync("/CreateUser", userDto);
+                var response = await client.PostAsJsonAsync("/RegisterUser", registeredUser);
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                throw;
+            }
+        }
+
+        public async Task<HttpResponseMessage> LoginAsync(LoginDto userDto, HttpClient client)
+        {
+            try
+            {
+                var response = await client.PostAsJsonAsync("/Login", userDto);
 
                 return response;
             }

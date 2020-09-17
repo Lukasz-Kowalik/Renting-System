@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Helpers.Authorize]
     public class ItemsController : ControllerBase
     {
         private readonly RentingContext _context;

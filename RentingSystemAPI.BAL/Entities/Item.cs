@@ -14,7 +14,7 @@ namespace RentingSystemAPI.BAL.Entities
         public int Quantity { get; set; }
         public int MaxQuantity { get; set; }
         public string Description { get; set; }
-        public virtual ICollection<RentedItem> RentedItems { get; set; }
+        public ICollection<RentedItem> RentedItems { get; set; }
 
     }
 }

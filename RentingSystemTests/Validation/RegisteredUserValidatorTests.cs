@@ -1,6 +1,6 @@
 using FluentValidation.TestHelper;
 using RentingSystem.Validation;
-using RentingSystem.ViewModels.Models;
+using RentingSystem.ViewModels.DTOs;
 using Xunit;
 
 namespace RentingSystemTests.Validation
@@ -14,7 +14,7 @@ namespace RentingSystemTests.Validation
             _validator = new RegisteredUserValidator();
         }
 
-        private readonly UserVm _correctUserVm = new UserVm
+        private readonly UserDto _correctUserDto = new UserDto
         {
             FirstName = "Jon",
             LastName = "Doe",
@@ -23,86 +23,86 @@ namespace RentingSystemTests.Validation
             ConfirmPassword = "POI0998#lk"
         };
 
-        private readonly UserVm _incorrectUserVm = new UserVm();
+        private readonly UserDto _incorrectUserDto = new UserDto();
 
         [Fact]
         public void ShouldHaveErrorWhenFirstNameIsNull()
         {
-            _validator.ShouldHaveValidationErrorFor(user => user.FirstName, _incorrectUserVm);
+            _validator.ShouldHaveValidationErrorFor(user => user.FirstName, _incorrectUserDto);
         }
 
         [Fact]
         public void ShouldNotHaveErrorWhenNameIsSpecified()
         {
-            _validator.ShouldNotHaveValidationErrorFor(user => user.FirstName, _correctUserVm);
+            _validator.ShouldNotHaveValidationErrorFor(user => user.FirstName, _correctUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorWhenLastNameIsNull()
         {
-            _validator.ShouldHaveValidationErrorFor(user => user.LastName, _incorrectUserVm);
+            _validator.ShouldHaveValidationErrorFor(user => user.LastName, _incorrectUserDto);
         }
 
         [Fact]
         public void ShouldNotHaveErrorWhenLastNameIsSpecified()
         {
-            _validator.ShouldNotHaveValidationErrorFor(user => user.LastName, _correctUserVm);
+            _validator.ShouldNotHaveValidationErrorFor(user => user.LastName, _correctUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorWhenEmailIsNull()
         {
-            _validator.ShouldHaveValidationErrorFor(user => user.Email, _incorrectUserVm);
+            _validator.ShouldHaveValidationErrorFor(user => user.Email, _incorrectUserDto);
         }
 
         [Fact]
         public void ShouldNotHaveErrorIfEmailIsCorrect()
         {
-            _validator.ShouldNotHaveValidationErrorFor(user => user.Email, _correctUserVm);
+            _validator.ShouldNotHaveValidationErrorFor(user => user.Email, _correctUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorIfEmailDoNotHaveAtSign()
         {
-            var user = new UserVm { Email = "SAEFD" };
+            var user = new UserDto { Email = "SAEFD" };
             _validator.ShouldHaveValidationErrorFor(user => user.Email, user);
         }
 
         [Fact]
         public void ShouldNotHaveErrorIfPasswordIsNotNull()
         {
-            _validator.ShouldNotHaveValidationErrorFor(user => user.Password, _correctUserVm);
+            _validator.ShouldNotHaveValidationErrorFor(user => user.Password, _correctUserDto);
         }
 
         [Fact]
         public void ShouldNotHaveErrorIfSecondPasswordIsNotNull()
         {
-            _validator.ShouldNotHaveValidationErrorFor(user => user.ConfirmPassword, _correctUserVm);
+            _validator.ShouldNotHaveValidationErrorFor(user => user.ConfirmPassword, _correctUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorIfPasswordIsNull()
         {
-            _validator.ShouldHaveValidationErrorFor(user => user.Password, _incorrectUserVm);
+            _validator.ShouldHaveValidationErrorFor(user => user.Password, _incorrectUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorIfSecondPasswordIsNull()
         {
-            _validator.ShouldHaveValidationErrorFor(user => user.ConfirmPassword, _incorrectUserVm);
+            _validator.ShouldHaveValidationErrorFor(user => user.ConfirmPassword, _incorrectUserDto);
         }
 
         [Fact]
         public void ShouldHaveErrorIfPasswordsAreDifferent()
         {
-            var user = new UserVm { Password = "123", ConfirmPassword = "STREW@#$sad21" };
+            var user = new UserDto { Password = "123", ConfirmPassword = "STREW@#$sad21" };
             _validator.ShouldHaveValidationErrorFor(user => user.ConfirmPassword, user);
         }
 
         [Fact]
         public void ShouldHaveErrorIfPasswordsAreToShort()
         {
-            var user = new UserVm { Password = "123", ConfirmPassword = "123" };
+            var user = new UserDto { Password = "123", ConfirmPassword = "123" };
             _validator.ShouldHaveValidationErrorFor(user => user.ConfirmPassword, user);
         }
     }

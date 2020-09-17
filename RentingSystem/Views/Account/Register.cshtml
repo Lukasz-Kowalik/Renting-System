@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "RegisterUserRequest";
-    @model RentingSystem.ViewModels.Models.UserVm
+   @model RentingSystem.ViewModels.DTOs.UserDto
 }
 <body class="vh-100 d-flex justify-content-center container-fluid">
 <div class="row justify-content-center ultra-width" >
@@ -14,7 +14,7 @@
             <hr/>
         </div>
         <form id="registerForm"
-              asp-action="Register">
+              asp-action="Register" asp-controller="Account" method="post"> 
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
@@ -40,8 +40,10 @@
                 <input type="email"
                        asp-for="Email"
                        class="form-control input-sm"
-                       placeholder="Email Address"/>
+                       placeholder="Email Address" />
                 <span class="text-danger" asp-validation-for="Email"></span>
+                <span class="text-danger">@ViewData["ResponseMessage"]</span>
+
             </div>
 
             <div class="row">

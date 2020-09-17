@@ -1,20 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+
+using RentingSystem.ViewModels.Authorization;
 using RentingSystem.ViewModels.DTOs;
-using RentingSystem.ViewModels.Models;
+using RentingSystem.ViewModels.Vms;
 
 namespace RentingSystem.Mapping
 {
-    public class AutoMapperConfig:Profile
+    public class AutoMapperConfig : Profile
     {
         public AutoMapperConfig()
         {
-            CreateMap<UserVm,UserDto>();
-            CreateMap<UserVm, PasswordDto>();
-            CreateMap<PasswordDto, UserDto>();
+            CreateMap<UserVm, UserDto>();
+
+            //user registration
+
+            CreateMap<UserDto, RegisteredUser>();
+
+            //user logging
+            CreateMap<LoginDto, LoggedUser>();
         }
     }
 }

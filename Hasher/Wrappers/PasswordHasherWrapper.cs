@@ -1,18 +1,32 @@
-﻿using RentingSystem.ViewModels.Authorization;
-using System;
+﻿using System;
+using Hasher.Models;
 
-namespace RentingSystem.ViewModels.DTOs
+namespace Hasher.Wrappers
 {
-    public class PasswordDto
+    public class PasswordHasherWrapper
     {
         public string Password { get; set; }
-
         public string ConfirmPassword { get; set; }
-
         public byte[] PasswordHash { get; set; }
         public byte[] Salt { get; set; }
 
-        public PasswordDto(string password, string confirmPassword)//check if default constructor is needed
+        public PasswordHasherWrapper()
+        {
+        }
+
+        public PasswordHasherWrapper(string password)
+        {
+            Password = password;
+            if (Password == null)
+            {
+                throw new ArgumentException("Value is null");
+            }
+            var passwordHash = new PasswordHash(Password);
+            Salt = passwordHash.Salt;
+            PasswordHash = passwordHash.Hash;
+        }
+
+        public PasswordHasherWrapper(string password, string confirmPassword)
         {
             Password = password;
             ConfirmPassword = confirmPassword;
