@@ -18,11 +18,6 @@ namespace RentingSystemAPI.DAL.Database
                     try
                     {
                         appContext.Database.Migrate();
-
-                        if (appContext.Database.EnsureCreated())
-                        {
-                            RollsInitializer.Seed(appContext);
-                        }
                     }
                     catch (Exception e)
                     {

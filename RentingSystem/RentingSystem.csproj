@@ -52,6 +52,4 @@
   <ItemGroup>
     <ProjectReference Include="..\RentingSystem.Services\RentingSystem.Services.csproj" />
   </ItemGroup>
-
-
 </Project>

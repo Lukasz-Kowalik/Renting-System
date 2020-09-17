@@ -1,15 +1,20 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
+using RentingSystemAPI.DTOs.Request;
+using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Models.Requests;
+using RentingSystemAPI.Models.Responses;
 using RentingSystemAPI.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -19,10 +24,12 @@ namespace RentingSystemAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IUserService _userService;
 
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator, IUserService userService)
         {
             _mediator = mediator;
+            _userService = userService;
         }
 
         [Authorize]
@@ -86,21 +93,16 @@ namespace RentingSystemAPI.Controllers
             };
         }
 
-        //to do
-        //creater jwt
-
         [HttpPost]
-        [Produces("application/json")]
         [Route("/Login")]
+        [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] AuthenticateRequest loginRequest)
         {
             try
             {
                 var command = new LoginCommand(loginRequest);
-                //user
                 var result = await _mediator.Send(command);
                 return Ok(result);
-                //return Redirect(redirect_uri);
             }
             catch (ArgumentNullException e)
             {
@@ -111,23 +113,5 @@ namespace RentingSystemAPI.Controllers
                 return NotFound();
             }
         }
-
-        //[Authorize(AuthenticationSchemes = "refresh")]
-        //[HttpPut("accesstoken", Name = "refresh")]
-        //public IActionResult Refresh()
-        //{
-        //    // Get the value of the claims in the token like this:
-        //    Claim refreshtoken = User.Claims.FirstOrDefault(x => x.Type == "refresh");
-        //    Claim username = User.Claims.FirstOrDefault(x => x.Type == "username");
-        //    try
-        //    {
-        //        var token = TokenManager.RefreshAsync(_mediator, username, refreshtoken).Result;
-        //        return Ok(token);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
     }
 }

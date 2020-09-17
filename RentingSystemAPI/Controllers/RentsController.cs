@@ -27,7 +27,7 @@ namespace RentingSystemAPI.Controllers
         //}
 
         [HttpGet("{userId}")]
-        [Authorize]
+        [Helpers.Authorize]
         public async Task<ActionResult<List<Rent>>> GetRents(int userId)
         {
             var query = new GetAllRentsByUserIdQuery(userId);

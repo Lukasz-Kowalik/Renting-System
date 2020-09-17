@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
-using RentingSystemAPI.DAL.Database;
 using RentingSystemAPI.Helpers;
 using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Services;
@@ -50,7 +50,6 @@ namespace RentingSystemAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "RentingSystemAPI");
                 c.RoutePrefix = string.Empty;
             });
-            DatabaseInit.InitDataBase(app);
 
             app.UseCors(x => x
                 .AllowAnyOrigin()
@@ -65,6 +64,11 @@ namespace RentingSystemAPI
             {
                 endpoints.MapControllers();
             });
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<RentingContext>();
+                context.Database.Migrate();
+            }
         }
 
         public void ConfigureServices(IServiceCollection services)

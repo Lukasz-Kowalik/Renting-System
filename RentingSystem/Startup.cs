@@ -23,40 +23,6 @@ namespace RentingSystem
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            #region config
-
-            //services.AddHttpClient<UserService>
-            services.AddHttpClient("API Client", client =>
-            {
-                client.BaseAddress = new Uri(Configuration["Container:AddressAPI"]);
-                client.DefaultRequestHeaders.Add("Accept", "application/json");
-            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
-            {
-                TimeSpan.FromSeconds(1),
-                TimeSpan.FromSeconds(5),
-                TimeSpan.FromSeconds(10)
-            }));
-
-            services.AddAutoMapper(typeof(Startup));
-
-            services.AddScoped<IUserService, UserService>();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
-
-            services.AddControllersWithViews();
-            services.AddMvc(option =>
-                {
-                    option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                })
-                .AddFluentValidation(
-                    fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
-                    );
-
-            #endregion config
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -85,9 +51,46 @@ namespace RentingSystem
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}");
+                    "default",
+                    "{controller=Home}/{action=Index}");
             });
+        }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            #region config
+
+            services.AddHttpClient("API Client", client =>
+            {
+                client.BaseAddress = new Uri(Configuration["Container:AddressAPI"]);
+                client.DefaultRequestHeaders.Add("Accept", "application/json");
+            }).AddTransientHttpErrorPolicy(builder => builder.WaitAndRetryAsync(new[]
+            {
+                TimeSpan.FromSeconds(1),
+                TimeSpan.FromSeconds(5),
+                TimeSpan.FromSeconds(10)
+            }));
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
+
+            services.AddControllersWithViews();
+            services.AddMvc(option => { option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
+                .AddFluentValidation(
+                    fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
+                );
+
+            services.AddAuthentication("Cookie")
+                .AddCookie("Cookie", config =>
+                {
+                    config.Cookie.Name = "Cookie";
+                    config.LoginPath = "/Account/Login";
+                });
+
+            #endregion
         }
     }
 }

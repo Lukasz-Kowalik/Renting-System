@@ -4,17 +4,20 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using RentingSystemAPI.BAL.Entities;
 using System;
 
-[AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-public class AuthorizeAttribute : Attribute, IAuthorizationFilter
+namespace RentingSystemAPI.Helpers
 {
-    public void OnAuthorization(AuthorizationFilterContext context)
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-        var user = (User)context.HttpContext.Items["User"];
-        if (user == null)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
-            // not logged in
-            context.Result = new JsonResult(new { message = "Unauthorized" })
-            { StatusCode = StatusCodes.Status401Unauthorized };
+            var user = (User)context.HttpContext.Items["User"];
+            if (user == null)
+            {
+                // not logged in
+                context.Result = new JsonResult(new { message = "Unauthorized" })
+                { StatusCode = StatusCodes.Status401Unauthorized };
+            }
         }
     }
 }

@@ -23,9 +23,7 @@ namespace RentingSystem.Services.Services
         {
             try
             {
-                //   var passwordHasher = _mapper.Map<PasswordHasherWrapper>(userDto);
                 var registeredUser = _mapper.Map<RegisteredUser>(userDto);
-                //  _mapper.Map<PasswordHasherWrapper, RegisteredUser>(passwordHasher, registeredUser);
 
                 var response = await client.PostAsJsonAsync("/RegisterUser", registeredUser);
 
@@ -42,12 +40,7 @@ namespace RentingSystem.Services.Services
         {
             try
             {
-                //var passwordHasher = _mapper.Map<PasswordHasherWrapper>(userDto);
-                //var loggedUser = _mapper.Map<LoggedUser>(userDto);
-                // _mapper.Map<PasswordHasherWrapper, LoggedUser>(passwordHasher, loggedUser);
-
                 var response = await client.PostAsJsonAsync("/Login", userDto);
-                //   var token = await ContentFromHttpResponseMessage.Get(response);//jwt
 
                 return response;
             }

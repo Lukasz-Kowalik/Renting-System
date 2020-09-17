@@ -1,22 +1,23 @@
-﻿using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.DAL.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RentingSystemAPI.BAL.Entities;
 using System.Collections.Generic;
 
 namespace RentingSystemAPI.DAL.Seeds
 {
-    public static class RollsInitializer
+    public class RollsInitializer : IEntityTypeConfiguration<Role>
     {
-        public static void Seed(RentingContext context)
+        public void Configure(EntityTypeBuilder<Role> builder)
         {
+            builder.ToTable("Roles");
             var roles = new List<Role>
             {
-                new Role(nameof(AccountTypes.User)),
-                new Role(nameof(AccountTypes.Customer)),
-                new Role(nameof(AccountTypes.Worker)),
-                new Role(nameof(AccountTypes.Admin)),
+                new Role {Id = 1,Name = nameof(AccountTypes.User),NormalizedName  = nameof(AccountTypes.User).ToUpper()},
+                new Role {Id = 2,Name = nameof(AccountTypes.Customer),NormalizedName  = nameof(AccountTypes.Customer).ToUpper()},
+                new Role {Id = 3,Name = nameof(AccountTypes.Worker),NormalizedName  = nameof(AccountTypes.Worker).ToUpper()},
+                new Role {Id = 4,Name = nameof(AccountTypes.Admin),NormalizedName  = nameof(AccountTypes.Admin).ToUpper()},
             };
-            context.Roles.AddRangeAsync(roles).GetAwaiter().GetResult();
-            context.SaveChangesAsync().GetAwaiter().GetResult();
+            builder.HasData(roles);
         }
     }
 }
