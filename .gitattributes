@@ -257,3 +257,6 @@ Procfile          text
 *.*ignore         text
 
 RentingSystem/wwwroot/lib/* linguist-vendored
+
+*.svg linguist-detectable=false
+RentingSystem/wwwroot/lib/* linguist-detectabl=false
