@@ -4,12 +4,13 @@ using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Helpers.Authorize]
+    [Authorize]
     public class ItemsController : ControllerBase
     {
         private readonly RentingContext _context;
@@ -20,6 +21,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
         {
             return await _context.Items.ToListAsync();
