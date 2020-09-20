@@ -260,3 +260,6 @@ RentingSystem/wwwroot/lib/* linguist-vendored
 
 *.svg linguist-detectable=false
 RentingSystem/wwwroot/lib/* linguist-detectabl=false
+*.css linguist-detectable=false
+*.scss linguist-detectable=false
+*.js linguist-detectable=false
