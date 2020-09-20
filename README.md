@@ -1,6 +1,5 @@
 TO DO
 
-- Login/Register user
-- User authentication
+- User authentication X
   - Displaying data depends on permission
   - Add possibility to change users permission
