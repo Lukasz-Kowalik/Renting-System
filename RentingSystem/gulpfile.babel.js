@@ -12,15 +12,9 @@ const config = {
             js: [
                 './wwwroot/js/**/*.js'
             ],
-            minjs: [
-                "./wwwroot/lib/bootstrap/dist/*.min.js",
-                "./wwwroot/lib/DataTables/*.min.js",
-                "./wwwroot/lib/jquery*/**/*.min.js"
-            ],
             sass: [
                 './wwwroot/scss/**/*.scss',
-                "./wwwroot/lib/fontawesome-free/scss/*.scss"
-            ]
+            ],
         },
         dist: {
             main: './wwwroot/dist',
@@ -29,6 +23,7 @@ const config = {
         }
     }
 };
+
 export function js() {
     return gulp.src(config.paths.src.js)
         .pipe(babel({
@@ -39,9 +34,6 @@ export function js() {
         .pipe(concat("main.js"))
         .pipe(gulp.dest(config.paths.dist.js));
 }
-export function libs() {
-    return gulp.src(config.paths.src.minjs).pipe(concat("libs.js")).pipe(gulp.dest(config.paths.dist.js));
-};
 
 export function scss() {
     return gulp.src(config.paths.src.sass)
@@ -61,7 +53,6 @@ exports.default = exports.build;
 
 export function watch() {
     gulp.watch(config.paths.src.sass, scss);
-    gulp.watch(config.paths.src.js + "/main.js", js);
-    gulp.watch(config.paths.src.js + "/libs.js", libs);
+    gulp.watch(config.paths.src.js, js);
     return;
 }

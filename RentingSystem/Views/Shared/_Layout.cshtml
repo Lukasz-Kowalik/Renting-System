@@ -6,17 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link href="~/dist/css/styles.css" rel="stylesheet" />
+
     <link href="https://fonts.googleapis.com/css?family=Merienda|Roboto:400,900&display=swap" rel="stylesheet" />
 
+    <link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css" />
+
+    <link  rel="stylesheet" type="text/css" href="/lib/DataTables/datatables.min.css">
+    <link href="~/dist/css/styles.css" rel="stylesheet" />
     @*
-        <link rel="stylesheet" href="/lib/fontawesome-free/css/all.min.css" />
-            <link rel="stylesheet" type="text/css" href="lib/DataTables/datatables.min.css">
 
-            <link rel="stylesheet" href="/css/style.css" />*@
-
+        <link rel="stylesheet" href="/css/style.css" />*@
 </head>
-@RenderBody()
-@await Html.PartialAsync("_Scripts")
+<body>
+    @RenderBody()
 
+</body>
+@await Html.PartialAsync("_Scripts")
 </html>
