@@ -20,7 +20,8 @@
     "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.2",
     "gulp-uglify-es": "^2.0.0",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "lodash.template": "^4.5.0"
   },
   "dependencies": {
     "core-js": "3"
