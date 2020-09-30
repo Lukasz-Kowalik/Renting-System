@@ -39,6 +39,10 @@ namespace RentingSystem
                 app.UseHsts();
             }
             // app.UseStatusCodePages();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

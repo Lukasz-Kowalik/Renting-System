@@ -51,11 +51,6 @@ namespace RentingSystemAPI
                 c.RoutePrefix = string.Empty;
             });
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();

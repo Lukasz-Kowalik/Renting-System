@@ -1,29 +1,28 @@
 {
   "name": "RentingSystem",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "script.js",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.11.6",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/register": "^7.11.5",
-    "babel": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "del": "^5.1.0",
+    "css-loader": "^4.3.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
-    "gulp-cli": "^2.3.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.1.0",
-    "gulp-uglify": "^3.0.2",
-    "gulp-uglify-es": "^2.0.0",
-    "gulp-util": "^3.0.8",
-    "lodash.template": "^4.5.0"
+    "purify-css": "^1.2.5",
+    "purifycss-webpack": "^0.7.0",
+    "sass": "^1.26.11",
+    "style-loader": "^1.2.1"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/webpack"
   },
   "dependencies": {
-    "core-js": "3"
+    "bootstrap": "^4.5.2",
+    "datatables": "^1.10.18",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
   }
 }

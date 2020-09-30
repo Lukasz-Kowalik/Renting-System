@@ -1,58 +1,25 @@
-﻿import gulp from 'gulp';
-import del from 'del';
-import sass from 'gulp-sass';
-import clean from 'gulp-clean-css';
-import concat from 'gulp-concat';
-import uglify from 'gulp-uglify-es';
-import babel from 'gulp-babel';
+﻿const { series, src, dest } = require('gulp');
+const sass = require('gulp-sass');
+const clean = require('gulp-clean-css');
+const concat = require('gulp-concat');
 
-const config = {
-    paths: {
-        src: {
-            js: [
-                './wwwroot/js/**/*.js'
-            ],
-            sass: [
-                './wwwroot/scss/**/*.scss',
-            ],
-        },
-        dist: {
-            main: './wwwroot/dist',
-            css: './wwwroot/dist/css',
-            js: './wwwroot/dist/js',
-        }
-    }
-};
+const destDir = './wwwroot';
+const sassFiles = [
+    './node_modules/font-awesome/scss/font-awesome.scss',
+    './src/scss/**/*.scss'
+];
 
-export function js() {
-    return gulp.src(config.paths.src.js)
-        .pipe(babel({
-            compact: false,
-            presets: ['@babel/preset-env']
-        }))
-        .pipe(uglify())
-        .pipe(concat("main.js"))
-        .pipe(gulp.dest(config.paths.dist.js));
+function copyFonts() {
+    return src("./node_modules/font-awesome/fonts/*")
+        .pipe(dest(destDir + "/fonts"));
 }
 
-export function scss() {
-    return gulp.src(config.paths.src.sass)
+function scss() {
+    return src(sassFiles)
         .pipe(sass())
+        .pipe(src("./node_modules/datatables/media/css/*.min.css"))
         .pipe(concat("styles.css"))
         .pipe(clean())
-        .pipe(gulp.dest(config.paths.dist.css));
+        .pipe(dest(destDir));
 }
-
-export function Clean() {
-    return del(config.paths.dist.main);
-}
-
-exports.build = gulp.series(Clean, gulp.parallel(scss, js));
-
-exports.default = exports.build;
-
-export function watch() {
-    gulp.watch(config.paths.src.sass, scss);
-    gulp.watch(config.paths.src.js, js);
-    return;
-}
+exports.default = series(scss, copyFonts)

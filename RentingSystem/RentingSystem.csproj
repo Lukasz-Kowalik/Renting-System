@@ -18,12 +18,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="bin\Controllers\AccountController.cs" />
+    <Compile Include="bin\Controllers\AdminPanelController.cs" />
+    <Compile Include="bin\Controllers\CartController.cs" />
+    <Compile Include="bin\Controllers\HomeController.cs" />
+    <Compile Include="bin\Controllers\InfoController.cs" />
+    <Compile Include="bin\Controllers\UserPanelController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="src\scss\style.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\Account\Login.cshtml" />
     <None Include="Views\Account\Register.cshtml" />
     <None Include="Views\AdminPanel\Index.cshtml" />
     <None Include="Views\Cart\Index.cshtml" />
     <None Include="Views\UserPanel\Item.cshtml" />
     <None Include="Views\UserPanel\Rented.cshtml" />
+    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,8 +54,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\dist\" />
-    <Folder Include="wwwroot\dist\js\" />
-    <Folder Include="wwwroot\js\build\" />
+    <Folder Include="tmp\" />
   </ItemGroup>
 </Project>
