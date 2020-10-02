@@ -59,11 +59,6 @@ namespace RentingSystemAPI
             {
                 endpoints.MapControllers();
             });
-            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetRequiredService<RentingContext>();
-                context.Database.Migrate();
-            }
         }
 
         public void ConfigureServices(IServiceCollection services)

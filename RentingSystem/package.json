@@ -1,5 +1,5 @@
 {
-  "name": "RentingSystem",
+  "name": "rentingsystem",
   "version": "1.0.0",
   "main": "script.js",
   "license": "MIT",
@@ -11,13 +11,10 @@
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.1.0",
     "purify-css": "^1.2.5",
-    "purifycss-webpack": "^0.7.0",
     "sass": "^1.26.11",
     "style-loader": "^1.2.1"
   },
-  "scripts": {
-    "build": "./node_modules/.bin/webpack"
-  },
+
   "dependencies": {
     "bootstrap": "^4.5.2",
     "datatables": "^1.10.18",

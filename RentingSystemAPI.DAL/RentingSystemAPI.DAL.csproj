@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200924201019_addedUrlToItems.cs" />
+    <Compile Remove="Migrations\20200924201019_addedUrlToItems.Designer.cs" />
+    <Compile Remove="Migrations\20201001185359_seeding.cs" />
+    <Compile Remove="Migrations\20201001185359_seeding.Designer.cs" />
+    <Compile Remove="Migrations\20201001190729_init.cs" />
+    <Compile Remove="Migrations\20201001190729_init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />

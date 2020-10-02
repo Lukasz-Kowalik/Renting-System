@@ -1,4 +1,4 @@
-﻿namespace RentingSystem.Services
+﻿namespace RentingSystem.Models
 {
     public class AuthenticateResponse
     {

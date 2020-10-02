@@ -18,15 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="bin\Controllers\AccountController.cs" />
-    <Compile Include="bin\Controllers\AdminPanelController.cs" />
-    <Compile Include="bin\Controllers\CartController.cs" />
-    <Compile Include="bin\Controllers\HomeController.cs" />
-    <Compile Include="bin\Controllers\InfoController.cs" />
-    <Compile Include="bin\Controllers\UserPanelController.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="src\scss\style.scss" />
   </ItemGroup>
 

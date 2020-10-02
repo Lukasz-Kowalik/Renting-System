@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.DAL.Seeds;
+using RentingSystemAPI.DAL.Initializer;
 
 namespace RentingSystemAPI.DAL.Context
 {
     public class RentingContext : IdentityDbContext<User, Role, int>
     {
-        public Microsoft.EntityFrameworkCore.DbSet<Item> Items { get; set; }
-        public Microsoft.EntityFrameworkCore.DbSet<Rent> Rents { get; set; }
-        //  public DbSet<AccountPermission> AccountPermissions { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Rent> Rents { get; set; }
+        public DbSet<RentedItem> RentedItems { get; set; }
 
         public RentingContext(DbContextOptions<RentingContext> options) : base(options)
         {
@@ -24,7 +24,14 @@ namespace RentingSystemAPI.DAL.Context
                 .WithMany()
                 .HasForeignKey(p => p.AccountPermissionId);
 
+            //Initializer
             modelBuilder.ApplyConfiguration(new RollsInitializer());
+
+            //Seeding
+            //modelBuilder.ApplyConfiguration(new ItemsSeed());
+            //modelBuilder.ApplyConfiguration(new RentedItemsSeed());
+            //modelBuilder.ApplyConfiguration(new RentsSeed());
+            //modelBuilder.ApplyConfiguration(new UserSeed());
         }
     }
 }

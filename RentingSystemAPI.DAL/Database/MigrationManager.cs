@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DAL.Seeds;
 using System;
+using RentingSystemAPI.DAL.Initializer;
 
 namespace RentingSystemAPI.DAL.Database
 {
@@ -13,17 +14,15 @@ namespace RentingSystemAPI.DAL.Database
         {
             using (var scope = host.Services.CreateScope())
             {
-                using (var appContext = scope.ServiceProvider.GetRequiredService<RentingContext>())
+                var services = scope.ServiceProvider;
+                try
                 {
-                    try
-                    {
-                        appContext.Database.Migrate();
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e);
-                        throw;
-                    }
+                    var context = services.GetRequiredService<RentingContext>();
+                    DbInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    throw;
                 }
             }
 

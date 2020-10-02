@@ -223,7 +223,7 @@ namespace RentingSystemAPI.DAL.Migrations
 
                     b.HasIndex("RentId");
 
-                    b.ToTable("RentedItem");
+                    b.ToTable("RentedItems");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Role", b =>
@@ -258,28 +258,28 @@ namespace RentingSystemAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "74b8468b-5566-443a-a2a9-cf21a4857a24",
+                            ConcurrencyStamp = "93476fe6-c019-4691-9729-de903d068d4e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "314acd3b-a853-4002-8b5c-7d92eed28d1c",
+                            ConcurrencyStamp = "b268c57f-aa2e-4359-a1f3-774ba24c3c83",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "6d39b8c6-8f18-48fe-865c-98f15a356200",
+                            ConcurrencyStamp = "7017e13b-d2e8-4013-b636-1aedcdf501e7",
                             Name = "Worker",
                             NormalizedName = "WORKER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "2842cf8c-8964-4d12-92cc-8c3dcdb12448",
+                            ConcurrencyStamp = "e1d34c3a-0097-4693-81b6-b947f6c04a43",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

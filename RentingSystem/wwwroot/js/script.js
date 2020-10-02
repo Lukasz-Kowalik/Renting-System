@@ -1,5 +1,3 @@
-import { Items } from "./Constants/Routs.js";
-
 export const Host = "http://localhost:8000/";
 export const Items = Host + "Items";
 export const RentedItems = Host + "RentedItems";

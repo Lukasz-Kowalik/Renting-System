@@ -10,14 +10,14 @@ using RentingSystemAPI.DAL.Context;
 namespace RentingSystemAPI.DAL.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20200816183030_init")]
+    [Migration("20201001200500_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.7")
+                .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -225,7 +225,7 @@ namespace RentingSystemAPI.DAL.Migrations
 
                     b.HasIndex("RentId");
 
-                    b.ToTable("RentedItem");
+                    b.ToTable("RentedItems");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Role", b =>
@@ -254,7 +254,37 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConcurrencyStamp = "93476fe6-c019-4691-9729-de903d068d4e",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConcurrencyStamp = "b268c57f-aa2e-4359-a1f3-774ba24c3c83",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ConcurrencyStamp = "7017e13b-d2e8-4013-b636-1aedcdf501e7",
+                            Name = "Worker",
+                            NormalizedName = "WORKER"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ConcurrencyStamp = "e1d34c3a-0097-4693-81b6-b947f6c04a43",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.User", b =>
@@ -307,24 +337,15 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
-
-                    b.Property<int>("UserType")
-                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -337,29 +358,6 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
-
-                    b.HasDiscriminator<int>("UserType").HasValue(0);
-                });
-
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Customer", b =>
-                {
-                    b.HasBaseType("RentingSystemAPI.BAL.Entities.User");
-
-                    b.HasDiscriminator().HasValue(1);
-                });
-
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Worker", b =>
-                {
-                    b.HasBaseType("RentingSystemAPI.BAL.Entities.Customer");
-
-                    b.HasDiscriminator().HasValue(2);
-                });
-
-            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Admin", b =>
-                {
-                    b.HasBaseType("RentingSystemAPI.BAL.Entities.Worker");
-
-                    b.HasDiscriminator().HasValue(3);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
