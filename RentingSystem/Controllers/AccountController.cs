@@ -1,11 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -13,22 +7,33 @@ using Newtonsoft.Json;
 using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.ViewModels.DTOs;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
+using System.Net.Http;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using AutoMapper;
 
 namespace RentingSystem.bin.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly ILogger<AccountController> _logger;
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(ILogger<AccountController> logger, IUserService userService, IHttpClientFactory httpClientFactory, IConfiguration config)
+        public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper,
+            SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
         {
-            _logger = logger;
             _userService = userService;
             _httpClientFactory = httpClientFactory;
-            _config = config;
+            _mapper = mapper;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -52,7 +57,6 @@ namespace RentingSystem.bin.Controllers
             {
                 var responseContent = await response.Content.ReadAsStringAsync();
                 var user = JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
-
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(user.Token);
 
@@ -66,6 +70,10 @@ namespace RentingSystem.bin.Controllers
                 var userPrincipal = new ClaimsPrincipal(new[] { userIdentity, tokenIdentity });
 
                 await HttpContext.SignInAsync(userPrincipal);
+                var userModel = _mapper.Map<IdentityUser>(user);
+
+                await _signInManager.SignInAsync(userModel, false);
+
                 var ReturnUrl = (string)TempData["ReturnUrl"];
 
                 if (ReturnUrl != null)

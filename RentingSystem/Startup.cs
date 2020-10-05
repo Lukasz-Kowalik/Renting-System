@@ -1,12 +1,16 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using IdentityExample.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
+using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
@@ -65,6 +69,11 @@ namespace RentingSystem
         {
             #region config
 
+            services.AddDbContext<AppDbContext>(config =>
+            {
+                config.UseInMemoryDatabase("Memory");
+            });
+
             services.AddHttpClient("API Client", client =>
             {
                 client.BaseAddress = new Uri(Configuration["Container:AddressAPI"]);
@@ -75,12 +84,14 @@ namespace RentingSystem
                 TimeSpan.FromSeconds(5),
                 TimeSpan.FromSeconds(10)
             }));
-
             services.AddAutoMapper(typeof(Startup));
-
             services.AddScoped<IUserService, UserService>();
-            services.AddRazorPages().AddRazorRuntimeCompilation();
 
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
             services.AddMvc(option => { option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .AddFluentValidation(

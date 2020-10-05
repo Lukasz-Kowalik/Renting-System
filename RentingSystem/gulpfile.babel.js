@@ -1,25 +1,69 @@
-﻿const { series, src, dest } = require('gulp');
+﻿const { series, src, dest, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const clean = require('gulp-clean-css');
 const concat = require('gulp-concat');
+const uglify = require('gulp-uglify');
+const del = require("del")
 
+const fontDir = './node_modules/@fortawesome/fontawesome-free/'
 const destDir = './wwwroot';
 const sassFiles = [
-    './node_modules/font-awesome/scss/font-awesome.scss',
-    './src/scss/**/*.scss'
+    fontDir + 'scss/fontawesome.scss',
+];
+const theme = './src/scss/**/*.scss'
+const minjs = [
+    "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
+    "./node_modules/datatables/media/js/*.min.js"
 ];
 
+function jq() {
+    return src("./node_modules/jquery/dist/jquery.min.js")
+        .pipe(dest(destDir + "/js"));
+}
+function libs() {
+    return src(minjs)
+        .pipe(uglify())
+        .pipe(concat("libs.min.js"))
+        .pipe(dest(destDir + "/js"));
+}
+
 function copyFonts() {
-    return src("./node_modules/font-awesome/fonts/*")
-        .pipe(dest(destDir + "/fonts"));
+    return src(fontDir + "webfonts/*")
+        .pipe(dest(destDir + "/webfonts"));
+}
+
+function Styles() {
+    return src(theme)
+        .pipe(sass())
+        .pipe(concat("style.css"))
+        .pipe(clean())
+        .pipe(dest(destDir + "/css"));
 }
 
 function scss() {
     return src(sassFiles)
         .pipe(sass())
-        .pipe(src("./node_modules/datatables/media/css/*.min.css"))
-        .pipe(concat("styles.css"))
+        .pipe(concat("libs.css"))
         .pipe(clean())
+        .pipe(dest(destDir + "/css"));
+}
+
+function cleanDir() {
+    return del(destDir);
+}
+
+function coppyJs() {
+    return src("./src/js/*")
+        .pipe(dest(destDir + "/js"));
+}
+
+function svg() {
+    src(fontDir + "svgs/brands/*").pipe(dest(destDir + "/svgs/brands/"));
+    src(fontDir + "svgs/regular/*").pipe(dest(destDir + "/svgs/regular/"));
+    src(fontDir + "svgs/solid/*").pipe(dest(destDir + "/svgs/solid/"));
+    src(fontDir + "sprites/*").pipe(dest(destDir + "/sprites"));
+    return src("./src/favicon.*")
         .pipe(dest(destDir));
 }
-exports.default = series(scss, copyFonts)
+
+exports.default = series(cleanDir, jq, parallel(copyFonts, coppyJs, scss, libs, Styles, svg));

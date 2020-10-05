@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-
+using Microsoft.AspNetCore.Identity;
+using RentingSystem.Models;
 using RentingSystem.ViewModels.Authorization;
 using RentingSystem.ViewModels.DTOs;
 using RentingSystem.ViewModels.Vms;
@@ -18,6 +19,7 @@ namespace RentingSystem.Mapping
 
             //user logging
             CreateMap<LoginDto, LoggedUser>();
+            CreateMap<AuthenticateResponse, IdentityUser>();
         }
     }
 }

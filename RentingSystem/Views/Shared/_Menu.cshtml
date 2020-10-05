@@ -1,17 +1,25 @@
 ﻿@using RentingSystem.Helpers
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
 <nav class="col-sm-12 col-lg-2 col-md-4
             navbar navbar-expand-md navbar-light
             d-flex flex-md-column flex-stretch
            text-white p-0 bg-info ">
-    <div class="nav-brand py-2 d-lg-none text-center ">
-        user small
-    </div>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="nav-brand py-2 d-lg-none text-center ">
+            @user.Email
+        </div>
 
-    <div class="nav-brand py-2 text-center w-100
+        <div class="nav-brand py-2 text-center w-100
              d-none d-lg-block shadow ">
-        user large
-    </div>
-
+            @user.Email
+        </div>
+    }
     <button class="navbar-toggler mr-4 m-2"
             type="button"
             data-toggle="collapse"
