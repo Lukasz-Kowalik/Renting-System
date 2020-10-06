@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -93,6 +94,19 @@ namespace RentingSystemAPI.Controllers
             };
         }
 
+        /// <summary>
+        /// Login
+        /// </summary>
+        /// <remarks>
+        ///
+        ///     {
+        ///          "Email":"adsl@gmai.com",
+        ///          "Password": "QWE12#asd"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="loginRequest"></param>
+        /// <returns>AuthenticateResponse</returns>
         [HttpPost]
         [Route("/Login")]
         [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]

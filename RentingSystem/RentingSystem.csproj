@@ -28,7 +28,6 @@
     <None Include="Views\Cart\Index.cshtml" />
     <None Include="Views\UserPanel\Item.cshtml" />
     <None Include="Views\UserPanel\Rented.cshtml" />
-    <None Include="wwwroot\js\script.js" />
   </ItemGroup>
 
   <ItemGroup>

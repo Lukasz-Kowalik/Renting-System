@@ -10,7 +10,6 @@ namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class ItemsController : ControllerBase
     {
         private readonly RentingContext _context;
@@ -21,7 +20,6 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
         {
             return await _context.Items.ToListAsync();

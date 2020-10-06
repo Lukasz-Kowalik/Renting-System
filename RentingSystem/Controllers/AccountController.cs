@@ -72,7 +72,7 @@ namespace RentingSystem.bin.Controllers
                 await HttpContext.SignInAsync(userPrincipal);
                 var userModel = _mapper.Map<IdentityUser>(user);
 
-                await _signInManager.SignInAsync(userModel, false);
+                // await _signInManager.SignInAsync(userModel, false);
 
                 var ReturnUrl = (string)TempData["ReturnUrl"];
 

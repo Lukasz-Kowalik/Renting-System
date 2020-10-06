@@ -3,12 +3,17 @@ const sass = require('gulp-sass');
 const clean = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
-const del = require("del")
+const del = require("del");
 
 const fontDir = './node_modules/@fortawesome/fontawesome-free/'
 const destDir = './wwwroot';
 const sassFiles = [
-    fontDir + 'scss/fontawesome.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/brands.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/regular.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/solid.scss',
+    './node_modules/@fortawesome/fontawesome-free/scss/v4-shims.scss'
 ];
 const theme = './src/scss/**/*.scss'
 const minjs = [
@@ -66,4 +71,5 @@ function svg() {
         .pipe(dest(destDir));
 }
 
-exports.default = series(cleanDir, jq, parallel(copyFonts, coppyJs, scss, libs, Styles, svg));
+exports.default = series(cleanDir, jq,
+    parallel(copyFonts, coppyJs, scss, libs, Styles, svg));
