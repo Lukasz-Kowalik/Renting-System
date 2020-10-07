@@ -6,7 +6,7 @@
 
 $(document).ready(function () {
     $('#Item-table').DataTable({
-        ajax: Items
+        ajax: { Items }
     });
     let zmienna = 5;
     for (var i = 0; i < zmienna; i++) {

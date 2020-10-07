@@ -27,8 +27,7 @@ function jq() {
 }
 function libs() {
     return src(minjs)
-        .pipe(uglify())
-        .pipe(concat("libs.min.js"))
+        //    .pipe(concat("libs.min.js"))
         .pipe(dest(destDir + "/js"));
 }
 
