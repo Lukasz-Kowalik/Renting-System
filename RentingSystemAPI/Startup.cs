@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,7 +14,6 @@ using RentingSystemAPI.Helpers;
 using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Services;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -55,7 +53,14 @@ namespace RentingSystemAPI
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             app.UseMiddleware<JwtMiddleware>();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -82,14 +87,16 @@ namespace RentingSystemAPI
 
             #endregion dbConfig
 
-            services.AddCors(options => options.AddPolicy(_origins, builder =>
-                {
-                    builder.WithOrigins(Configuration["Cors:https"],
-                            Configuration["Cors:http"])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                })
-            );
+            services.AddCors();
+
+            //services.AddCors(options => options.AddPolicy(_origins, builder =>
+            //    {
+            //        builder.WithOrigins(Configuration["Cors:https"],
+            //                Configuration["Cors:http"])
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    })
+            //);
 
             #region authentication
 
@@ -115,7 +122,6 @@ namespace RentingSystemAPI
             services.AddMediatR(typeof(Startup));
 
             services.AddControllers();
-            // RegisterUserRequest the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RentingSystemApi", Version = "v1" });

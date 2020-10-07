@@ -4,7 +4,6 @@ using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RentingSystemAPI.Controllers
 {
