@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
+using RentingSystemAPI.Helpers.Attributes;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Queries;

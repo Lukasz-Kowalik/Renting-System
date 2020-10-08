@@ -1,15 +1,22 @@
- const Host = "http://localhost:8000/";
- const Items = Host + "Items";
- const RentedItems = Host + "RentedItems";
- const Rents = Host + "Rents";
- const User = Host + "Users";
+const Host = "http://localhost:8000/";
+const Items = Host + "Items/getList";
+const RentedItems = Host + "RentedItems";
+const Rents = Host + "Rents";
+const User = Host + "Users";
 
 $(document).ready(function () {
-    $('#Item-table').DataTable({
-        ajax: Items
+    $.ajax({
+        'url': Items,
+        'method': "GET",
+        'contentType': 'application/json'
+    }).done(function (data) {
+        $('#Item-table').dataTable({
+            "aaData": data,
+            "columns": [
+                { "data": "itemId" },
+                { "data": "name" },
+                { "data": "quantity" }
+            ]
+        });
     });
-    let zmienna = 5;
-    for (var i = 0; i < zmienna; i++) {
-        console.log(i);
-    }
 });

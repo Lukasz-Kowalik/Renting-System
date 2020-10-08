@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RentingSystem.bin.Controllers
+namespace RentingSystem.Controllers
 {
     public class CartController : Controller
     {

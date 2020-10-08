@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.Helpers.Attributes;
 using RentingSystemAPI.Queries;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,7 @@ namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
+    [Authorize]
     public class RentsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -27,7 +28,6 @@ namespace RentingSystemAPI.Controllers
         //}
 
         [HttpGet("{userId}")]
-        [Helpers.Authorize]
         public async Task<ActionResult<List<Rent>>> GetRents(int userId)
         {
             var query = new GetAllRentsByUserIdQuery(userId);

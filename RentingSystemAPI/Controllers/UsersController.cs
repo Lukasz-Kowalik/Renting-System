@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
@@ -13,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RentingSystemAPI.Helpers.Attributes;
+
 
 namespace RentingSystemAPI.Controllers
 {
@@ -43,8 +44,8 @@ namespace RentingSystemAPI.Controllers
             return Ok(result);
         }
 
-        [Authorize]
         [HttpGet("{id}")]
+        [Authorize]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             var query = new GetUserByIdQuery(id);
@@ -72,7 +73,6 @@ namespace RentingSystemAPI.Controllers
         /// <returns>Response code</returns>
 
         [HttpPost]
-        [AllowAnonymous]
         [Produces("application/json")]
         [Route("/RegisterUser")]
         public async Task<IActionResult> RegisterUserAsync([FromBody] RegisterUserRequest registeredUser)
@@ -106,7 +106,6 @@ namespace RentingSystemAPI.Controllers
         /// <param name="loginRequest"></param>
         /// <returns>AuthenticateResponse</returns>
         [HttpPost]
-        [AllowAnonymous]
         [Route("/Login")]
         [ProducesResponseType(typeof(AuthenticateResponse), StatusCodes.Status200OK)]
         public async Task<IActionResult> Login([FromBody] AuthenticateRequest loginRequest)

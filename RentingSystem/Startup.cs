@@ -1,6 +1,5 @@
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using IdentityExample.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
-using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
@@ -42,16 +40,17 @@ namespace RentingSystem
                 //   The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseRouting();
             // app.UseStatusCodePages();
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseRouting();
+   
 
             app.UseAuthentication();
             app.UseAuthorization();

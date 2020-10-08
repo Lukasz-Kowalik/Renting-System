@@ -1,13 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using RentingSystem.Models;
-using RentingSystem.Services.Interfaces;
-using RentingSystem.ViewModels.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
@@ -15,8 +6,15 @@ using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RentingSystem.Models;
+using RentingSystem.Services.Interfaces;
+using RentingSystem.ViewModels.DTOs;
 
-namespace RentingSystem.bin.Controllers
+namespace RentingSystem.Controllers
 {
     public class AccountController : Controller
     {
@@ -37,9 +35,9 @@ namespace RentingSystem.bin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login(string ReturnUrl)
+        public IActionResult Login(string returnUrl)
         {
-            TempData["ReturnUrl"] = ReturnUrl;
+            TempData["returnUrl"] = returnUrl;
             return View();
         }
 
@@ -72,14 +70,17 @@ namespace RentingSystem.bin.Controllers
                 await HttpContext.SignInAsync(userPrincipal);
                 var userModel = _mapper.Map<IdentityUser>(user);
 
-                // await _signInManager.SignInAsync(userModel, false);
+                //await   HttpContext.DefaultRequestHeaders.Authorization =
+                //       new AuthenticationHeaderValue("Bearer", token);
+                //await _signInManager.SignInAsync(userModel, false, "Bearer");
 
-                var ReturnUrl = (string)TempData["ReturnUrl"];
+                var returnUrl = (string)TempData["returnUrl"];
 
-                if (ReturnUrl != null)
+                if (returnUrl != null)
                 {
-                    return Redirect(ReturnUrl);
+                    return RedirectToPage(returnUrl);
                 }
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -89,6 +90,7 @@ namespace RentingSystem.bin.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
+
             return RedirectToAction("Index", "Home");
         }
 

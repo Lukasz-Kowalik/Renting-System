@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Models;
 
-namespace RentingSystem.bin.Controllers
+namespace RentingSystem.Controllers
 {
     public class HomeController : Controller
     {
