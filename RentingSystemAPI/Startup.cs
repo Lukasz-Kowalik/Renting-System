@@ -87,16 +87,14 @@ namespace RentingSystemAPI
 
             #endregion dbConfig
 
-            services.AddCors();
-
-            //services.AddCors(options => options.AddPolicy(_origins, builder =>
-            //    {
-            //        builder.WithOrigins(Configuration["Cors:https"],
-            //                Configuration["Cors:http"])
-            //            .AllowAnyHeader()
-            //            .AllowAnyMethod();
-            //    })
-            //);
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.WithOrigins(Configuration["Cors:https"],
+                            Configuration["Cors:http"])
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                })
+            );
 
             #region authentication
 

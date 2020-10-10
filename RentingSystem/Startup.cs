@@ -2,7 +2,6 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,8 +49,6 @@ namespace RentingSystem
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-   
-
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -86,23 +83,18 @@ namespace RentingSystem
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
-
             services.AddRazorPages().AddRazorRuntimeCompilation();
-            services.AddControllersWithViews();
             services.AddMvc(option => { option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .AddFluentValidation(
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
                 );
 
             services.AddAuthentication("Cookie")
-                .AddCookie("Cookie", config =>
-                {
-                    config.Cookie.Name = "Cookie";
-                    config.LoginPath = "/Account/Login";
-                });
+                                .AddCookie("Cookie", config =>
+                                {
+                                    config.Cookie.Name = "Cookie";
+                                    config.LoginPath = "/Account/Login";
+                                });
 
             #endregion
         }

@@ -1,18 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using RentingSystem.Models;
+using RentingSystem.Services.Interfaces;
+using RentingSystem.ViewModels.DTOs;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using RentingSystem.Models;
-using RentingSystem.Services.Interfaces;
-using RentingSystem.ViewModels.DTOs;
 
 namespace RentingSystem.Controllers
 {
@@ -21,17 +20,12 @@ namespace RentingSystem.Controllers
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMapper _mapper;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper,
-            SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+        public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper)
         {
             _userService = userService;
             _httpClientFactory = httpClientFactory;
             _mapper = mapper;
-            _signInManager = signInManager;
-            _userManager = userManager;
         }
 
         [HttpGet]
@@ -68,11 +62,6 @@ namespace RentingSystem.Controllers
                 var userPrincipal = new ClaimsPrincipal(new[] { userIdentity, tokenIdentity });
 
                 await HttpContext.SignInAsync(userPrincipal);
-                var userModel = _mapper.Map<IdentityUser>(user);
-
-                //await   HttpContext.DefaultRequestHeaders.Authorization =
-                //       new AuthenticationHeaderValue("Bearer", token);
-                //await _signInManager.SignInAsync(userModel, false, "Bearer");
 
                 var returnUrl = (string)TempData["returnUrl"];
 

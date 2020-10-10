@@ -19,7 +19,6 @@ namespace RentingSystem.Mapping
 
             //user logging
             CreateMap<LoginDto, LoggedUser>();
-            CreateMap<AuthenticateResponse, IdentityUser>();
         }
     }
 }
