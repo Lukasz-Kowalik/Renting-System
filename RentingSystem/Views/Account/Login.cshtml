@@ -28,7 +28,6 @@
                                asp-for="Email"
                                id="email"
                                placeholder="E-mail" />
-                        @*<span class="text-danger" asp-validation-for="Email"></span>*@
                     </div>
                     <div class="input-group ">
                         <div class="input-group-prepend">
@@ -41,8 +40,11 @@
                                asp-for="Password"
                                id="password"
                                placeholder="Password" />
-                        @*<span class="text-danger" asp-validation-for="Password"></span>*@
                     </div>
+                    <div class="custom-control invalid-feedback">
+                        @ViewData["Response"]
+                    </div>
+
                     <div class="d-flex justify-content-between
            input-group mt-2 ">
                         <a asp-controller="Account" asp-action="ForgotPassword"

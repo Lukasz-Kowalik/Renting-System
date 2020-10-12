@@ -1,16 +1,9 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Newtonsoft.Json;
-using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
-using RentingSystemAPI.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
+using RentingSystemAPI.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
-using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Handlers.Commands
 {

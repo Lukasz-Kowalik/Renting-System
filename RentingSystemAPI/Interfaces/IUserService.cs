@@ -14,7 +14,5 @@ namespace RentingSystemAPI.Interfaces
         Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest);
 
         User GetById(int id);
-
-        object GenToken(string grant_type, string code, string redirect_uri, string client_id);
     }
 }

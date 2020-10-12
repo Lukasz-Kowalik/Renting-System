@@ -42,11 +42,10 @@ namespace RentingSystemAPI.Services
         public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-
             var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
             if (result.Succeeded)
             {
-                var token = generateJwtToken(user);
+                var token = await generateJwtToken(user);
 
                 return new AuthenticateResponse(user, token);
             }
@@ -61,6 +60,7 @@ namespace RentingSystemAPI.Services
             try
             {
                 var user = _mapper.Map<User>(userRequest);
+
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
                 var result = await _userManager.CreateAsync(user, userRequest.Password);
@@ -75,17 +75,9 @@ namespace RentingSystemAPI.Services
             }
         }
 
-        private string generateJwtToken(User user)
+        private async Task<string> generateJwtToken(User user)
         {
-            var claims = new List<Claim>();
-
-            var roles = _context.UserRoles.Join(_context.Roles, u => u.UserId, r => r.Id,
-                (u, r) => new { u.UserId, u.RoleId, r.Name });
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role.Name));
-            }
+            var claims = await _userManager.GetClaimsAsync(user);
 
             // generate token that is valid for 1 day
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -102,43 +94,6 @@ namespace RentingSystemAPI.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
             return tokenHandler.WriteToken(token);
-        }
-
-        public object GenToken(string grant_type, // flow of access_token request
-            string code, // confirmation of the authentication process
-            string redirect_uri,
-            string client_id)
-        {
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, "some_id"),
-                new Claim("granny", "cookie")
-            };
-
-            var secretBytes = Encoding.UTF8.GetBytes(_appSettings.Key);
-            var key = new SymmetricSecurityKey(secretBytes);
-            var algorithm = SecurityAlgorithms.HmacSha256;
-
-            var signingCredentials = new SigningCredentials(key, algorithm);
-
-            var token = new JwtSecurityToken(
-                "ser",
-                "cli",
-                claims,
-                notBefore: DateTime.Now,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials);
-
-            var access_token = new JwtSecurityTokenHandler().WriteToken(token);
-
-            var responseObject = new
-            {
-                access_token,
-                token_type = "Bearer",
-                raw_claim = "oauthTutorial"
-            };
-
-            return responseObject;
         }
 
         public User GetById(int id)

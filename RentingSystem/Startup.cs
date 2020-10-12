@@ -3,7 +3,6 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,6 +11,9 @@ using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RentingSystem.Models;
 
 namespace RentingSystem
 {
@@ -39,16 +41,15 @@ namespace RentingSystem
                 //   The default HSTS value is 30 days.You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseHttpsRedirection();
             app.UseRouting();
-            // app.UseStatusCodePages();
             app.UseCors(x => x
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -70,6 +71,7 @@ namespace RentingSystem
                 config.UseInMemoryDatabase("Memory");
             });
 
+            services.AddScoped<DbContext, AppDbContext>();
             services.AddHttpClient("API Client", client =>
             {
                 client.BaseAddress = new Uri(Configuration["Container:AddressAPI"]);
@@ -83,18 +85,44 @@ namespace RentingSystem
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
 
+            services.AddIdentity<IdentityUser, IdentityRole>(
+                    congif =>
+                    {
+                        congif.Password.RequireDigit = false;
+                        congif.Password.RequireLowercase = false;
+                        congif.Password.RequireNonAlphanumeric = false;
+                        congif.Password.RequireUppercase = false;
+                        congif.Password.RequiredLength = 8;
+                    })
+                //.AddUserManager<UserManager<IdentityUser>>()
+                //.AddRoleManager<RoleManager<IdentityRole>>()
+                //.AddSignInManager<SignInManager<IdentityUser>>()
+                //.AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Account/Login";
+                config.LogoutPath = "/Account/Logout";
+            });
+
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
+
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc(option => { option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .AddFluentValidation(
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
                 );
 
-            services.AddAuthentication("Cookie")
-                                .AddCookie("Cookie", config =>
-                                {
-                                    config.Cookie.Name = "Cookie";
-                                    config.LoginPath = "/Account/Login";
-                                });
+            //services.AddAuthentication("Cookie")
+            //                    .AddCookie("Cookie", config =>
+            //                    {
+            //                        config.Cookie.Name = "Cookie";
+            //                        config.LoginPath = "/Account/Login";
+            //                        config.LogoutPath = "/Account/Logout";
+            //                    });
 
             #endregion
         }

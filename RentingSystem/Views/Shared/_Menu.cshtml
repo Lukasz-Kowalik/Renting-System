@@ -1,13 +1,22 @@
 ﻿@using RentingSystem.Helpers
-
-
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<IdentityUser> SignInManager
+@*@{
+        var cookie = Context.Request.Cookies["Cookie"];
+    }*@
 <nav class="col-sm-12 col-lg-2 col-md-4
             navbar navbar-expand-md navbar-light
             d-flex flex-md-column flex-stretch
            text-white p-0 bg-info ">
-   
-   
-    
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <p>
+
+            sdfasdfsdfasdfasdfasdfhauidsfghjiusfdghoisjredhfiguhfdsfiuhgsdfjighbsdfihgiu
+        </p>
+
+    }
     <button class="navbar-toggler mr-4 m-2"
             type="button"
             data-toggle="collapse"
@@ -28,6 +37,22 @@
                     Items
                 </a>
             </li>
+
+            @*@if (cookie == null)
+                {*@
+
+            <li class="nav-item shadow">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Login">Login</a>
+            </li>
+            <li class="nav-item shadow">
+                <a class="nav-link  text-white px-0"
+                   asp-controller="Account" asp-action="Register">Register</a>
+            </li>
+            @*}
+                else
+                {*@
+
             <li class="nav-itemborder-bottom shadow border-bottom @Html.IsSelected("Cart", "Index", "bg-primary")">
                 <a class="nav-link  text-white px-0"
                    asp-action="Index" asp-controller="Cart">Cart</a>
@@ -44,14 +69,8 @@
                 <a class="nav-link  text-white px-0"
                    asp-controller="Account" asp-action="Logout">Logout</a>
             </li>
-            <li class="nav-item shadow">
-                <a class="nav-link  text-white px-0"
-                   asp-controller="Account" asp-action="Login">Login</a>
-            </li>
-            <li class="nav-item shadow">
-                <a class="nav-link  text-white px-0"
-                   asp-controller="Account" asp-action="Register">Register</a>
-            </li>
+
+            @*}*@
         </ul>
     </div>
 </nav>

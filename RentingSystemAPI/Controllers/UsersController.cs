@@ -14,7 +14,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using RentingSystemAPI.Helpers.Attributes;
 
-
 namespace RentingSystemAPI.Controllers
 {
     // [Authorize]
@@ -23,12 +22,10 @@ namespace RentingSystemAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IUserService _userService;
 
-        public UsersController(IMediator mediator, IUserService userService)
+        public UsersController(IMediator mediator)
         {
             _mediator = mediator;
-            _userService = userService;
         }
 
         [HttpGet]

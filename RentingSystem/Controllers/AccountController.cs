@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.ViewModels.DTOs;
-using System.Collections.Generic;
+using System;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace RentingSystem.Controllers
@@ -20,12 +21,20 @@ namespace RentingSystem.Controllers
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMapper _mapper;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
+        private readonly AppDbContext _context;
 
-        public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper)
+        public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper, RoleManager<IdentityRole> roleManager, SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, AppDbContext context)
         {
             _userService = userService;
             _httpClientFactory = httpClientFactory;
             _mapper = mapper;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _context = context;
         }
 
         [HttpGet]
@@ -43,26 +52,52 @@ namespace RentingSystem.Controllers
                 return View();
             }
 
-            var client = _httpClientFactory.CreateClient("API Client");
-            var response = await _userService.LoginAsync(userDto, client);
-            if (response.IsSuccessStatusCode)
+            try
             {
+                var client = _httpClientFactory.CreateClient("API Client");
+                var response = await _userService.LoginAsync(userDto, client);
+
+                if (!response.IsSuccessStatusCode) throw new Exception("");
+
                 var responseContent = await response.Content.ReadAsStringAsync();
-                var user = JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
+                var userResponse = JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
                 var handler = new JwtSecurityTokenHandler();
-                var token = handler.ReadJwtToken(user.Token);
+                var token = handler.ReadJwtToken(userResponse.Token);
+                var user = _mapper.Map<IdentityUser>(userResponse);
+                var role = token.Claims.FirstOrDefault(x => x.Type.Contains("role"))?.Value;
 
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, user.Email),
-                };
+                if (role == null) throw new Exception("User doesn't have role");
+                //await _context.Roles.AddAsync(new IdentityRole(role));
+                // await _roleManager.CreateAsync(new IdentityRole(role));
+                //var claims = new List<Claim>
+                //{
+                //    new Claim(ClaimTypes.Email, user.Email),
+                //};
+                //claims.AddRange(token.Claims);
 
-                var userIdentity = new ClaimsIdentity(claims, "user");
-                var tokenIdentity = new ClaimsIdentity(token.Claims, "token");
-                var userPrincipal = new ClaimsPrincipal(new[] { userIdentity, tokenIdentity });
+                var result = await _userManager.CreateAsync(user, userDto.Password);
+                //if (!result.Succeeded)
+                //{
+                //}
+                //  if (!result.Succeeded) throw new Exception("");
 
-                await HttpContext.SignInAsync(userPrincipal);
+                //await _userManager.AddClaimsAsync(user, token.Claims);
+                ////try
+                ////{
+                //await _userManager.AddToRoleAsync(user, role);
 
+                //}
+                //catch (Exception e)
+                //{
+                //    Console.WriteLine(e);
+                //    throw;
+                //}
+                //var userIdentity = new ClaimsIdentity(claims, "userClaims");
+                //var tokenIdentity = new ClaimsIdentity(token.Claims, "token");
+                //var userPrincipal = new ClaimsPrincipal(new[] { userIdentity, tokenIdentity });
+                //await HttpContext.SignInAsync(userPrincipal);
+
+                //  await _signInManager.SignInAsync(user, false);
                 var returnUrl = (string)TempData["returnUrl"];
 
                 if (returnUrl != null)
@@ -71,15 +106,29 @@ namespace RentingSystem.Controllers
                 }
 
                 return RedirectToAction("Index", "Home");
-            }
 
-            return View();
+                //// await _signInManager.SignInAsync(user, false);
+                //// await _signInManager.SignInAsync(user)
+
+                //var userIdentity = new ClaimsIdentity(claims, "userClaims");
+                //var tokenIdentity = new ClaimsIdentity(token.Claims, "token");
+                //var userPrincipal = new ClaimsPrincipal(new[] { userIdentity, tokenIdentity });
+
+                //  await HttpContext.SignInAsync(userRole?.Value, userPrincipal);
+
+                //  await HttpContext.SignInAsync(userPrincipal);
+            }
+            catch (Exception e)
+            {
+                ViewData["Response"] = "Something goes wrong!";
+                return View();
+            }
         }
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
-
+            //await HttpContext.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -101,7 +150,17 @@ namespace RentingSystem.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index", "Home");
+                var user = _mapper.Map<IdentityUser>(userDto);
+                var result = await _userManager.CreateAsync(user, userDto.Password);
+                if (result.Succeeded)
+                {
+                    var signInResult = await _signInManager.PasswordSignInAsync(user, userDto.Password, false, false);
+
+                    if (signInResult.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
 
             if (response.StatusCode == HttpStatusCode.Conflict)

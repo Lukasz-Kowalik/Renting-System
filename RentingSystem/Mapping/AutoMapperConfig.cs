@@ -19,6 +19,13 @@ namespace RentingSystem.Mapping
 
             //user logging
             CreateMap<LoginDto, LoggedUser>();
+            // CreateMap<AuthenticateResponse, User>();
+            CreateMap<AuthenticateResponse, IdentityUser>()
+                .ForMember(identityUser => identityUser.UserName,
+                    src => src.MapFrom(response => response.FirstName));
+            CreateMap<UserDto, IdentityUser>()
+                .ForMember(identityUser => identityUser.UserName,
+                    src => src.MapFrom(response => response.FirstName));
         }
     }
 }
