@@ -11,7 +11,6 @@ namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class RentedItemsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -22,7 +21,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet("{userId}")]
-        [Authorize]
+        // [Authorize]
         public async Task<ActionResult<List<RentedItem>>> GetRentedItems(int? userId)
         {
             var query = new GetRentedItemsByUserQuery(userId);

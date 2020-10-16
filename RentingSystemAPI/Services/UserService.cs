@@ -60,7 +60,6 @@ namespace RentingSystemAPI.Services
             try
             {
                 var user = _mapper.Map<User>(userRequest);
-
                 var claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
                 var result = await _userManager.CreateAsync(user, userRequest.Password);

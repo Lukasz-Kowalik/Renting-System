@@ -1,15 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using RentingSystemAPI.DAL.Context;
-using RentingSystemAPI.DAL.Database;
 using RentingSystemAPI.DAL.Initializer;
+using System;
+using System.Threading;
 
 namespace RentingSystemAPI
 {
@@ -23,7 +18,10 @@ namespace RentingSystemAPI
                 var services = scope.ServiceProvider;
                 try
                 {
+                    //wait to make sure if database was created
+                    Thread.Sleep(10);
                     var context = services.GetRequiredService<RentingContext>();
+
                     DbInitializer.Initialize(context);
                 }
                 catch (Exception ex)

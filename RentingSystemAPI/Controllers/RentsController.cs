@@ -11,7 +11,6 @@ namespace RentingSystemAPI.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
     public class RentsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,6 +27,7 @@ namespace RentingSystemAPI.Controllers
         //}
 
         [HttpGet("{userId}")]
+        //  [Authorize]
         public async Task<ActionResult<List<Rent>>> GetRents(int userId)
         {
             var query = new GetAllRentsByUserIdQuery(userId);

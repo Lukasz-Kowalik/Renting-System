@@ -10,7 +10,7 @@ namespace RentingSystem.Controllers
             return View();
         }
 
-        [Authorize]
+        //  [Authorize(Policy = "Admin")]
         public IActionResult Rented()
         {
             return View();

@@ -2,7 +2,9 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,9 +13,7 @@ using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using RentingSystem.Models;
+using System.Security.Claims;
 
 namespace RentingSystem
 {
@@ -57,7 +57,7 @@ namespace RentingSystem
             {
                 endpoints.MapControllerRoute(
                     "default",
-                    "{controller=Home}/{action=Index}");
+                    "{controller=Home}/{action=Index}/{id?}");
             });
         }
 
@@ -86,27 +86,30 @@ namespace RentingSystem
             services.AddScoped<IUserService, UserService>();
 
             services.AddIdentity<IdentityUser, IdentityRole>(
-                    congif =>
+                    config =>
                     {
-                        congif.Password.RequireDigit = false;
-                        congif.Password.RequireLowercase = false;
-                        congif.Password.RequireNonAlphanumeric = false;
-                        congif.Password.RequireUppercase = false;
-                        congif.Password.RequiredLength = 8;
+                        config.Password.RequireDigit = false;
+                        config.Password.RequireLowercase = false;
+                        config.Password.RequireNonAlphanumeric = false;
+                        config.Password.RequireUppercase = false;
+                        config.Password.RequiredLength = 8;
                     })
-                //.AddUserManager<UserManager<IdentityUser>>()
-                //.AddRoleManager<RoleManager<IdentityRole>>()
-                //.AddSignInManager<SignInManager<IdentityUser>>()
-                //.AddRoles<IdentityRole>()
+                .AddRoles<IdentityRole>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.ConfigureApplicationCookie(config =>
-            {
-                config.Cookie.Name = "Identity.Cookie";
-                config.LoginPath = "/Account/Login";
-                config.LogoutPath = "/Account/Logout";
-            });
+            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
+
+            //services.ConfigureApplicationCookie(config =>
+            //{
+            //    config.Cookie.Name = "Identity.Cookie";
+            //    config.LoginPath = "/Account/Login";
+            //    config.LogoutPath = "/Account/Logout";
+            //    config.AccessDeniedPath = "/Account/Error";
+            //    config.Cookie.HttpOnly = false;
+            //});
 
             services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
 
@@ -116,13 +119,14 @@ namespace RentingSystem
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()
                 );
 
-            //services.AddAuthentication("Cookie")
-            //                    .AddCookie("Cookie", config =>
-            //                    {
-            //                        config.Cookie.Name = "Cookie";
-            //                        config.LoginPath = "/Account/Login";
-            //                        config.LogoutPath = "/Account/Logout";
-            //                    });
+            //services.AddAuthorization(config =>
+            //{
+            //    //  config.AddPolicy("All", policy => policy.RequireClaim("id"));
+            //    config.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+            //    config.AddPolicy("Customer", policy => policy.RequireClaim(ClaimTypes.Role, "Customer"));
+            //    config.AddPolicy("User", policy => policy.RequireClaim(ClaimTypes.Role, "User"));
+            //    config.AddPolicy("Worker", policy => policy.RequireClaim(ClaimTypes.Role, "Worker"));
+            //});
 
             #endregion
         }

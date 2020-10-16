@@ -29,7 +29,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //   [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
         {
             var query = new GetAllUsersQuery();
@@ -42,7 +42,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
+        //  [Authorize]
         public async Task<IActionResult> GetUserAsync(int id)
         {
             var query = new GetUserByIdQuery(id);
