@@ -14,7 +14,7 @@ namespace RentingSystemAPI
         public static void Main(string[] args)
         {
             //wait for database
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
 
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
