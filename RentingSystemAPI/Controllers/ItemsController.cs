@@ -12,8 +12,8 @@ using RentingSystemAPI.Helpers.Attributes;
 
 namespace RentingSystemAPI.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class ItemsController : ControllerBase
     {
         private readonly RentingContext _context;

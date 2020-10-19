@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace RentingSystem.Validation
 {
-    //TO DO Validacja dla jednego znaku specjalnego
     public sealed class RegisteredUserValidator : AbstractValidator<UserDto>
     {
         private const string PasswordRequiredMessage = "Password is required.";

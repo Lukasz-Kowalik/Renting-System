@@ -12,14 +12,9 @@ namespace RentingSystemAPI.BAL.Entities
         // public AccountPermission AccountPermission { get; set; }
         public ICollection<Rent> Rents { get; set; }
 
-        // public int UserType { get; set; }
-
-        //  public string Salt { get; set; }
-
         //[JsonIgnore]
         //public string RefreshToken { get; set; }
 
-        [NotMapped]
-        public List<Item> ShoppingCart = new List<Item>();
+        [NotMapped] public Cart Cart { get; set; }
     }
 }

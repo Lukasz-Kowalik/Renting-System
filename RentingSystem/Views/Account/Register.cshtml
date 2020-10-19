@@ -1,79 +1,76 @@
 ﻿@{
     ViewData["Title"] = "RegisterUserRequest";
-   @model RentingSystem.ViewModels.DTOs.UserDto
+    @model RentingSystem.ViewModels.DTOs.UserDto
 }
-<div  class="vh-100 d-flex justify-content-center container-fluid">
-<div class="row justify-content-center ultra-width">
+<div class="vh-100 d-flex justify-content-center container-fluid">
+    <div class="row justify-content-center ultra-width">
 
-    <div class="
+        <div class="
       d-flex flex-column
       align-self-center p-5
       rounded bg-secondary display-card ultra-width">
-        <div class="w-100 text-center">
-            <h1>Register</h1>
-            <hr/>
+            <div class="w-100 text-center">
+                <h1>Register</h1>
+                <hr />
+            </div>
+            <form id="registerForm"
+                  asp-action="Register" asp-controller="Account" method="post">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text"
+                                   asp-for="FirstName"
+                                   class="form-control input-sm "
+                                   placeholder="First Name" />
+                            <span class="text-danger" asp-validation-for="FirstName"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="text"
+                                   asp-for="LastName"
+                                   class="form-control input-sm"
+                                   placeholder="Last Name" />
+                            <span class="text-danger" asp-validation-for="LastName"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="email"
+                           asp-for="Email"
+                           class="form-control input-sm"
+                           placeholder="Email Address" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                    <span class="text-danger">@ViewData["ResponseMessage"]</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password"
+                                   asp-for="Password"
+                                   class="form-control input-sm"
+                                   placeholder="Password" />
+                            <span class="text-danger pass-span" asp-validation-for="Password"></span>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6">
+                        <div class="form-group">
+                            <input type="password"
+                                   asp-for="ConfirmPassword"
+                                   class="form-control input-sm"
+                                   placeholder="Confirm Password" />
+                            <span class="text-danger pass-span" asp-validation-for="ConfirmPassword"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit"
+                        class="btn btn-primary btn-block">
+                    Register
+                </button>
+            </form>
         </div>
-        <form id="registerForm"
-              asp-action="Register" asp-controller="Account" method="post">
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="text"
-                               asp-for="FirstName"
-                               class="form-control input-sm "
-                               placeholder="First Name"/>
-                        <span class="text-danger" asp-validation-for="FirstName"></span>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="text"
-                               asp-for="LastName"
-                               class="form-control input-sm"
-                               placeholder="Last Name"/>
-                        <span class="text-danger" asp-validation-for="LastName"></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <input type="email"
-                       asp-for="Email"
-                       class="form-control input-sm"
-                       placeholder="Email Address"/>
-                <span class="text-danger" asp-validation-for="Email"></span>
-                <span class="text-danger">@ViewData["ResponseMessage"]</span>
-
-            </div>
-
-            <div class="row">
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="password"
-                               asp-for="Password"
-                               class="form-control input-sm"
-                               placeholder="Password"/>
-                        <span class="text-danger pass-span" asp-validation-for="Password"></span>
-                    </div>
-                </div>
-                <div class="col-xs-6 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <input type="password"
-                               asp-for="ConfirmPassword"
-                               class="form-control input-sm"
-                               placeholder="Confirm Password"/>
-                        <span class="text-danger pass-span" asp-validation-for="ConfirmPassword"></span>
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit"
-                    class="btn btn-primary btn-block">
-                Register
-            </button>
-        </form>
-     </div>
     </div>
 </div>
-
-

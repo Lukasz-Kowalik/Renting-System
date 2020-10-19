@@ -1,42 +1,42 @@
 ﻿@{
     ViewData["Title"] = "Item";
-    <div class="vh-100 container-fluid">
-        <div class="row">
-            @Html.Partial("_Menu")
-            <div class="col-lg-10 col-md-8 col-sm-12 p-0 vh-100">
+}
+<div class="vh-100 container-fluid">
+    <div class="row">
+        @Html.Partial("_Menu")
+        <div class="col-lg-10 col-md-8 col-sm-12 p-0 vh-100">
 
-                <div class="col-lg-9 col-md-8 col-sm-12 p-0 vh-100">
-                    <div class="container p-0 ">
-                        <div class="container d-flex mt-4 justify-content-between row">
-                            <!-- Item image -->
-                            <div class="col-md-12 col-lg-5 align-self-center text-center mb-4">
-                                <img src="http://duncanlock.net/images/posts/better-figures-images-plugin-for-pelican/dummy-200x200.png"
-                                     alt="item image" />
-                            </div>
-                            <!-- Item Info -->
-                            <div class="col-md-12 col-lg-7 d-flex flex-column">
-                                <p class="bg-secondary rounded p-2">
-                                    Name:
+            <div class="col-lg-9 col-md-8 col-sm-12 p-0 vh-100">
+                <div class="container p-0 ">
+                    <div class="container d-flex mt-4 justify-content-between row">
+                        <!-- Item image -->
+                        <div class="col-md-12 col-lg-5 align-self-center text-center mb-4">
+                            <img src="http://duncanlock.net/images/posts/better-figures-images-plugin-for-pelican/dummy-200x200.png"
+                                 alt="item image" />
+                        </div>
+                        <!-- Item Info -->
+                        <div class="col-md-12 col-lg-7 d-flex flex-column">
+                            <p class="bg-secondary rounded p-2">
+                                Name:
+                            </p>
+                            <p class="bg-secondary rounded p-2">
+                                Quantity:
+                            </p>
+                            <p class="bg-secondary rounded p-2">
+                                Datasheet:
+                                <a href=""
+                                   class="text-dark">Link</a>
+                            </p>
+                            <button class="btn btn-primary align-self-center w-50 mb-3">
+                                Add
+                            </button>
+                        </div>
+                        <!-- Item Description -->
+                        <div class="col">
+                            <div class="bg-secondary rounded p-2">
+                                <p class="m-0">
+                                    Description
                                 </p>
-                                <p class="bg-secondary rounded p-2">
-                                    Quantity:
-                                </p>
-                                <p class="bg-secondary rounded p-2">
-                                    Datasheet:
-                                    <a href=""
-                                       class="text-dark">Link</a>
-                                </p>
-                                <button class="btn btn-primary align-self-center w-50 mb-3">
-                                    Add
-                                </button>
-                            </div>
-                            <!-- Item Description -->
-                            <div class="col">
-                                <div class="bg-secondary rounded p-2">
-                                    <p class="m-0">
-                                        Description
-                                    </p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -44,3 +44,4 @@
             </div>
         </div>
     </div>
+</div>

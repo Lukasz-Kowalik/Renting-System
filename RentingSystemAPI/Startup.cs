@@ -54,10 +54,7 @@ namespace RentingSystemAPI
             app.UseStaticFiles();
             app.UseRouting();
 
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseCors(_origins);
 
             app.UseMiddleware<JwtMiddleware>();
 
@@ -71,6 +68,18 @@ namespace RentingSystemAPI
         {
             #region dbConfig
 
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+
+                    //builder.WithOrigins(Configuration["Cors:https"],
+                    //        Configuration["Cors:http"])
+                    //    .AllowAnyHeader()
+                    //    .AllowAnyMethod();
+                })
+            );
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
             var port = Configuration["DBPort"] ?? "1433";
             //using SA isn't good on production, better practice would be using account with lower permission
@@ -82,19 +91,11 @@ namespace RentingSystemAPI
                     @$"Server={server},{port};
                                      Initial Catalog={database};
                                      User ID={user};
-                                     Password={password}",
+                                     Password={password};
+                                     Trusted_Connection=False;",
                     x => x.MigrationsAssembly("RentingSystemAPI.DAL")));
 
             #endregion dbConfig
-
-            services.AddCors(options => options.AddPolicy(_origins, builder =>
-                {
-                    builder.WithOrigins(Configuration["Cors:https"],
-                            Configuration["Cors:http"])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                })
-            );
 
             #region authentication
 

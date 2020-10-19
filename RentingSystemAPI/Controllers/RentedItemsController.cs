@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class RentedItemsController : ControllerBase
     {
         private readonly IMediator _mediator;

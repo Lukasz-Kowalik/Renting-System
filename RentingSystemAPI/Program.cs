@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DAL.Initializer;
 using System;
+using System.IO;
 using System.Threading;
 
 namespace RentingSystemAPI
@@ -12,6 +13,9 @@ namespace RentingSystemAPI
     {
         public static void Main(string[] args)
         {
+            //wait for database
+            Thread.Sleep(5000);
+
             var host = CreateHostBuilder(args).Build();
             using (var scope = host.Services.CreateScope())
             {
@@ -19,7 +23,6 @@ namespace RentingSystemAPI
                 try
                 {
                     //wait to make sure if database was created
-                    Thread.Sleep(10);
                     var context = services.GetRequiredService<RentingContext>();
 
                     DbInitializer.Initialize(context);
@@ -37,7 +40,9 @@ namespace RentingSystemAPI
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    webBuilder
+                        .UseWebRoot(Directory.GetCurrentDirectory())
+                        .UseStartup<Startup>();
                 });
     }
 }

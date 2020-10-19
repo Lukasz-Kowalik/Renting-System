@@ -10,6 +10,7 @@ namespace RentingSystemAPI.DAL.Context
         public DbSet<Item> Items { get; set; }
         public DbSet<Rent> Rents { get; set; }
         public DbSet<RentedItem> RentedItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         public RentingContext(DbContextOptions<RentingContext> options) : base(options)
         {
@@ -24,14 +25,7 @@ namespace RentingSystemAPI.DAL.Context
                 .WithMany()
                 .HasForeignKey(p => p.AccountPermissionId);
 
-            //Initializer
             modelBuilder.ApplyConfiguration(new RollsInitializer());
-
-            //Seeding
-            //modelBuilder.ApplyConfiguration(new ItemsSeed());
-            //modelBuilder.ApplyConfiguration(new RentedItemsSeed());
-            //modelBuilder.ApplyConfiguration(new RentsSeed());
-            //modelBuilder.ApplyConfiguration(new UserSeed());
         }
     }
 }

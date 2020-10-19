@@ -14,11 +14,14 @@ using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
 using System.Security.Claims;
+using RentingSystem.Models;
 
 namespace RentingSystem
 {
     public class Startup
     {
+        private string _origins = "CORS";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -42,14 +45,12 @@ namespace RentingSystem
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseRouting();
-            app.UseCors(x => x
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
 
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseRouting();
+            app.UseCors(_origins);
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -65,6 +66,14 @@ namespace RentingSystem
         public void ConfigureServices(IServiceCollection services)
         {
             #region config
+
+            services.AddCors(options => options.AddPolicy(_origins, builder =>
+                {
+                    builder.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                })
+            );
 
             services.AddDbContext<AppDbContext>(config =>
             {
@@ -85,7 +94,7 @@ namespace RentingSystem
             services.AddAutoMapper(typeof(Startup));
             services.AddScoped<IUserService, UserService>();
 
-            services.AddIdentity<IdentityUser, IdentityRole>(
+            services.AddIdentity<User, Role>(
                     config =>
                     {
                         config.Password.RequireDigit = false;
@@ -94,13 +103,11 @@ namespace RentingSystem
                         config.Password.RequireUppercase = false;
                         config.Password.RequiredLength = 8;
                     })
-                .AddRoles<IdentityRole>()
-                .AddRoleManager<RoleManager<IdentityRole>>()
-                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddRoles<Role>()
+                .AddRoleManager<RoleManager<Role>>()
+                .AddSignInManager<SignInManager<User>>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-
-            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
 
             //services.ConfigureApplicationCookie(config =>
             //{
@@ -111,9 +118,9 @@ namespace RentingSystem
             //    config.Cookie.HttpOnly = false;
             //});
 
-            services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, UserClaimsPrincipalFactory<IdentityUser, IdentityRole>>();
+            services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, Role>>();
 
-            services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddMvc(option => { option.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); })
                 .AddFluentValidation(
                     fv => fv.RegisterValidatorsFromAssemblyContaining<RegisteredUserValidator>()

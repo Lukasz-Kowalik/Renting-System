@@ -21,11 +21,11 @@ namespace RentingSystem.Controllers
         private readonly IUserService _userService;
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IMapper _mapper;
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper
-            , SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager)
+            , SignInManager<User> signInManager, UserManager<User> userManager)
         {
             _userService = userService;
             _httpClientFactory = httpClientFactory;
@@ -58,7 +58,7 @@ namespace RentingSystem.Controllers
                 var userResponse = JsonConvert.DeserializeObject<AuthenticateResponse>(responseContent);
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(userResponse.Token);
-                var user = _mapper.Map<IdentityUser>(userResponse);
+                var user = _mapper.Map<User>(userResponse);
                 user.Id = token.Claims.FirstOrDefault(x => x.Type.Contains("id"))?.Value;
 
                 var claims = new List<Claim>()
@@ -127,7 +127,7 @@ namespace RentingSystem.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var user = _mapper.Map<IdentityUser>(userDto);
+                var user = _mapper.Map<User>(userDto);
                 var result = await _userManager.CreateAsync(user, userDto.Password);
                 if (result.Succeeded)
                 {

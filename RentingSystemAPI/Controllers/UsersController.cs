@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
 using RentingSystemAPI.DTOs.Request;
-using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
 using RentingSystemAPI.Queries;
@@ -12,13 +11,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RentingSystemAPI.Helpers.Attributes;
 
 namespace RentingSystemAPI.Controllers
 {
     // [Authorize]
-    [Route("[controller]")]
     [ApiController]
+    [Route("[controller]")]
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
