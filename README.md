@@ -36,7 +36,7 @@ And close it:
 ```
 docker-compose down
 ```
-
+### Addresses
 Web is available at: 
 ```
 http://localhost:3000/
@@ -45,4 +45,11 @@ API is available at:
 ```
 http://localhost:8000/
 ```
+Default SQL server is available at:
+```
+Name: localhost,1433
+Login: SA
+Password: Password2020
+```
+
 
