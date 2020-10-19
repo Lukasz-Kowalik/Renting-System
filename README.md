@@ -36,3 +36,13 @@ And close it:
 ```
 docker-compose down
 ```
+
+Web is available on: 
+```
+http://localhost:3000/
+```
+API is available on: 
+```
+http://localhost:8000/
+```
+
