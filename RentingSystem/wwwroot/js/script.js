@@ -8,8 +8,19 @@ const Rents = APIHost + "Rents";
 const User = APIHost + "Users";
 const Item = APIHost + "Items";
 const AddToCart = APIHost + "Cart/Add";
+const Token = APIHost + "Token";
 
 $(document).ready(function () {
+    const logged = typeof $.cookie('Identity.Cookie') !== 'undefined';
+    //let token = "";
+    //$.ajax({
+    //    url: Items,
+    //    method: "GET",
+    //    contentType: ContentType
+    //}).done(function (data) {
+    //    token = data;
+    //});
+
     $.ajax({
         url: Items,
         method: "GET",
@@ -36,37 +47,28 @@ $(document).ready(function () {
         });
     });
 
-    $('#Item-table tbody').on('click', 'button', function () {
-        const row = $(this).closest('tr').find('td');
-        const item = {
-            itemId: parseInt(row.eq(0).text()),
-            name: row.eq(1).text(),
-            quantity: 1
-        };
-        const quantity = parseInt(row.eq(2).text());
-
-        $.ajax({
-            type: "POST",
-            url: AddToCart,
-            contentType: ContentType,
-            data: JSON.stringify(item),
-            dataType: "json",
-            success: function (data, textStatus, xhr) {
-                row.eq(2).html((quantity - 1).toString());
-            },
-            error: function (xhr, textStatus, errorThrown) {
-                console.log('Error in Operation');
+    if (logged)
+        $('#Item-table tbody').on('click', 'button', function () {
+            const row = $(this).closest('tr').find('td');
+            const item = {
+                itemId: parseInt(row.eq(0).text()),
+                name: row.eq(1).text(),
+                quantity: 1
+            };
+            const quantity = parseInt(row.eq(2).text());
+            if (quantity > 0) {
+                $.ajax({
+                    type: "POST",
+                    url: AddToCart,
+                    contentType: ContentType,
+                    data: JSON.stringify(item),
+                    success: function () {
+                        row.eq(2).html((quantity - 1).toString());
+                    },
+                    error: function () {
+                        console.log('Error in Operation');
+                    }
+                });
             }
         });
-    });
-
-    //$('#Cart-table').DataTable({
-    //    data: userCart,
-    //    column:
-    //        [
-    //            { title: "id" },
-    //            { title: "Name" },
-    //            { title: "Quantity" }
-    //        ]
-    //});
 });

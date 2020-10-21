@@ -99,5 +99,10 @@ namespace RentingSystemAPI.Services
         {
             return _context.Users.FirstOrDefault(x => x.Id == id);
         }
+
+        public async Task<string> Refresh(User user)
+        {
+            return await generateJwtToken(user);
+        }
     }
 }

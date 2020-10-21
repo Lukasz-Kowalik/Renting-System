@@ -109,14 +109,14 @@ namespace RentingSystem
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
 
-            //services.ConfigureApplicationCookie(config =>
-            //{
-            //    config.Cookie.Name = "Identity.Cookie";
-            //    config.LoginPath = "/Account/Login";
-            //    config.LogoutPath = "/Account/Logout";
-            //    config.AccessDeniedPath = "/Account/Error";
-            //    config.Cookie.HttpOnly = false;
-            //});
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.Cookie.Name = "Identity.Cookie";
+                config.LoginPath = "/Account/Login";
+                config.LogoutPath = "/Account/Logout";
+                config.AccessDeniedPath = "/Account/Error";
+                config.Cookie.HttpOnly = false;
+            });
 
             services.AddScoped<IUserClaimsPrincipalFactory<User>, UserClaimsPrincipalFactory<User, Role>>();
 

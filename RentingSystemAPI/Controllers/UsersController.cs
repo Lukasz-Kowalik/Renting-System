@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -20,10 +22,15 @@ namespace RentingSystemAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
 
-        public UsersController(IMediator mediator)
+        public UsersController(IMediator mediator,
+            UserManager<User> userManager, IUserService userService)
         {
             _mediator = mediator;
+            _userManager = userManager;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -109,6 +116,26 @@ namespace RentingSystemAPI.Controllers
             {
                 var command = new LoginCommand(loginRequest);
                 var result = await _mediator.Send(command);
+                return Ok(result);
+            }
+            catch (ArgumentNullException e)
+            {
+                return Unauthorized();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        [Route("/Token")]
+        public async Task<IActionResult> Token()
+        {
+            try
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var result = _userService.Refresh(user);
                 return Ok(result);
             }
             catch (ArgumentNullException e)

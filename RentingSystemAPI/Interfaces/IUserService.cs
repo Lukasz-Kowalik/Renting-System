@@ -14,5 +14,7 @@ namespace RentingSystemAPI.Interfaces
         Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest);
 
         User GetById(int id);
+
+        Task<string> Refresh(User user);
     }
 }

@@ -6,6 +6,8 @@ using RentingSystemAPI.Queries;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using RentingSystemAPI.DAL.Context;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -14,17 +16,19 @@ namespace RentingSystemAPI.Controllers
     public class RentsController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly RentingContext _context;
 
-        public RentsController(IMediator mediator)
+        public RentsController(IMediator mediator, RentingContext context)
         {
             _mediator = mediator;
+            _context = context;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
-        //{
-        //    return await _context.Rents.ToListAsync();
-        //}
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
+        {
+            return await _context.Rents.ToListAsync();
+        }
 
         [HttpGet("{userId}")]
         //  [Authorize]

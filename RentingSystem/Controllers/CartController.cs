@@ -7,7 +7,7 @@ namespace RentingSystem.Controllers
 {
     public class CartController : Controller
     {
-        //  [Authorize(Policy = "User")]
+        [Authorize(Policy = "User")]
         public async Task<IActionResult> Index()
         {
             return View();

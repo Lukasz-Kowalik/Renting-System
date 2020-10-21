@@ -15,8 +15,9 @@ namespace RentingSystemAPI.Mapping
                 .ForMember(u => u.UserName, m => m.MapFrom(u => u.Email))
                 .ReverseMap();
             CreateMap<Item, ItemListResponse>();
-            CreateMap<Item, AddItemRequest>();
+            CreateMap<Item, AddItemRequest>().ReverseMap();
             CreateMap<Cart, AddItemRequest>().ReverseMap();
+            CreateMap<Item, Cart>().ReverseMap();
         }
     }
 }

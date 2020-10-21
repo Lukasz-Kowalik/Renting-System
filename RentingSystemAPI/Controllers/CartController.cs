@@ -1,14 +1,15 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
-using System.Threading.Tasks;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity;
 using RentingSystemAPI.Validators;
+using System;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -30,34 +31,50 @@ namespace RentingSystemAPI.Controllers
 
         [HttpPost]
         [Route("Add")]
-        public async Task<IActionResult> Add([FromBody] AddItemRequest item)
+        public async Task<IActionResult> Add([FromBody] AddItemRequest request)
         {
             try
             {
                 var validator = new CartValidator();
-                var result = validator.Validate(item);
+                var result = await validator.ValidateAsync(request);
                 if (!result.IsValid)
                 {
                     throw new ValidationException("Invalid data");
                 }
-                var itemToCart = _mapper.Map<Cart>(item);
-                var user = await _userManager.GetUserAsync(User);
-                itemToCart.User = user;
-                var exist = _context.Carts.Find(itemToCart);
-                if (exist != null)
-                {
-                    await _context.Carts.AddAsync(itemToCart);
-                }
-                else
-                {
-                    exist.Quantity++;
-                    _context.Carts.Update(exist);
-                }
+
+                await AddItemToCart(request);
+
                 return Ok();
             }
             catch (Exception e)
             {
                 return BadRequest();
+            }
+        }
+
+        private async Task AddItemToCart(AddItemRequest request)
+        {
+            var item = _context.Items.FirstOrDefault(x => x.ItemId == request.ItemId);
+            if (item is null) throw new DataException("item not found");
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                if (item.Quantity > 0)
+                {
+                    var itemToCart = _mapper.Map<Cart>(request);
+                    var user = await _userManager.GetUserAsync(User);
+                    await _context.Carts.AddAsync(itemToCart);
+                    await _context.SaveChangesAsync();
+                    item.Quantity--;
+                    _context.Items.Update(item);
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+            }
+            catch (Exception e)
+            {
+                await transaction.RollbackAsync();
+                throw;
             }
         }
     }
