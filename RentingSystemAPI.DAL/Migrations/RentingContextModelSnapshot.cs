@@ -149,21 +149,10 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ItemId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("CartId");
-
-                    b.HasIndex("ItemId");
 
                     b.HasIndex("UserId");
 
@@ -176,6 +165,9 @@ namespace RentingSystemAPI.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CartId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -193,6 +185,8 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ItemId");
+
+                    b.HasIndex("CartId");
 
                     b.ToTable("Items");
                 });
@@ -286,28 +280,28 @@ namespace RentingSystemAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "cde6256f-6b35-45c2-8984-72b6cdfbb4a3",
+                            ConcurrencyStamp = "3ad3ddd7-46d1-41a7-82e9-e7317639b814",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "0243bf51-7adc-4acd-a349-cca9f3db2d2a",
+                            ConcurrencyStamp = "3a599017-4868-4a5f-b217-a8dd8864c642",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "2cd856fd-9cd2-41ba-984a-fd327f046776",
+                            ConcurrencyStamp = "5e48ac83-57af-4fe0-8c9a-0584f71c1274",
                             Name = "Worker",
                             NormalizedName = "WORKER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "2cc1585f-9c76-4f81-8727-a849e6a7365f",
+                            ConcurrencyStamp = "5017f41d-d228-44ef-bdf5-6bd07ae63393",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -448,17 +442,18 @@ namespace RentingSystemAPI.DAL.Migrations
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Cart", b =>
                 {
-                    b.HasOne("RentingSystemAPI.BAL.Entities.Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RentingSystemAPI.BAL.Entities.User", "User")
-                        .WithMany()
+                    b.HasOne("RentingSystemAPI.BAL.Entities.User", null)
+                        .WithMany("Carts")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Item", b =>
+                {
+                    b.HasOne("RentingSystemAPI.BAL.Entities.Cart", null)
+                        .WithMany("Items")
+                        .HasForeignKey("CartId");
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Rent", b =>

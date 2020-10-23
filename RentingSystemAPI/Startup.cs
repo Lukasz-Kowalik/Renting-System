@@ -10,12 +10,14 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.DAL.Initializer;
 using RentingSystemAPI.Helpers;
 using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Services;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Security.Claims;
 
 namespace RentingSystemAPI
 {
@@ -62,11 +64,14 @@ namespace RentingSystemAPI
             {
                 endpoints.MapControllers();
             });
+            InitializeDatabase(app);
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
             #region dbConfig
+
+            // services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 
             services.AddCors(options => options.AddPolicy(_origins, builder =>
                 {
@@ -106,7 +111,8 @@ namespace RentingSystemAPI
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<RentingContext>()
                 .AddDefaultTokenProviders();
-
+            services.Configure<IdentityOptions>(options =>
+                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
             services.Configure<AppSettings>(Configuration.GetSection("Jwt"));
 
             #endregion authentication
@@ -139,6 +145,19 @@ namespace RentingSystemAPI
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+        }
+
+        private void InitializeDatabase(IApplicationBuilder applicationBuilder)
+        {
+            using var serviceScope = applicationBuilder.ApplicationServices
+                .GetRequiredService<IServiceScopeFactory>()
+                .CreateScope();
+
+            using var context = serviceScope.ServiceProvider.GetService<RentingContext>();
+
+            // context.Database.Migrate();
+            context.Database.GetPendingMigrationsAsync().GetAwaiter().GetResult();
+            DbInitializer.Initialize(context);
         }
     }
 }

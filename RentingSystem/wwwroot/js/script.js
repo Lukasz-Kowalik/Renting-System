@@ -9,17 +9,10 @@ const User = APIHost + "Users";
 const Item = APIHost + "Items";
 const AddToCart = APIHost + "Cart/Add";
 const Token = APIHost + "Token";
+const Cart = APIHost + "GetCart";
 
 $(document).ready(function () {
     const logged = typeof $.cookie('Identity.Cookie') !== 'undefined';
-    //let token = "";
-    //$.ajax({
-    //    url: Items,
-    //    method: "GET",
-    //    contentType: ContentType
-    //}).done(function (data) {
-    //    token = data;
-    //});
 
     $.ajax({
         url: Items,
@@ -40,9 +33,6 @@ $(document).ready(function () {
                         Add</button>`;
                         }
                 }
-            ],
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
             ]
         });
     });
@@ -71,4 +61,26 @@ $(document).ready(function () {
                 });
             }
         });
+
+    $.ajax({
+        url: Cart,
+        method: "GET",
+        contentType: ContentType
+    }).done(function (data) {
+        $('#Cart-table').dataTable({
+            aaData: data,
+            columns: [
+                { data: "itemId" },
+                { data: "name" },
+                { data: "quantity" },
+                {
+                    data: null,
+                    render:
+                        function (data, type, full, meta) {
+                            return `<button type="button" class="btn btn-primary">Remove</button>`;
+                        }
+                }
+            ]
+        });
+    });
 });

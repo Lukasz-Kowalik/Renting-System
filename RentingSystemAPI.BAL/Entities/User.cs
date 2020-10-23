@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingSystemAPI.BAL.Entities
 {
@@ -9,12 +8,8 @@ namespace RentingSystemAPI.BAL.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        // public AccountPermission AccountPermission { get; set; }
         public ICollection<Rent> Rents { get; set; }
 
-        //[JsonIgnore]
-        //public string RefreshToken { get; set; }
-
-        [NotMapped] public Cart Cart { get; set; }
+        public ICollection<Cart> Carts { get; set; }
     }
 }

@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Managers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RentingSystemAPI.BAL\RentingSystemAPI.BAL.csproj" />
     <ProjectReference Include="..\RentingSystemAPI.DAL\RentingSystemAPI.DAL.csproj" />
   </ItemGroup>

@@ -128,24 +128,24 @@ namespace RentingSystemAPI.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("/Token")]
-        public async Task<IActionResult> Token()
-        {
-            try
-            {
-                var user = await _userManager.GetUserAsync(User);
-                var result = _userService.Refresh(user);
-                return Ok(result);
-            }
-            catch (ArgumentNullException e)
-            {
-                return Unauthorized();
-            }
-            catch (Exception e)
-            {
-                return NotFound();
-            }
-        }
+        //[HttpGet]
+        //[Route("/Token")]
+        //public async Task<IActionResult> Token()
+        //{
+        //    try
+        //    {
+        //        var user = await _userManager.GetUserAsync(User);
+        //        var result = _userService.Refresh(user);
+        //        return Ok(result);
+        //    }
+        //    catch (ArgumentNullException e)
+        //    {
+        //        return Unauthorized();
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
     }
 }

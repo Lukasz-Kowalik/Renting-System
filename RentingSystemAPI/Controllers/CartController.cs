@@ -10,6 +10,8 @@ using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using RentingSystemAPI.DTOs.Response;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -27,6 +29,16 @@ namespace RentingSystemAPI.Controllers
             _context = context;
             _mapper = mapper;
             _userManager = userManager;
+        }
+
+        [HttpGet]
+        [Route("GetCart")]
+        public async Task<IActionResult> Get()
+        {
+            var user = _userManager.GetUserAsync(User);
+            var userCart = _context.Carts.Where(c => c.UserId == user.Id).GroupBy(g => g.Items);
+            var response = _mapper.Map<ItemListResponse>(userCart);
+            return Ok(response);
         }
 
         [HttpPost]
@@ -62,10 +74,15 @@ namespace RentingSystemAPI.Controllers
                 if (item.Quantity > 0)
                 {
                     var itemToCart = _mapper.Map<Cart>(request);
-                    var user = await _userManager.GetUserAsync(User);
+
+                    itemToCart.UserId = Int32.Parse(_userManager.GetUserId(User));
+                    // if (user == null) throw new Exception("user doesn't exist");
+                    //itemToCart.UserId = user.Id;
+
                     await _context.Carts.AddAsync(itemToCart);
                     await _context.SaveChangesAsync();
                     item.Quantity--;
+
                     _context.Items.Update(item);
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();

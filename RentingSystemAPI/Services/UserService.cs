@@ -60,9 +60,10 @@ namespace RentingSystemAPI.Services
             try
             {
                 var user = _mapper.Map<User>(userRequest);
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
                 var result = await _userManager.CreateAsync(user, userRequest.Password);
+                var claims = new List<Claim>();
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
                 await _userManager.AddClaimsAsync(user, claims);
                 await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
                 return result;
@@ -83,7 +84,7 @@ namespace RentingSystemAPI.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Key);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString()) }),
+                Subject = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()) }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials =
                     new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),

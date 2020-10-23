@@ -59,7 +59,7 @@ namespace RentingSystem.Controllers
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(userResponse.Token);
                 var user = _mapper.Map<User>(userResponse);
-                user.Id = token.Claims.FirstOrDefault(x => x.Type.Contains("id"))?.Value;
+                user.Id = token.Claims.FirstOrDefault(x => x.Type.Contains("nameid"))?.Value;
 
                 var claims = new List<Claim>()
                 {
