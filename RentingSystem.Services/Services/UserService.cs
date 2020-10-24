@@ -24,10 +24,7 @@ namespace RentingSystem.Services.Services
             try
             {
                 var registeredUser = _mapper.Map<RegisteredUser>(userDto);
-
-                var response = await client.PostAsJsonAsync("/RegisterUser", registeredUser);
-
-                return response;
+                return await client.PostAsJsonAsync("/RegisterUser", registeredUser);
             }
             catch (Exception e)
             {
@@ -40,9 +37,20 @@ namespace RentingSystem.Services.Services
         {
             try
             {
-                var response = await client.PostAsJsonAsync("/Login", userDto);
+                return await client.PostAsJsonAsync("/Login", userDto);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                throw;
+            }
+        }
 
-                return response;
+        public async Task<HttpResponseMessage> LogOutAsync(HttpClient client)
+        {
+            try
+            {
+                return await client.PostAsync("/LogOut", null);
             }
             catch (Exception e)
             {

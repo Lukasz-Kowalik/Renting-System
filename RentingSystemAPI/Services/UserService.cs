@@ -42,17 +42,23 @@ namespace RentingSystemAPI.Services
         public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
-            var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
-            if (result.Succeeded)
+            if (user != null)
             {
-                var token = await generateJwtToken(user);
+                var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
+                if (result.Succeeded)
+                {
+                    var token = await generateJwtToken(user);
 
-                return new AuthenticateResponse(user, token);
+                    return new AuthenticateResponse(user, token);
+                }
             }
-            else
-            {
-                throw new Exception("Incorrect user");
-            }
+
+            throw new Exception("Incorrect user");
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest)
@@ -61,9 +67,14 @@ namespace RentingSystemAPI.Services
             {
                 var user = _mapper.Map<User>(userRequest);
                 var result = await _userManager.CreateAsync(user, userRequest.Password);
-                var claims = new List<Claim>();
-                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-                claims.Add(new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, user.Email),
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Role, nameof(AccountTypes.User))
+                };
+                var ci = new ClaimsIdentity(claims);
+                // _userManager.AddClaimsAsync(user, ci);
                 await _userManager.AddClaimsAsync(user, claims);
                 await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
                 return result;

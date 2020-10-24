@@ -9,5 +9,7 @@ namespace RentingSystem.Services.Interfaces
         Task<HttpResponseMessage> RegisterAsync(UserDto userDto, HttpClient client);
 
         Task<HttpResponseMessage> LoginAsync(LoginDto userDto, HttpClient client);
+
+        Task<HttpResponseMessage> LogOutAsync(HttpClient client);
     }
 }

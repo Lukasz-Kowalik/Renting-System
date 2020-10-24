@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RentingSystemAPI.BAL.Entities
 {
-    public class Item : IItem
+    public class Item
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

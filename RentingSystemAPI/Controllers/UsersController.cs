@@ -128,6 +128,15 @@ namespace RentingSystemAPI.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("/Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _userService.Logout();
+
+            return Ok();
+        }
+
         //[HttpGet]
         //[Route("/Token")]
         //public async Task<IActionResult> Token()

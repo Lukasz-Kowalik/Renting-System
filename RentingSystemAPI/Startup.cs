@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +18,8 @@ using RentingSystemAPI.Services;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI
 {
@@ -64,7 +66,7 @@ namespace RentingSystemAPI
             {
                 endpoints.MapControllers();
             });
-            InitializeDatabase(app);
+            InitializeDatabase(app).GetAwaiter().GetResult();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -111,8 +113,8 @@ namespace RentingSystemAPI
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<RentingContext>()
                 .AddDefaultTokenProviders();
-            services.Configure<IdentityOptions>(options =>
-                options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
+            //services.Configure<IdentityOptions>(options =>
+            //    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
             services.Configure<AppSettings>(Configuration.GetSection("Jwt"));
 
             #endregion authentication
@@ -147,17 +149,26 @@ namespace RentingSystemAPI
             });
         }
 
-        private void InitializeDatabase(IApplicationBuilder applicationBuilder)
+        private async Task InitializeDatabase(IApplicationBuilder applicationBuilder)
         {
             using var serviceScope = applicationBuilder.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope();
 
-            using var context = serviceScope.ServiceProvider.GetService<RentingContext>();
+            await using var context = serviceScope.ServiceProvider.GetService<RentingContext>();
 
-            // context.Database.Migrate();
-            context.Database.GetPendingMigrationsAsync().GetAwaiter().GetResult();
+            Thread.Sleep(5000);
+
+            await context.Database.GetPendingMigrationsAsync();
+
             DbInitializer.Initialize(context);
+
+            //TODO change if be run by docker-compose up
+            //if (await context.Database.CanConnectAsync())
+            //{
+            //    await context.Database.GetPendingMigrationsAsync();
+            //    DbInitializer.Initialize(context);
+            //}
         }
     }
 }

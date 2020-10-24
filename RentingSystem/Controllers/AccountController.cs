@@ -97,11 +97,14 @@ namespace RentingSystem.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogOut()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user != null)
             {
+                var client = _httpClientFactory.CreateClient("API Client");
+                await _userService.LogOutAsync(client);
                 await _userManager.DeleteAsync(user);
             }
 

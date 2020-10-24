@@ -11,7 +11,9 @@ namespace RentingSystemAPI.BAL.Entities
         [Key]
         public int CartId { get; set; }
 
-        public int UserId { get; set; }
-        public ICollection<Item> Items { get; set; }
+        public int IdUser { get; set; }
+        public string Name { get; set; }
+        public int IdItem { get; set; }
+        public int Quantity { get; set; }
     }
 }

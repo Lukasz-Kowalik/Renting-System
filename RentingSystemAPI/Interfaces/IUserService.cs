@@ -15,6 +15,8 @@ namespace RentingSystemAPI.Interfaces
 
         User GetById(int id);
 
+        Task Logout();
+
         Task<string> Refresh(User user);
     }
 }

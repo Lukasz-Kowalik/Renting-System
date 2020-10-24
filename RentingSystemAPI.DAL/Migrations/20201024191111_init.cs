@@ -36,6 +36,23 @@ namespace RentingSystemAPI.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Items",
+                columns: table => new
+                {
+                    ItemId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: true),
+                    DocumentationURL = table.Column<string>(nullable: true),
+                    Quantity = table.Column<int>(nullable: false),
+                    MaxQuantity = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Items", x => x.ItemId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -138,7 +155,10 @@ namespace RentingSystemAPI.DAL.Migrations
                 {
                     CartId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    IdOfItem = table.Column<int>(nullable: false),
+                    Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,30 +240,6 @@ namespace RentingSystemAPI.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Items",
-                columns: table => new
-                {
-                    ItemId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true),
-                    DocumentationURL = table.Column<string>(nullable: true),
-                    Quantity = table.Column<int>(nullable: false),
-                    MaxQuantity = table.Column<int>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
-                    CartId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Items", x => x.ItemId);
-                    table.ForeignKey(
-                        name: "FK_Items_Carts_CartId",
-                        column: x => x.CartId,
-                        principalTable: "Carts",
-                        principalColumn: "CartId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "RentedItems",
                 columns: table => new
                 {
@@ -276,10 +272,10 @@ namespace RentingSystemAPI.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "3ad3ddd7-46d1-41a7-82e9-e7317639b814", "User", "USER" },
-                    { 2, "3a599017-4868-4a5f-b217-a8dd8864c642", "Customer", "CUSTOMER" },
-                    { 3, "5e48ac83-57af-4fe0-8c9a-0584f71c1274", "Worker", "WORKER" },
-                    { 4, "5017f41d-d228-44ef-bdf5-6bd07ae63393", "Admin", "ADMIN" }
+                    { 1, "8c4d687b-74b6-480e-a0f5-5b6d582569e0", "User", "USER" },
+                    { 2, "f7c2ba74-1920-4bc6-a91f-fedbd4c2264b", "Customer", "CUSTOMER" },
+                    { 3, "e4d6be4f-f81b-45ca-8b9a-9d450844adfa", "Worker", "WORKER" },
+                    { 4, "445fa6bc-2d6a-4c95-a41e-08eeb20d61af", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -318,11 +314,6 @@ namespace RentingSystemAPI.DAL.Migrations
                 name: "IX_Carts_UserId",
                 table: "Carts",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Items_CartId",
-                table: "Items",
-                column: "CartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentedItems_ItemId",
@@ -368,6 +359,9 @@ namespace RentingSystemAPI.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Carts");
+
+            migrationBuilder.DropTable(
                 name: "RentedItems");
 
             migrationBuilder.DropTable(
@@ -378,9 +372,6 @@ namespace RentingSystemAPI.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Rents");
-
-            migrationBuilder.DropTable(
-                name: "Carts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
