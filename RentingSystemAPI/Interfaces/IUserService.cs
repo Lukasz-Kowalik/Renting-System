@@ -9,13 +9,13 @@ namespace RentingSystemAPI.Interfaces
 {
     public interface IUserService
     {
-        Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request);
+        Task<AuthenticateResponse> LoginAsync(AuthenticateRequest request);
 
         Task<IdentityResult> RegisterAsync(RegisterUserRequest userRequest);
 
         User GetById(int id);
 
-        Task Logout();
+        Task LogoutAsync();
 
         Task<string> Refresh(User user);
     }

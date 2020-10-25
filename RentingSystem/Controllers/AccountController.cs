@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.ViewModels.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
@@ -59,7 +61,7 @@ namespace RentingSystem.Controllers
                 var handler = new JwtSecurityTokenHandler();
                 var token = handler.ReadJwtToken(userResponse.Token);
                 var user = _mapper.Map<User>(userResponse);
-                user.Id = token.Claims.FirstOrDefault(x => x.Type.Contains("nameid"))?.Value;
+                user.Id = Int32.Parse(token.Claims.FirstOrDefault(x => x.Type.Contains("nameid"))?.Value ?? string.Empty);
 
                 var claims = new List<Claim>()
                 {
@@ -130,17 +132,7 @@ namespace RentingSystem.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                var user = _mapper.Map<User>(userDto);
-                var result = await _userManager.CreateAsync(user, userDto.Password);
-                if (result.Succeeded)
-                {
-                    var signInResult = await _signInManager.PasswordSignInAsync(user, userDto.Password, false, false);
-
-                    if (signInResult.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
+                return RedirectToAction("Login", "Account");
             }
 
             if (response.StatusCode == HttpStatusCode.Conflict)

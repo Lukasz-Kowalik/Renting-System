@@ -18,8 +18,7 @@ namespace RentingSystemAPI.Handlers.Commands
 
         public async Task<AuthenticateResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
-            var result = await _userService.AuthenticateAsync(request.Json);
-            return result;
+            return await _userService.LoginAsync(request.Json);
         }
     }
 }

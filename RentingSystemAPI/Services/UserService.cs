@@ -39,7 +39,7 @@ namespace RentingSystemAPI.Services
             _appSettings = appSettings.Value;
         }
 
-        public async Task<AuthenticateResponse> AuthenticateAsync(AuthenticateRequest request)
+        public async Task<AuthenticateResponse> LoginAsync(AuthenticateRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
             if (user != null)
@@ -56,7 +56,7 @@ namespace RentingSystemAPI.Services
             throw new Exception("Incorrect user");
         }
 
-        public async Task Logout()
+        public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
         }
@@ -73,8 +73,6 @@ namespace RentingSystemAPI.Services
                     new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, nameof(AccountTypes.User))
                 };
-                var ci = new ClaimsIdentity(claims);
-                // _userManager.AddClaimsAsync(user, ci);
                 await _userManager.AddClaimsAsync(user, claims);
                 await _userManager.AddToRoleAsync(user, nameof(AccountTypes.User));
                 return result;

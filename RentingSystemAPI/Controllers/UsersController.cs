@@ -132,7 +132,7 @@ namespace RentingSystemAPI.Controllers
         [Route("/Logout")]
         public async Task<IActionResult> Logout()
         {
-            await _userService.Logout();
+            await _userService.LogoutAsync();
 
             return Ok();
         }
