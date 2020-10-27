@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace RentingSystemAPI.BAL.Entities
 {
@@ -11,9 +7,9 @@ namespace RentingSystemAPI.BAL.Entities
         [Key]
         public int CartId { get; set; }
 
-        public int IdUser { get; set; }
+        public int UserId { get; set; }
         public string Name { get; set; }
-        public int IdItem { get; set; }
+        public int ItemId { get; set; }
         public int Quantity { get; set; }
     }
 }

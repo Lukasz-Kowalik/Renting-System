@@ -149,10 +149,7 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdItem")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdUser")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -161,7 +158,7 @@ namespace RentingSystemAPI.DAL.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("CartId");
@@ -287,28 +284,28 @@ namespace RentingSystemAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "3abeb8cc-0f3b-416b-9a45-c92acbcd2221",
+                            ConcurrencyStamp = "3c9d14c0-2204-4156-9b9b-779624f30f7f",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "1b7cc6ad-ba63-49a6-abde-aab548340a9d",
+                            ConcurrencyStamp = "677b8117-c045-4653-b612-8e2529e2cac6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "f4fdc702-d1cd-4e4d-a985-418fc8e1b093",
+                            ConcurrencyStamp = "97577cb7-688f-4006-8d3c-b39051ce2b2a",
                             Name = "Worker",
                             NormalizedName = "WORKER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "1e66cd04-6509-4689-a5ea-6fffdf01e53d",
+                            ConcurrencyStamp = "ed2f2b0f-3d15-4f05-9cb5-d78da44e9127",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -451,7 +448,9 @@ namespace RentingSystemAPI.DAL.Migrations
                 {
                     b.HasOne("RentingSystemAPI.BAL.Entities.User", null)
                         .WithMany("Carts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RentingSystemAPI.BAL.Entities.Rent", b =>

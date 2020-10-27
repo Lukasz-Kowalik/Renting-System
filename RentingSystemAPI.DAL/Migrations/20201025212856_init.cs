@@ -157,7 +157,7 @@ namespace RentingSystemAPI.DAL.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IdOfItem = table.Column<int>(nullable: false),
+                    ItemId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -272,10 +272,10 @@ namespace RentingSystemAPI.DAL.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "8c4d687b-74b6-480e-a0f5-5b6d582569e0", "User", "USER" },
-                    { 2, "f7c2ba74-1920-4bc6-a91f-fedbd4c2264b", "Customer", "CUSTOMER" },
-                    { 3, "e4d6be4f-f81b-45ca-8b9a-9d450844adfa", "Worker", "WORKER" },
-                    { 4, "445fa6bc-2d6a-4c95-a41e-08eeb20d61af", "Admin", "ADMIN" }
+                    { 1, "3c9d14c0-2204-4156-9b9b-779624f30f7f", "User", "USER" },
+                    { 2, "677b8117-c045-4653-b612-8e2529e2cac6", "Customer", "CUSTOMER" },
+                    { 3, "97577cb7-688f-4006-8d3c-b39051ce2b2a", "Worker", "WORKER" },
+                    { 4, "ed2f2b0f-3d15-4f05-9cb5-d78da44e9127", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

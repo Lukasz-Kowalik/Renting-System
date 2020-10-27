@@ -16,9 +16,9 @@ using RentingSystemAPI.Helpers;
 using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Services;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace RentingSystemAPI
@@ -66,7 +66,7 @@ namespace RentingSystemAPI
             {
                 endpoints.MapControllers();
             });
-            InitializeDatabase(app).GetAwaiter().GetResult();
+            InitializeDatabase(app);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -76,16 +76,16 @@ namespace RentingSystemAPI
             // services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 
             services.AddCors(options => options.AddPolicy(_origins, builder =>
-                {
-                    builder.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod();
 
-                    //builder.WithOrigins(Configuration["Cors:https"],
-                    //        Configuration["Cors:http"])
-                    //    .AllowAnyHeader()
-                    //    .AllowAnyMethod();
-                })
+                //builder.WithOrigins(Configuration["Cors:https"],
+                //        Configuration["Cors:http"])
+                //    .AllowAnyHeader()
+                //    .AllowAnyMethod();
+            })
             );
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
             var port = Configuration["DBPort"] ?? "1433";
@@ -113,8 +113,6 @@ namespace RentingSystemAPI
                 .AddRoles<Role>()
                 .AddEntityFrameworkStores<RentingContext>()
                 .AddDefaultTokenProviders();
-            //services.Configure<IdentityOptions>(options =>
-            //    options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
             services.Configure<AppSettings>(Configuration.GetSection("Jwt"));
 
             #endregion authentication
@@ -122,6 +120,7 @@ namespace RentingSystemAPI
             #region Scopes
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICartService, CartService>();
 
             #endregion Scopes
 
@@ -149,19 +148,26 @@ namespace RentingSystemAPI
             });
         }
 
-        private async Task InitializeDatabase(IApplicationBuilder applicationBuilder)
+        private void InitializeDatabase(IApplicationBuilder applicationBuilder)
         {
             using var serviceScope = applicationBuilder.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope();
 
-            await using var context = serviceScope.ServiceProvider.GetService<RentingContext>();
-
-            Thread.Sleep(5000);
-
-            await context.Database.GetPendingMigrationsAsync();
-
-            DbInitializer.Initialize(context);
+            using var context = serviceScope.ServiceProvider.GetService<RentingContext>();
+            try
+            {
+                context.Database.Migrate();
+            }
+            catch (Exception e)
+            {
+                Debug.Write(e);
+            }
+            finally
+            {
+                context.Database.GetPendingMigrations();
+                DbInitializer.Initialize(context);
+            }
 
             //TODO change if be run by docker-compose up
             //if (await context.Database.CanConnectAsync())

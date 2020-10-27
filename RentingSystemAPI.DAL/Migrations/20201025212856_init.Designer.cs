@@ -10,7 +10,7 @@ using RentingSystemAPI.DAL.Context;
 namespace RentingSystemAPI.DAL.Migrations
 {
     [DbContext(typeof(RentingContext))]
-    [Migration("20201024191111_init")]
+    [Migration("20201025212856_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -151,7 +151,7 @@ namespace RentingSystemAPI.DAL.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("IdOfItem")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -286,28 +286,28 @@ namespace RentingSystemAPI.DAL.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8c4d687b-74b6-480e-a0f5-5b6d582569e0",
+                            ConcurrencyStamp = "3c9d14c0-2204-4156-9b9b-779624f30f7f",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "f7c2ba74-1920-4bc6-a91f-fedbd4c2264b",
+                            ConcurrencyStamp = "677b8117-c045-4653-b612-8e2529e2cac6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "e4d6be4f-f81b-45ca-8b9a-9d450844adfa",
+                            ConcurrencyStamp = "97577cb7-688f-4006-8d3c-b39051ce2b2a",
                             Name = "Worker",
                             NormalizedName = "WORKER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "445fa6bc-2d6a-4c95-a41e-08eeb20d61af",
+                            ConcurrencyStamp = "ed2f2b0f-3d15-4f05-9cb5-d78da44e9127",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using System.IO;
+using System.Threading;
 
 namespace RentingSystemAPI
 {
@@ -8,6 +9,7 @@ namespace RentingSystemAPI
     {
         public static void Main(string[] args)
         {
+            Thread.Sleep(10000);
             CreateHostBuilder(args).Build().Run();
         }
 
