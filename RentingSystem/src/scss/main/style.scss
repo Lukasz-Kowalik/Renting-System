@@ -28,8 +28,13 @@ span.text-danger {
     .pass-span {
         max-width: 400px;
     }
+    
 }
-
+@media(min-width:764px) {
+    .bg-info {
+        height: 100vh;
+    }
+}
 @media(min-width:1920px) {
     .ultra-width {
         width: 50%;

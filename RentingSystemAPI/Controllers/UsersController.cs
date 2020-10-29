@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.Commands;
 using RentingSystemAPI.DTOs.Request;
+using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
 using RentingSystemAPI.Queries;
@@ -11,8 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -22,14 +21,12 @@ namespace RentingSystemAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly UserManager<User> _userManager;
         private readonly IUserService _userService;
 
         public UsersController(IMediator mediator,
-            UserManager<User> userManager, IUserService userService)
+          IUserService userService)
         {
             _mediator = mediator;
-            _userManager = userManager;
             _userService = userService;
         }
 
@@ -137,24 +134,24 @@ namespace RentingSystemAPI.Controllers
             return Ok();
         }
 
-        //[HttpGet]
-        //[Route("/Token")]
-        //public async Task<IActionResult> Token()
-        //{
-        //    try
-        //    {
-        //        var user = await _userManager.GetUserAsync(User);
-        //        var result = _userService.Refresh(user);
-        //        return Ok(result);
-        //    }
-        //    catch (ArgumentNullException e)
-        //    {
-        //        return Unauthorized();
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return NotFound();
-        //    }
-        //}
+        [HttpGet]
+        [Route("/Token")]
+        public async Task<IActionResult> Token(string email)
+        {
+            try
+            {
+                var user = await _userService.GetUserAsync(User, email);
+                var result = await _userService.Refresh(user);
+                return Ok(result);
+            }
+            catch (ArgumentNullException e)
+            {
+                return Unauthorized();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
     }
 }

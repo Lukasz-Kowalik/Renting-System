@@ -4,23 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation;
 using RentingSystemAPI.DTOs.Request;
+using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Validators
 {
-    public class CartValidator : AbstractValidator<AddItemRequest>
+    public class CartValidator<T> : AbstractValidator<T> where T : IItem
     {
         public CartValidator()
         {
             RuleFor(c => c.ItemId)
                 .NotNull()
                 .NotEmpty()
-                .GreaterThan(0);
-            RuleFor(c => c.Name)
-                .NotEmpty()
-                .NotNull();
-            RuleFor(c => c.Quantity)
-                .NotEmpty()
-                .NotNull()
                 .GreaterThan(0);
         }
     }

@@ -42,15 +42,14 @@ namespace RentingSystemAPI.Services
         public async Task<AuthenticateResponse> LoginAsync(AuthenticateRequest request)
         {
             var user = await _userManager.FindByEmailAsync(request.Email);
+
             if (user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
-                if (result.Succeeded)
-                {
-                    var token = await generateJwtToken(user);
+                await _signInManager.SignOutAsync();
+                await _signInManager.PasswordSignInAsync(request.Email, request.Password, true, false);
+                var token = await GenerateJwtToken(user);
 
-                    return new AuthenticateResponse(user, token);
-                }
+                return new AuthenticateResponse(user, token);
             }
 
             throw new Exception("Incorrect user");
@@ -84,7 +83,7 @@ namespace RentingSystemAPI.Services
             }
         }
 
-        private async Task<string> generateJwtToken(User user)
+        private async Task<string> GenerateJwtToken(User user)
         {
             var claims = await _userManager.GetClaimsAsync(user);
 
@@ -112,7 +111,18 @@ namespace RentingSystemAPI.Services
 
         public async Task<string> Refresh(User user)
         {
-            return await generateJwtToken(user);
+            return await GenerateJwtToken(user);
+        }
+
+        public async Task<User> GetUserAsync(ClaimsPrincipal userPrincipal, string email = null)
+        {
+            return await _userManager.GetUserAsync(userPrincipal) ?? _context.Users.FirstOrDefault(u => u.Email == email);
+        }
+
+        public int GetUserId(ClaimsPrincipal userPrincipal, string email = null)
+        {
+            var id = _userManager.GetUserId(userPrincipal);
+            return id == null ? _context.Users.FirstOrDefault(u => u.Email == email).Id : int.Parse(id);
         }
     }
 }

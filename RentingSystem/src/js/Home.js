@@ -1,19 +1,5 @@
-//-----------------API CALLS---------------
-const ContentType = "application/json; charset=utf-8";
-const APIHost = "http://localhost:8000/";
-const Header = "Access-Control - Allow - Origin: "
-const Items = APIHost + "Items/getList";
-const RentedItems = APIHost + "RentedItems";
-const Rents = APIHost + "Rents";
-const User = APIHost + "Users";
-const Item = APIHost + "Items";
-const AddToCart = APIHost + "Cart/Add";
-const Token = APIHost + "Token";
-const Cart = APIHost + "GetCart";
-
-$(document).ready(function () {
-    const logged = typeof $.cookie('Identity.Cookie') !== 'undefined';
-
+﻿$(document).ready(function () {
+    const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     $.ajax({
         url: Items,
         method: "GET",
@@ -36,14 +22,12 @@ $(document).ready(function () {
             ]
         });
     });
-
-    if (logged)
+    if (logged) {
         $('#Item-table tbody').on('click', 'button', function () {
             const row = $(this).closest('tr').find('td');
             const item = {
                 itemId: parseInt(row.eq(0).text()),
-                name: row.eq(1).text(),
-                quantity: 1
+                email: sessionStorage.getItem("email")
             };
             const quantity = parseInt(row.eq(2).text());
             if (quantity > 0) {
@@ -61,26 +45,5 @@ $(document).ready(function () {
                 });
             }
         });
-
-    $.ajax({
-        url: Cart,
-        method: "GET",
-        contentType: ContentType
-    }).done(function (data) {
-        $('#Cart-table').dataTable({
-            aaData: data,
-            columns: [
-                { data: "itemId" },
-                { data: "name" },
-                { data: "quantity" },
-                {
-                    data: null,
-                    render:
-                        function (data, type, full, meta) {
-                            return `<button type="button" class="btn btn-primary">Remove</button>`;
-                        }
-                }
-            ]
-        });
-    });
+    };
 });

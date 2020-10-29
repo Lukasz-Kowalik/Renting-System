@@ -2,7 +2,7 @@
 
 namespace RentingSystemAPI.DTOs.Request
 {
-    public class AddItemRequest : IItem
+    public class RemoveItemFromCartRequest : IItem
     {
         public int ItemId { get; set; }
         public string Email { get; set; }

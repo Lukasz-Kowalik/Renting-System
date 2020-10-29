@@ -1,16 +1,16 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
+using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Validators;
 using System;
-using System.Data;
-using System.Linq;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -20,24 +20,34 @@ namespace RentingSystemAPI.Controllers
     {
         private readonly RentingContext _context;
         private readonly IMapper _mapper;
-        private readonly UserManager<User> _userManager;
+        private readonly IUserService _userService;
+        private readonly ICartService _cartService;
 
         public CartController(RentingContext context, IMapper mapper,
-            UserManager<User> userManager)
+             IUserService userService, ICartService cartService)
         {
             _context = context;
             _mapper = mapper;
-            _userManager = userManager;
+            _userService = userService;
+            _cartService = cartService;
         }
 
         [HttpGet]
         [Route("GetCart")]
-        public async Task<IActionResult> Get()
+        public ActionResult<IEnumerable<ItemListResponse>> Get(string email = null)
         {
-            var user = _userManager.GetUserAsync(User);
-            // var userCart = _context.Carts.Where(c => c.UserId == user.Id).GroupBy(g => g.Items);
-            //   var response = _mapper.Map<ItemListResponse>(userCart);
-            return Ok(/*response*/);
+            try
+            {
+                var userId = _userService.GetUserId(User, email);
+                var userCart = _cartService.GetUserCart(userId);
+                var response = _mapper.Map<ItemListResponse[]>(userCart);
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e);
+                return BadRequest();
+            }
         }
 
         [HttpPost]
@@ -46,14 +56,14 @@ namespace RentingSystemAPI.Controllers
         {
             try
             {
-                var validator = new CartValidator();
+                var validator = new CartValidator<AddItemRequest>();
                 var result = await validator.ValidateAsync(request);
                 if (!result.IsValid)
                 {
                     throw new ValidationException("Invalid data");
                 }
 
-                await AddItemToCart(request);
+                await _cartService.AddItemToCart(request, User);
 
                 return Ok();
             }
@@ -63,37 +73,26 @@ namespace RentingSystemAPI.Controllers
             }
         }
 
-        private async Task AddItemToCart(AddItemRequest request)
+        [HttpDelete]
+        [Route("Remove")]
+        public async Task<IActionResult> Remove([FromBody] RemoveItemFromCartRequest request)
         {
-            var item = _context.Items.FirstOrDefault(x => x.ItemId == request.ItemId);
-            if (item is null) throw new DataException("item not found");
-            await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                if (item.Quantity > 0)
+                var validator = new CartValidator<RemoveItemFromCartRequest>();
+                var result = await validator.ValidateAsync(request);
+                if (!result.IsValid)
                 {
-                    // var itemToCart = _mapper.Map<Cart>(request);
-
-                    //   services.Configure(x => x.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
-                    var user = await _userManager.GetUserAsync(User);
-                    //var usesr = await _userManager.GetUserAsync(HttpContext.User);
-                    //  itemToCart.UserId = Int32.Parse(_userManager.GetUserId(User));
-                    // if (user == null) throw new Exception("user doesn't exist");
-                    //itemToCart.UserId = user.Id;
-
-                    //await _context.Carts.AddAsync(itemToCart);
-                    //await _context.SaveChangesAsync();
-                    //item.Quantity--;
-
-                    //_context.Items.Update(item);
-                    //await _context.SaveChangesAsync();
-                    await transaction.CommitAsync();
+                    throw new ValidationException("Invalid data");
                 }
+
+                await _cartService.RemoveFromCart(request, User);
+
+                return Ok();
             }
             catch (Exception e)
             {
-                await transaction.RollbackAsync();
-                throw;
+                return BadRequest();
             }
         }
     }
