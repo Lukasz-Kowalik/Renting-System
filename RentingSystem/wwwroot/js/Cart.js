@@ -20,6 +20,7 @@ $(document).ready(function () {
                 }
             ]
         });
+      
     });
 
     $('#Cart-table tbody').on('click', 'button', function () {
@@ -43,10 +44,5 @@ $(document).ready(function () {
                 }
             });
         }
-    });
-
-
-    $("#rent-btn").click(() => {
-        alert("klik");
     });
 });

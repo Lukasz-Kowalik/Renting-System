@@ -5,7 +5,7 @@
         method: "GET",
         contentType: ContentType
     }).done(function (data) {
-        $('#Item-table').dataTable({
+      const table=  $('#Item-table').dataTable({
             aaData: data,
             columns: [
                 { data: "itemId" },
@@ -19,9 +19,17 @@
                         Add</button>`;
                         }
                 }
+          ],
+            dom: 'lBfrtip',
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
             ]
-        });
+           
+      });
+      console.log(table);
+    
     });
+    
     if (logged) {
         $('#Item-table tbody').on('click', 'button', function () {
             const row = $(this).closest('tr').find('td');
