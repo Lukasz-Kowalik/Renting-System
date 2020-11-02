@@ -22,7 +22,7 @@ $(document).ready(function () {
           ],
             dom: 'lBfrtip',
             buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
+                'copy', 'csv', 'pdf', 'print'
             ]
            
       });

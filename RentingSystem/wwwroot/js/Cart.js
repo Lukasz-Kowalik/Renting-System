@@ -20,7 +20,6 @@ $(document).ready(function () {
                 }
             ]
         });
-      
     });
 
     $('#Cart-table tbody').on('click', 'button', function () {
