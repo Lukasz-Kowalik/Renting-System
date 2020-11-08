@@ -8,7 +8,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.12.1",
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "css-loader": "^4.3.0",
+    "css-loader": "^5.0.1",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
@@ -16,12 +16,14 @@
     "gulp-sass": "^4.1.0",
     "jquery": "^3.5.1",
     "purify-css": "^1.2.5",
-    "sass": "^1.26.11",
-    "style-loader": "^1.2.1"
+    "sass": "^1.29.0",
+    "style-loader": "^2.0.0"
   },
   "dependencies": {
-    "bootstrap": "^4.5.2",
+    "bootstrap": "^4.5.3",
     "datatables": "^1.10.18",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "yargs-parser": ">=20.2.3",
+    "mem": ">=8.0.0"
   }
 }
