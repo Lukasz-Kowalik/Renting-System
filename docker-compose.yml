@@ -40,7 +40,7 @@ services:
     ports:
         - "1433:1433"
     volumes:
-        - ./Database:/var/opt/mssql/bak
+        - ./DatabaseBackUp:/var/opt/mssql/bak
     
 volumes:
     DataBase:         
