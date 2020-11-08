@@ -122,7 +122,19 @@ namespace RentingSystemAPI.Services
         public int GetUserId(ClaimsPrincipal userPrincipal, string email = null)
         {
             var id = _userManager.GetUserId(userPrincipal);
-            return id == null ? _context.Users.FirstOrDefault(u => u.Email == email).Id : int.Parse(id);
+            if (id == null)
+            {
+                var user = _context.Users.FirstOrDefault(u => u.Email == email);
+                if (user == null)
+                {
+                    throw new NullReferenceException("User doesn't exist");
+                }
+                return user.Id;
+            }
+            else
+            {
+                return Int32.Parse(id);
+            }
         }
     }
 }

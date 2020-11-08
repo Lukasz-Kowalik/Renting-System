@@ -1,3 +1,4 @@
+using System.Threading;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -7,6 +8,8 @@ namespace RentingSystem
     {
         public static void Main(string[] args)
         {
+            //wait for database and API. Only for debug
+            Thread.Sleep(20000);
             CreateHostBuilder(args).Build().Run();
         }
 

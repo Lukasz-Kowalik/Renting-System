@@ -16,6 +16,8 @@ namespace RentingSystemAPI.Validators
                 .NotNull()
                 .NotEmpty()
                 .GreaterThan(0);
+            RuleFor(c => c.Quantity)
+                .GreaterThan(0);
         }
     }
 }

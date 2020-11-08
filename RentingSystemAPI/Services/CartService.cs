@@ -60,23 +60,38 @@ namespace RentingSystemAPI.Services
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                if (item.Quantity > 0)
+                if (item.Quantity > request.Quantity)
                 {
-                    var itemToCart = new Cart
+                    var userId = _userService.GetUserId(user, request.Email);
+                    var cart = _context.Carts.FirstOrDefault(c => c.ItemId == request.ItemId && c.UserId == userId);
+                    if (cart == null)
                     {
-                        UserId = _userService.GetUserId(user, request.Email),
-                        ItemId = item.ItemId,
-                        Quantity = 1,
-                        Name = item.Name
-                    };
+                        var itemToCart = new Cart
+                        {
+                            UserId = userId,
+                            ItemId = item.ItemId,
+                            Quantity = request.Quantity,
+                            Name = item.Name
+                        };
 
-                    await _context.Carts.AddAsync(itemToCart);
-                    await _context.SaveChangesAsync();
+                        await _context.Carts.AddAsync(itemToCart);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        cart.Quantity += request.Quantity;
+                        _context.Carts.Update(cart);
+                        await _context.SaveChangesAsync();
+                    }
 
-                    item.Quantity--;
+                    item.Quantity -= request.Quantity;
                     _context.Items.Update(item);
                     await _context.SaveChangesAsync();
                     await transaction.CommitAsync();
+                }
+                else
+                {
+                    throw new DataException("Not enough items in stock");
                 }
             }
             catch (Exception e)
@@ -98,15 +113,22 @@ namespace RentingSystemAPI.Services
                 {
                     var item = _context.Items.FirstOrDefault(x => x.ItemId == request.ItemId);
                     if (item == null) throw new Exception("Lack of item");
-                    item.Quantity++;
+                    item.Quantity += request.Quantity;
                     _context.Items.Update(item);
                     await _context.SaveChangesAsync();
 
-                    _context.Carts.Remove(cart);
+                    cart.Quantity -= request.Quantity;
+                    if (cart.Quantity <= 0)
+                    {
+                        _context.Carts.Remove(cart);
+                    }
+                    else
+                    {
+                        _context.Carts.Update(cart);
+                    }
                     await _context.SaveChangesAsync();
                 }
 
-                await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
             }
             catch (Exception e)

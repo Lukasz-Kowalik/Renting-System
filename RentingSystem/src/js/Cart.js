@@ -15,7 +15,7 @@
                     data: null,
                     render:
                         function (data, type, full, meta) {
-                            return `<button type="button" class="btn btn-danger">Remove</button>`;
+                            return `<input type="number" value="1" min="1" max="${data.quantity}"/><button type="button" class="btn btn-danger">Remove</button>`;
                         }
                 }
             ]
@@ -24,19 +24,37 @@
 
     $('#Cart-table tbody').on('click', 'button', function () {
         const row = $(this).closest('tr').find('td');
+        const currentQuantity = parseInt(row.eq(2).text());
+        let quantity = row.eq(3).find("input").val();
+        if (quantity<=0) {
+            quantity = 1;
+        }
+        else if (quantity > currentQuantity) {
+            quantity = currentQuantity;
+
+        } else {
+            quantity = parseInt(quantity);
+        }
+
         const item = {
             itemId: parseInt(row.eq(0).text()),
-            email: sessionStorage.getItem("email")
+            email: sessionStorage.getItem("email"),
+            quantity: quantity
         };
-        const quantity = parseInt(row.eq(2).text());
-        if (quantity > 0) {
+      
+     
+        if (currentQuantity > 0) {
             $.ajax({
                 type: "DELETE",
                 url: RemoveFromCart,
                 contentType: ContentType,
                 data: JSON.stringify(item),
                 success: function () {
-                    row.eq(2).html((quantity + 1).toString());
+                    row.eq(2).html((currentQuantity - quantity).toString());
+                    const newQuantity = parseInt(row.eq(2).text());
+                    if (newQuantity===0) {
+                        row.remove();
+                    }
                 },
                 error: function () {
                     console.log('Error in Operation');

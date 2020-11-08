@@ -11,7 +11,7 @@ services:
         - DataBaseSQL
         - rentingsystemapi
     environment:
-        - API_URL=rentingsystemapi:5000
+        - API_URL=rentingsystemapi:8000
         - ASPNETCORE_ENVIRONMENT=Development
     ports:
         - "3000:80"

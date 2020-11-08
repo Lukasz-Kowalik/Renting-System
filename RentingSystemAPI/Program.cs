@@ -9,11 +9,12 @@ namespace RentingSystemAPI
     {
         public static void Main(string[] args)
         {
+            //wait for database. Only for debug
             Thread.Sleep(10000);
             CreateHostBuilder(args).Build().Run();
         }
 
-        private static IHostBuilder CreateHostBuilder(string[] args) =>
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
