@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     $.ajax({
         url: Cart,
         method: "GET",
@@ -15,7 +15,8 @@ $(document).ready(function () {
                     data: null,
                     render:
                         function (data, type, full, meta) {
-                            return `<input type="number" value="1" min="1" max="${data.quantity}"/><button type="button" class="btn btn-danger">Remove</button>`;
+                            return `<input type="number" value="1" min="1" max="${data.quantity}"/>
+                                    <button type="button" class="btn btn-danger ml-2">Remove</button>`;
                         }
                 }
             ]

@@ -1,4 +1,4 @@
-$(document).ready(function () {
+﻿$(document).ready(function () {
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     $.ajax({
         url: Items,
@@ -16,7 +16,7 @@ $(document).ready(function () {
                     render:
                         function (data, type, full, meta) {
                             return `<input type="number" value="1" min="1" max="${data.quantity}"/>
-                            <button type="submit" class="btn btn-primary">Add</button>`;
+                                    <button type="button" class="btn btn-primary ml-2">Add</button>`;
                         }
                 }
             ],

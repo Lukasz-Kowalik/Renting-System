@@ -6,14 +6,7 @@ const del = require("del");
 
 const fontDir = './node_modules/@fortawesome/fontawesome-free/'
 const destDir = './wwwroot';
-const sassFiles = ['./src/scss/lib/*'
-    //'./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss',
-    //'./node_modules/@fortawesome/fontawesome-free/scss/brands.scss',
-    //'./node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss',
-    //'./node_modules/@fortawesome/fontawesome-free/scss/regular.scss',
-    //'./node_modules/@fortawesome/fontawesome-free/scss/solid.scss',
-    //'./node_modules/@fortawesome/fontawesome-free/scss/v4-shims.scss'
-];
+const sassFiles = ['./src/scss/lib/*'];
 const theme = './src/scss/main/**/*.scss'
 const minjs = [
     "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
@@ -26,7 +19,6 @@ function jq() {
 }
 function libs() {
     return src(minjs)
-        //    .pipe(concat("libs.min.js"))
         .pipe(dest(destDir + "/js"));
 }
 
@@ -51,15 +43,6 @@ function scss() {
         .pipe(dest(destDir + "/css"));
 }
 
-function cleanDir() {
-    return del(destDir);
-}
-
-function coppyJs() {
-    return src("./src/js/*")
-        .pipe(dest(destDir + "/js"));
-}
-
 function svg() {
     src(fontDir + "svgs/brands/*").pipe(dest(destDir + "/svgs/brands/"));
     src(fontDir + "svgs/regular/*").pipe(dest(destDir + "/svgs/regular/"));
@@ -69,17 +52,13 @@ function svg() {
         .pipe(dest(destDir));
 }
 
-exports.default = series(cleanDir, jq,
-    parallel(copyFonts, coppyJs, scss, libs, Styles, svg));
+exports.default = series(jq,
+    parallel(copyFonts, scss, libs, Styles, svg));
 
-function deleteFolserJs() {
-    return del("./wwwroot/js/script.js");
-}
 function deleteFolserCss() {
     return del("./wwwroot/css/");
 }
 
 task('watch', function () {
-    watch('./src/js', series(deleteFolserJs,coppyJs));
     watch('./src/scss', series(deleteFolserCss, scss, Styles));
 });
