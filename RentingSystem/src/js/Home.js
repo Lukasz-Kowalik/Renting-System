@@ -15,11 +15,11 @@
                     data: null,
                     render:
                         function (data, type, full, meta) {
-                            return `<input type="number" value="1" min="1"/>
+                            return `<input type="number" value="1" min="1" max="${data.quantity}"/>
                             <button type="submit" class="btn btn-primary">Add</button>`;
                         }
                 }
-                ],
+            ],
             dom: 'lBfrtip',
             buttons: [
                 'copy', 'csv', 'pdf', 'print'
@@ -38,16 +38,15 @@
             }
             else if (quantity > currentQuantity) {
                 quantity = currentQuantity;
-
             } else {
                 quantity = parseInt(quantity);
             }
-        
+
             const item = {
                 itemId: parseInt(row.eq(0).text()),
                 email: sessionStorage.getItem("email"),
                 quantity: quantity
-        };
+            };
             if (currentQuantity > 0) {
                 $.ajax({
                     type: "POST",
