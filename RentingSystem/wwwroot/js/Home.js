@@ -36,7 +36,7 @@
             if (quantity <= 0) {
                 quantity = 1;
             }
-            else if (quantity > currentQuantity) {
+            else if (quantity >= currentQuantity) {
                 quantity = currentQuantity;
             } else {
                 quantity = parseInt(quantity);
@@ -44,7 +44,7 @@
 
             const item = {
                 itemId: parseInt(row.eq(0).text()),
-                email: sessionStorage.getItem("email"),
+                email: sessionStorage.getItem('email'),
                 quantity: quantity
             };
             if (currentQuantity > 0) {
