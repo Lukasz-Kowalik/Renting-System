@@ -77,14 +77,10 @@ namespace RentingSystemAPI
 
             services.AddCors(options => options.AddPolicy(_origins, builder =>
             {
-                builder.AllowAnyOrigin()
+                builder.WithOrigins(Configuration["Cors:https"],
+                        Configuration["Cors:http"])
                     .AllowAnyHeader()
                     .AllowAnyMethod();
-
-                //builder.WithOrigins(Configuration["Cors:https"],
-                //        Configuration["Cors:http"])
-                //    .AllowAnyHeader()
-                //    .AllowAnyMethod();
             })
             );
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
@@ -121,6 +117,8 @@ namespace RentingSystemAPI
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IRentService, RentService>();
+            services.AddScoped<IRentedItemsService, RentedItemsService>();
 
             #endregion Scopes
 
