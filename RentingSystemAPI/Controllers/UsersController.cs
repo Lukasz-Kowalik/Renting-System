@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
-    // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsersController : ControllerBase
@@ -31,7 +30,6 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpGet]
-        //   [Authorize]
         public async Task<ActionResult<IEnumerable<User>>> GetUsersAsync()
         {
             var query = new GetAllUsersQuery();
@@ -41,15 +39,6 @@ namespace RentingSystemAPI.Controllers
                 NoContent();
             }
             return Ok(result);
-        }
-
-        [HttpGet("{id}")]
-        //  [Authorize]
-        public async Task<IActionResult> GetUserAsync(int id)
-        {
-            var query = new GetUserByIdQuery(id);
-            var result = await _mediator.Send(query);
-            return result != null ? (IActionResult)Ok(result) : NoContent();
         }
 
         /// <summary>

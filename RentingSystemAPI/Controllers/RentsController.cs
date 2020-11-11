@@ -1,13 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.Helpers.Attributes;
-using RentingSystemAPI.Queries;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.Interfaces;
+using System;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -17,26 +13,28 @@ namespace RentingSystemAPI.Controllers
     {
         private readonly IMediator _mediator;
         private readonly RentingContext _context;
+        private readonly IRentService _rentService;
 
-        public RentsController(IMediator mediator, RentingContext context)
+        public RentsController(IMediator mediator, RentingContext context, IRentService rentService)
         {
             _mediator = mediator;
             _context = context;
+            _rentService = rentService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Rent>>> GetRents()
+        [HttpPost]
+        [Route("AddRents")]
+        public async Task<IActionResult> AddItems([FromQuery] string email = null)
         {
-            return await _context.Rents.ToListAsync();
-        }
-
-        [HttpGet("{userId}")]
-        //  [Authorize]
-        public async Task<ActionResult<List<Rent>>> GetRents(int userId)
-        {
-            var query = new GetAllRentsByUserIdQuery(userId);
-            var result = await _mediator.Send(query);
-            return !result.Any() ? (ActionResult<List<Rent>>)NoContent() : Ok(result);
+            try
+            {
+                var result = await _rentService.Add(User, email);
+                return result ? (IActionResult)Ok() : BadRequest();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
         }
     }
 }

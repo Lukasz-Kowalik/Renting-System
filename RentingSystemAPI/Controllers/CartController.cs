@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -18,15 +17,13 @@ namespace RentingSystemAPI.Controllers
     [Route("[controller]")]
     public class CartController : ControllerBase
     {
-        private readonly RentingContext _context;
         private readonly IMapper _mapper;
         private readonly IUserService _userService;
         private readonly ICartService _cartService;
 
-        public CartController(RentingContext context, IMapper mapper,
+        public CartController(IMapper mapper,
              IUserService userService, ICartService cartService)
         {
-            _context = context;
             _mapper = mapper;
             _userService = userService;
             _cartService = cartService;

@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Response;
-using RentingSystemAPI.Helpers.Attributes;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -25,12 +23,6 @@ namespace RentingSystemAPI.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Item>>> GetItemsAsync()
-        {
-            return await _context.Items.ToListAsync();
-        }
-
         [HttpGet("getList")]
         public async Task<ActionResult<IEnumerable<ItemListResponse>>> GetItemToList()
         {
@@ -45,17 +37,6 @@ namespace RentingSystemAPI.Controllers
                 Console.WriteLine(e);
                 throw;
             }
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<IEnumerable<Item>>> GetRents(int id)
-        {
-            var item = await _context.Items.FirstOrDefaultAsync(x => x.ItemId == id);
-            if (item == null)
-            {
-                return NotFound(item);
-            }
-            return Ok(item);
         }
     }
 }
