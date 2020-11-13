@@ -14,15 +14,13 @@ namespace RentingSystemAPI.Services
 {
     public class CartService : ICartService
     {
-        private readonly IMapper _mapper;
         private readonly RentingContext _context;
         private readonly IUserService _userService;
 
         public CartService(
-            IMapper mapper,
+
             RentingContext context, IUserService userService)
         {
-            _mapper = mapper;
             _context = context;
             _userService = userService;
         }
@@ -60,7 +58,7 @@ namespace RentingSystemAPI.Services
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
-                if (item.Quantity > request.Quantity)
+                if (item.Quantity >= request.Quantity)
                 {
                     var userId = _userService.GetUserId(user, request.Email);
                     var cart = _context.Carts.FirstOrDefault(c => c.ItemId == request.ItemId && c.UserId == userId);
@@ -115,7 +113,7 @@ namespace RentingSystemAPI.Services
                     if (item == null) throw new Exception("Lack of item");
                     item.Quantity += request.Quantity;
                     _context.Items.Update(item);
-                    await _context.SaveChangesAsync();
+                    await _context.SaveChangesAsync().ConfigureAwait(false);
 
                     cart.Quantity -= request.Quantity;
                     if (cart.Quantity <= 0)
@@ -136,6 +134,12 @@ namespace RentingSystemAPI.Services
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+        public void RemoveAllItems(int userId)
+        {
+            var userCart = _context.Carts.Where(x => x.UserId == userId);
+            _context.Carts.RemoveRange(userCart);
         }
     }
 }

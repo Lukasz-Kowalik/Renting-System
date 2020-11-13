@@ -9,8 +9,29 @@
 <div class="vh-100 container-fluid">
     <div class="row">
         @Html.Partial("_Menu")
-        <div class="col-lg-10 col-md-8 col-sm-12 p-0 vh-100 d-flex justify-content-center ">
-            rented items
+
+        <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
+            <div>
+                <h1>Rented Items:</h1>
+            </div>
+            <div>
+                <table id="Rented-table" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>RentId</th>
+                            <th>ItemId</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Rent date</th>
+                            <th>When should be returned</th>
+                            <th>Return date</th>
+                            <th>Return items</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+<script defer src="~/js/Rented.js"></script>

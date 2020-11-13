@@ -4,7 +4,7 @@ const clean = require('gulp-clean-css');
 const concat = require('gulp-concat');
 const del = require("del");
 
-const fontDir = './node_modules/@fortawesome/fontawesome-free/'
+const fontDir = './node_modules/@fortawesome/fontawesome-free/';
 const destDir = './wwwroot';
 const sassFiles = ['./src/scss/lib/*'];
 const theme = './src/scss/main/**/*.scss'

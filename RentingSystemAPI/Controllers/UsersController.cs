@@ -34,7 +34,7 @@ namespace RentingSystemAPI.Controllers
         {
             var query = new GetAllUsersQuery();
             var result = await _mediator.Send(query);
-            if (!result.Any())
+            if (result.Count <= 0)
             {
                 NoContent();
             }
@@ -72,7 +72,7 @@ namespace RentingSystemAPI.Controllers
                 return Ok();
             }
 
-            var errorMessage = result.Errors.FirstOrDefault().Code;
+            var errorMessage = result.Errors.FirstOrDefault()?.Code;
             return errorMessage switch
             {
                 string message when message.Contains("Duplicate") => Conflict(),
@@ -108,7 +108,7 @@ namespace RentingSystemAPI.Controllers
             {
                 return Unauthorized();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotFound();
             }
@@ -137,7 +137,7 @@ namespace RentingSystemAPI.Controllers
             {
                 return Unauthorized();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotFound();
             }

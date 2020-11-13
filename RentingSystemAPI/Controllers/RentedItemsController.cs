@@ -1,11 +1,9 @@
-﻿using MediatR;
-using RentingSystemAPI.Helpers.Attributes;
-using Microsoft.AspNetCore.Mvc;
-using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.Queries;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using RentingSystemAPI.DTOs.Response;
+using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -13,20 +11,19 @@ namespace RentingSystemAPI.Controllers
     [Route("[controller]")]
     public class RentedItemsController : ControllerBase
     {
-        private readonly IMediator _mediator;
+        private readonly IRentedItemsService _rentedItemsService;
 
-        public RentedItemsController(IMediator mediator)
+        public RentedItemsController(IRentedItemsService rentedItemsService)
         {
-            _mediator = mediator;
+            _rentedItemsService = rentedItemsService;
         }
 
-        [HttpGet("{userId}")]
-        // [Authorize]
-        public async Task<ActionResult<List<RentedItem>>> GetRentedItems(int? userId)
+        [HttpGet]
+        [Route("GetRentedItems")]
+        public ActionResult<IEnumerable<RentedItemsResponse>> GetRents(string email)
         {
-            var query = new GetRentedItemsByUserQuery(userId);
-            var result = await _mediator.Send(query);
-            return !result.Any() ? (ActionResult<List<RentedItem>>)NoContent() : Ok(result);
+            var result = _rentedItemsService.Get(User, email);
+            return Ok(result);
         }
     }
 }

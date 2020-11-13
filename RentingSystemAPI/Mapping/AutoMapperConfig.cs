@@ -19,6 +19,9 @@ namespace RentingSystemAPI.Mapping
             CreateMap<Cart, AddItemRequest>().ReverseMap();
             CreateMap<Item, Cart>().ReverseMap();
             CreateMap<Cart, ItemListResponse>();
+            CreateMap<Item, RentedItem>();
+            CreateMap<Rent, RentedItemsResponse>();
+            CreateMap<RentedItem, RentedItemsResponse>();
         }
     }
 }

@@ -43,6 +43,7 @@ namespace RentingSystemAPI.DAL.Seeds
               }
           };
             await context.AddRangeAsync(users);
+
             await context.SaveChangesAsync();
         }
     }

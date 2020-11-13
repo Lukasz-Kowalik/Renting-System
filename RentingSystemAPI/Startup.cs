@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,7 +18,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace RentingSystemAPI
 {
@@ -83,6 +81,7 @@ namespace RentingSystemAPI
                     .AllowAnyMethod();
             })
             );
+            //Default configuration
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
             var port = Configuration["DBPort"] ?? "1433";
             //using SA isn't good on production, better practice would be using account with lower permission
@@ -119,6 +118,7 @@ namespace RentingSystemAPI
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IRentService, RentService>();
             services.AddScoped<IRentedItemsService, RentedItemsService>();
+            services.AddScoped<IItemService, ItemService>();
 
             #endregion Scopes
 
@@ -166,7 +166,6 @@ namespace RentingSystemAPI
                 context.Database.GetPendingMigrations();
                 DbInitializer.Initialize(context);
             }
-
             //TODO change if be run by docker-compose up
             //if (await context.Database.CanConnectAsync())
             //{

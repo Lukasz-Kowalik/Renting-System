@@ -15,5 +15,7 @@ namespace RentingSystemAPI.Interfaces
         Task RemoveFromCart(RemoveItemFromCartRequest request, ClaimsPrincipal user);
 
         Cart GetUserCartItem(int userId, int itemId);
+
+        void RemoveAllItems(int userId);
     }
 }

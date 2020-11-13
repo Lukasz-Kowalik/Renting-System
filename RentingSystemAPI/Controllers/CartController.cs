@@ -64,7 +64,7 @@ namespace RentingSystemAPI.Controllers
 
                 return Ok();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest();
             }
@@ -87,7 +87,7 @@ namespace RentingSystemAPI.Controllers
 
                 return Ok();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return BadRequest();
             }

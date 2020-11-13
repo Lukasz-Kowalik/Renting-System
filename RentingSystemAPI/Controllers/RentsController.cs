@@ -11,14 +11,10 @@ namespace RentingSystemAPI.Controllers
     [Route("[controller]")]
     public class RentsController : ControllerBase
     {
-        private readonly IMediator _mediator;
-        private readonly RentingContext _context;
         private readonly IRentService _rentService;
 
-        public RentsController(IMediator mediator, RentingContext context, IRentService rentService)
+        public RentsController(IRentService rentService)
         {
-            _mediator = mediator;
-            _context = context;
             _rentService = rentService;
         }
 
@@ -31,7 +27,7 @@ namespace RentingSystemAPI.Controllers
                 var result = await _rentService.Add(User, email);
                 return result ? (IActionResult)Ok() : BadRequest();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return NotFound();
             }
