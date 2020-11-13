@@ -1,6 +1,7 @@
 ﻿using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.Interfaces;
 using System.Linq;
+using RentingSystemAPI.BAL.Entities;
 
 namespace RentingSystemAPI.Services
 {
@@ -16,6 +17,11 @@ namespace RentingSystemAPI.Services
         public string GetItemNameById(int id)
         {
             return _context.Items.FirstOrDefault(i => i.ItemId == id)?.Name;
+        }
+
+        public Item GetItem(int id)
+        {
+            return _context.Items.FirstOrDefault(x => x.ItemId == id);
         }
     }
 }

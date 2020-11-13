@@ -5,7 +5,7 @@
         method: "GET",
         contentType: ContentType
     }).done(function (data) {
-        const table = $('#Item-table').dataTable({
+         $('#Item-table').dataTable({
             aaData: data,
             columns: [
                 { data: "itemId" },
@@ -57,7 +57,7 @@
                         row.eq(2).html((currentQuantity - quantity).toString());
                     },
                     error: function () {
-                        console.log('Error in Operation');
+                        alert('Error in Operation');
                     }
                 });
             }

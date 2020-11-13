@@ -60,7 +60,7 @@
                         }
                     },
                     error: function () {
-                        console.log('Error in Operation');
+                        alert('Error in Operation');
                     }
                 });
             }
@@ -77,7 +77,7 @@
                     $('#Cart-table tbody').empty();
                 },
                 error: function () {
-                    console.log('Error in Operation');
+                    alert('Error in Operation');
                 }
             });
             console.log("work");

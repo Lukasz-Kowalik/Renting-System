@@ -12,6 +12,6 @@ const Token = APIHost + "Token";
 const Cart = APIHost + "Cart/GetCart";
 const RemoveFromCart = APIHost + "Cart/Remove";
 const GetRentedItems = APIHost + "RentedItems/GetRentedItems";
-const ReturnItem = APIHost + "RentedItems/ReturnItem";
+const ReturnItems = APIHost + "RentedItems/ReturnItems";
 
 const USER_EMAIL = { email: sessionStorage.getItem('email') };

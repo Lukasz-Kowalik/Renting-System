@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Interfaces;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
 {
@@ -24,6 +24,15 @@ namespace RentingSystemAPI.Controllers
         {
             var result = _rentedItemsService.Get(User, email);
             return Ok(result);
+        }
+
+        [HttpPatch]
+        [Route("ReturnItems")]
+        public async Task<IActionResult> Return(ReturnItemsRequest request)
+        {
+            var result = await _rentedItemsService.ReturnItems(User, request);
+
+            return result ? (IActionResult)Ok() : NotFound();
         }
     }
 }

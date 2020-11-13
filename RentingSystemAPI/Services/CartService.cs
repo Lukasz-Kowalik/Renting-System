@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using RentingSystemAPI.BAL.Entities;
+﻿using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.Interfaces;
@@ -92,7 +91,7 @@ namespace RentingSystemAPI.Services
                     throw new DataException("Not enough items in stock");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 throw;

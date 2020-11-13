@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -55,6 +56,11 @@ namespace RentingSystemAPI.Services
                 return false;
             }
             return true;
+        }
+
+        public Rent GetRent(int id)
+        {
+            return _context.Rents.FirstOrDefault(x => x.RentId == id);
         }
     }
 }
