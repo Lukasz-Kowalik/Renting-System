@@ -1,14 +1,13 @@
-﻿using System;
-using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using RentingSystemAPI.DTOs.Request;
 
 namespace RentingSystemAPI.Services
 {
@@ -74,11 +73,13 @@ namespace RentingSystemAPI.Services
                 _context.Items.Update(item);
                 await _context.SaveChangesAsync();
 
-                var allItemsAreReturned = await _context.RentedItems.AllAsync(x => x.IsReturned && x.RentId == request.RentId);
+                var allItemsAreReturned = await _context.RentedItems
+                    .Where(x => x.RentId == request.RentId)
+                    .AllAsync(x => x.IsReturned);
                 if (allItemsAreReturned)
                 {
                     var rent = _rentService.GetRent(request.RentId);
-                    rent.RentReturnTime = new DateTime();
+                    rent.RentReturnTime = DateTime.Now;
                     _context.Rents.Update(rent);
                     await _context.SaveChangesAsync();
                 }
