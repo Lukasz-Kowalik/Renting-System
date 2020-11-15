@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace RentingSystem.Controllers
 {
+    [Authorize]
     public class UserPanelController : Controller
     {
         public IActionResult Item()
@@ -10,7 +11,6 @@ namespace RentingSystem.Controllers
             return View();
         }
 
-        //  [Authorize(Policy = "Admin")]
         public IActionResult Rented()
         {
             return View();

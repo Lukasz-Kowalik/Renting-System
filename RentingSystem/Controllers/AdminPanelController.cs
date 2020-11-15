@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentingSystem.Models;
 
 namespace RentingSystem.Controllers
 {
-    // [Authorize]
+    [Authorize(Policy = nameof(AccountTypes.Admin))]
     public class AdminPanelController : Controller
     {
         public IActionResult Index()

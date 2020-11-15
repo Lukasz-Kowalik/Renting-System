@@ -1,13 +1,13 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Models;
+using System.Threading.Tasks;
 
 namespace RentingSystem.Controllers
 {
+    [Authorize(Policy = nameof(AccountTypes.User))]
     public class CartController : Controller
     {
-        //[Authorize(Roles = "User")]
         public async Task<IActionResult> Index()
         {
             return View();

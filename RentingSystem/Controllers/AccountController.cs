@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,6 +19,7 @@ using System.Threading.Tasks;
 
 namespace RentingSystem.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -25,15 +27,18 @@ namespace RentingSystem.Controllers
         private readonly IMapper _mapper;
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly AppDbContext _context;
 
         public AccountController(IUserService userService, IHttpClientFactory httpClientFactory, IMapper mapper
-            , SignInManager<User> signInManager, UserManager<User> userManager)
+            , SignInManager<User> signInManager, UserManager<User> userManager, AppDbContext context)
         {
             _userService = userService;
             _httpClientFactory = httpClientFactory;
             _mapper = mapper;
             _signInManager = signInManager;
             _userManager = userManager;
+            _context = context;
+            CreateRoles();
         }
 
         [HttpGet]
@@ -63,17 +68,19 @@ namespace RentingSystem.Controllers
                 var user = _mapper.Map<User>(userResponse);
                 user.Id = Int32.Parse(token.Claims.FirstOrDefault(x => x.Type.Contains("nameid"))?.Value ?? string.Empty);
 
-                var claims = new List<Claim>()
-                {
-                    new Claim("token", token.ToString())
-                };
-                claims.AddRange(token.Claims);
-
                 var result = await _userManager.CreateAsync(user, userDto.Password);
                 var returnUrl = (string)TempData["returnUrl"];
                 if (result.Succeeded)
                 {
+                    var claims = new List<Claim>()
+                {
+                    new Claim("token", token.ToString())
+                };
+                    claims.AddRange(token.Claims);
                     await _userManager.AddClaimsAsync(user, claims);
+                    var userRole = token.Claims.FirstOrDefault(x => x.Type.Contains("role"))?.Value ?? string.Empty;
+
+                    await _userManager.AddToRoleAsync(user, userRole);
 
                     var singInResult = await _signInManager.PasswordSignInAsync(user, userDto.Password, false, false);
 
@@ -97,6 +104,22 @@ namespace RentingSystem.Controllers
             ViewData["Response"] = "Something goes wrong!";
 
             return View();
+        }
+
+        private void CreateRoles()
+        {
+            if (_context.Roles.Count() <= 0)
+            {
+                var roles = new List<Role>
+            {
+                new Role {Id = 1,Name = nameof(AccountTypes.User),NormalizedName  = nameof(AccountTypes.User).ToUpper()},
+                new Role {Id = 2,Name = nameof(AccountTypes.Customer),NormalizedName  = nameof(AccountTypes.Customer).ToUpper()},
+                new Role {Id = 3,Name = nameof(AccountTypes.Worker),NormalizedName  = nameof(AccountTypes.Worker).ToUpper()},
+                new Role {Id = 4,Name = nameof(AccountTypes.Admin),NormalizedName  = nameof(AccountTypes.Admin).ToUpper()},
+            };
+                _context.Roles.AddRange(roles);
+                _context.SaveChanges();
+            }
         }
 
         public async Task<IActionResult> LogOut()
