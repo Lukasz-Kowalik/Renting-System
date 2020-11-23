@@ -1,11 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentingSystemAPI.BAL.Entities;
+﻿using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.DAL.Seeds
 {
@@ -20,26 +16,34 @@ namespace RentingSystemAPI.DAL.Seeds
               {
                   FirstName = "Adam",
                   LastName = "Kruk",
-                  Email = "akruk@poczta.com",
-                  UserName ="akruk@poczta.com"
+                  Email = "User@poczta.com",
+                  UserName ="User@poczta.com",
+                  PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               },  new User
               {
                   FirstName = "Jan",
                   LastName = "Pietrzak",
-                  Email = "jpietrzak@poczta.com",
-                  UserName = "jpietrzak@poczta.com"
+                  Email = "Customer@poczta.com",
+                  UserName = "Customer@poczta.com",
+                  PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               },  new User
               {
                   FirstName = "Mikołaj",
                   LastName = "Dudek",
-                  UserName = "mdudek@poczta.com",
-                  Email = "mdudek@poczta.com"
+                  UserName = "Worker@poczta.com",
+                  Email = "Worker@poczta.com",
+                  PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               },  new User
               {
                   FirstName = "Emilia",
                   LastName = "Kasprzak",
-                  UserName = "ekasprzyk@poczta.com",
-                  Email = "ekasprzyk@poczta.com"
+                  UserName = "Admin@poczta.com",
+                  Email = "Admin@poczta.com",
+                  PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               }
           };
             await context.AddRangeAsync(users);

@@ -142,5 +142,13 @@ namespace RentingSystemAPI.Controllers
                 return NotFound();
             }
         }
+
+        [HttpPatch]
+        [Route("SeedUserRoles")]
+        public async Task<IActionResult> SeedRoles()
+        {
+            await _userService.SeedRolesAsync();
+            return Ok();
+        }
     }
 }

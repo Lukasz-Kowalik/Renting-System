@@ -9,12 +9,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Polly;
+using RentingSystem.Models;
 using RentingSystem.Services.Interfaces;
 using RentingSystem.Services.Services;
 using RentingSystem.Validation;
 using System;
 using System.Security.Claims;
-using RentingSystem.Models;
 
 namespace RentingSystem
 {

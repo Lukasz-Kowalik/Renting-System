@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace RentingSystem.Controllers
 {
-    [Authorize(Policy = nameof(AccountTypes.User))]
+    [Authorize]
     public class CartController : Controller
     {
         public async Task<IActionResult> Index()

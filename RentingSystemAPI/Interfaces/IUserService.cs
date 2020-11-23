@@ -23,5 +23,7 @@ namespace RentingSystemAPI.Interfaces
         Task<User> GetUserAsync(ClaimsPrincipal userPrincipal, string email = null);
 
         int GetUserId(ClaimsPrincipal userPrincipal, string email = null);
+
+        Task SeedRolesAsync();
     }
 }
