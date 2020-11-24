@@ -27,5 +27,7 @@ namespace RentingSystemAPI.Interfaces
         Task SeedRolesAsync();
 
         Task<bool> ResetUserPassword(ResetPasswordRequest request);
+
+        Task ChangeUserRole(int userId, int roleId);
     }
 }

@@ -169,5 +169,30 @@ namespace RentingSystemAPI.Services
             }
             return await _userManager.CheckPasswordAsync(user, request.Password1);
         }
+
+        public async Task ChangeUserRole(int userId, int roleId)
+        {
+            var user = GetById(userId);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var oldUserRole = userRoles.First();
+            await using var transaction = await _context.Database.BeginTransactionAsync();
+            try
+            {
+                await _userManager.RemoveFromRoleAsync(user, oldUserRole);
+                await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
+                await _context.SaveChangesAsync();
+
+                var accoutntType = ((AccountTypes)roleId).ToString();
+                await _userManager.AddToRoleAsync(user, accoutntType);
+                await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, accoutntType));
+                await _context.SaveChangesAsync();
+                await transaction.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
+        }
     }
 }

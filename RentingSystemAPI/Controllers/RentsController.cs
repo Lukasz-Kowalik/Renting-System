@@ -1,6 +1,4 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using RentingSystemAPI.DAL.Context;
+﻿using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.Interfaces;
 using System;
 using System.Threading.Tasks;

@@ -35,7 +35,7 @@ namespace RentingSystemAPI.Controllers
         {
             var query = new GetAllUsersQuery();
             var result = await _mediator.Send(query);
-            if (result.Count <= 0)
+            if (result.Count == 0)
             {
                 NoContent();
             }
@@ -156,6 +156,14 @@ namespace RentingSystemAPI.Controllers
                 return result ? (IActionResult)Ok() : BadRequest();
             }
             return BadRequest();
+        }
+
+        [HttpPatch]
+        [Route("ChangeUserRole/{userId}/{roleId}")]
+        public async Task<IActionResult> ChangeUserRole(int userId, int roleId)
+        {
+            await _userService.ChangeUserRole(userId, roleId);
+            return Ok();
         }
 
         [HttpPatch]

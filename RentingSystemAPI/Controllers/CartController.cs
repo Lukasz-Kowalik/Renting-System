@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Interfaces;
