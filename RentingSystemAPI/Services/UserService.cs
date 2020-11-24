@@ -159,5 +159,15 @@ namespace RentingSystemAPI.Services
             await _userManager.AddToRoleAsync(users[4], nameof(AccountTypes.Admin));
             await _userManager.AddClaimAsync(users[4], new Claim(ClaimTypes.Role, nameof(AccountTypes.Admin)));
         }
+
+        public async Task<bool> ResetUserPassword(ResetPasswordRequest request)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Email == request.Email);
+            if (user == null)
+            {
+                return false;
+            }
+            return await _userManager.CheckPasswordAsync(user, request.Password1);
+        }
     }
 }

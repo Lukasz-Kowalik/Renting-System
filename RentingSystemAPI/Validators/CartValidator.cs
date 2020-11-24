@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
-using RentingSystemAPI.DTOs.Request;
+﻿using FluentValidation;
 using RentingSystemAPI.Interfaces;
 
 namespace RentingSystemAPI.Validators

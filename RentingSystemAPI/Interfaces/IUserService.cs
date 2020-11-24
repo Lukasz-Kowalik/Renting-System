@@ -25,5 +25,7 @@ namespace RentingSystemAPI.Interfaces
         int GetUserId(ClaimsPrincipal userPrincipal, string email = null);
 
         Task SeedRolesAsync();
+
+        Task<bool> ResetUserPassword(ResetPasswordRequest request);
     }
 }

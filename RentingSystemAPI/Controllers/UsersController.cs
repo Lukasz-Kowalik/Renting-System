@@ -8,6 +8,7 @@ using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
 using RentingSystemAPI.Queries;
+using RentingSystemAPI.Validators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -141,6 +142,20 @@ namespace RentingSystemAPI.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpPatch]
+        [Route("ResetPassword")]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordRequest request)
+        {
+            var validator = new ResetPasswordValidator();
+            var validationResult = await validator.ValidateAsync(request);
+            if (validationResult.IsValid)
+            {
+                var result = await _userService.ResetUserPassword(request);
+                return result ? (IActionResult)Ok() : BadRequest();
+            }
+            return BadRequest();
         }
 
         [HttpPatch]
