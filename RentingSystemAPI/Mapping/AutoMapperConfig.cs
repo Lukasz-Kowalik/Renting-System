@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using AutoMapper;
+﻿using AutoMapper;
 using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.DTOs;
 using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
 
@@ -22,6 +20,7 @@ namespace RentingSystemAPI.Mapping
             CreateMap<Item, RentedItem>();
             CreateMap<Rent, RentedItemsResponse>();
             CreateMap<RentedItem, RentedItemsResponse>();
+            CreateMap<User, AdminPanelResponse>();
         }
     }
 }

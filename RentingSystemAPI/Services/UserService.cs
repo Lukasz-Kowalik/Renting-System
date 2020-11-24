@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
+using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Helpers;
 using RentingSystemAPI.Interfaces;
 using RentingSystemAPI.Models.Requests;
@@ -28,8 +29,7 @@ namespace RentingSystemAPI.Services
         private readonly AppSettings _appSettings;
 
         public UserService(SignInManager<User> signInManager,
-            UserManager<User> userManager,
-            IMapper mapper,
+            UserManager<User> userManager, IMapper mapper,
             IOptions<AppSettings> appSettings, RentingContext context)
         {
             _signInManager = signInManager;
@@ -173,8 +173,7 @@ namespace RentingSystemAPI.Services
         public async Task ChangeUserRole(int userId, int roleId)
         {
             var user = GetById(userId);
-            var userRoles = await _userManager.GetRolesAsync(user);
-            var oldUserRole = userRoles.First();
+            string oldUserRole = await GetUserRole(user);
             await using var transaction = await _context.Database.BeginTransactionAsync();
             try
             {
@@ -193,6 +192,25 @@ namespace RentingSystemAPI.Services
                 await transaction.RollbackAsync();
                 throw;
             }
+        }
+
+        private async Task<string> GetUserRole(User user)
+        {
+            var userRoles = await _userManager.GetRolesAsync(user);
+            return userRoles.First();
+        }
+
+        public async Task<IEnumerable<AdminPanelResponse>> GetUserAdminList()
+        {
+            var users = _context.Users.ToArray();
+
+            var result = _mapper.Map<AdminPanelResponse[]>(users);
+            for (int i = 0; i < users.Length; i++)
+            {
+                var role = await GetUserRole(users[i]);
+                result[i].Role = (AccountTypes)Enum.Parse(typeof(AccountTypes), role);
+            }
+            return result;
         }
     }
 }

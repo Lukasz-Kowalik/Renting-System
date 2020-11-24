@@ -173,5 +173,13 @@ namespace RentingSystemAPI.Controllers
             await _userService.SeedRolesAsync();
             return Ok();
         }
+
+        [HttpGet]
+        [Route("AdminPanel")]
+        public async Task<IActionResult> GetUserAdminList()
+        {
+            var response = _userService.GetUserAdminList();
+            return Ok(response);
+        }
     }
 }

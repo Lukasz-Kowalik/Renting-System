@@ -67,8 +67,6 @@
         });
 
         $('#rent-btn').click(() => {
-            console.log(
-                RentItems + "?email=" + sessionStorage.getItem('email'));
             $.ajax({
                 type: "POST",
                 url: RentItems + "?email=" + sessionStorage.getItem('email'),
@@ -80,7 +78,6 @@
                     alert('Error in Operation');
                 }
             });
-            console.log("work");
         });
     }
 });

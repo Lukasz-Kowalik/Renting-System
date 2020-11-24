@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DTOs.Request;
+using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -29,5 +31,7 @@ namespace RentingSystemAPI.Interfaces
         Task<bool> ResetUserPassword(ResetPasswordRequest request);
 
         Task ChangeUserRole(int userId, int roleId);
+
+        Task<IEnumerable<AdminPanelResponse>> GetUserAdminList();
     }
 }
