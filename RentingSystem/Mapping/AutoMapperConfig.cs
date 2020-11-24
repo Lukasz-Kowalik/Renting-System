@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
 using RentingSystem.Models;
 using RentingSystem.ViewModels.Authorization;
 using RentingSystem.ViewModels.DTOs;

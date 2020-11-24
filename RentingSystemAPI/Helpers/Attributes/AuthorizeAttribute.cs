@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RentingSystemAPI.BAL.Entities;
+using System;
 
 namespace RentingSystemAPI.Helpers.Attributes
 {

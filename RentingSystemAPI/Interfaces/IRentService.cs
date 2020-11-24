@@ -1,6 +1,6 @@
-﻿using System.Security.Claims;
+﻿using RentingSystemAPI.BAL.Entities;
+using System.Security.Claims;
 using System.Threading.Tasks;
-using RentingSystemAPI.BAL.Entities;
 
 namespace RentingSystemAPI.Interfaces
 {

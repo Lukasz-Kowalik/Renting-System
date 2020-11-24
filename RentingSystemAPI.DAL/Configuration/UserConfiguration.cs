@@ -8,10 +8,7 @@ namespace RentingSystemAPI.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-           // builder.ToTable("AspNetUsers");
+            // builder.ToTable("AspNetUsers");
         }
     }
-
-   
-
 }

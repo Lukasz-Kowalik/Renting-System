@@ -12,6 +12,5 @@ namespace RentingSystemAPI.BAL.Entities
         {
             NormalizedName = roleName.ToUpper();
         }
-        
     }
 }

@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using MediatR;
+﻿using MediatR;
 using RentingSystemAPI.BAL.Entities;
+using System.Collections.Generic;
 
 namespace RentingSystemAPI.Queries
 {
-    public class GetRentedItemsByUserQuery:IRequest<List<RentedItem>>
+    public class GetRentedItemsByUserQuery : IRequest<List<RentedItem>>
     {
         private readonly int? _userId;
 

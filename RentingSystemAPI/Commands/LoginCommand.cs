@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using System;
 using RentingSystemAPI.Models.Requests;
 using RentingSystemAPI.Models.Responses;
 

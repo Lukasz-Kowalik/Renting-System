@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.Commands;
 using RentingSystemAPI.DAL.Context;
+using RentingSystemAPI.Queries;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using RentingSystemAPI.Queries;
 
 namespace RentingSystemAPI.Handlers.Queries
 {

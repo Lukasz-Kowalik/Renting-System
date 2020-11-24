@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.OpenApi.Models;
+﻿using Microsoft.OpenApi.Models;
 using RentingSystemAPI.Helpers.Attributes;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RentingSystemAPI.Helpers
 {

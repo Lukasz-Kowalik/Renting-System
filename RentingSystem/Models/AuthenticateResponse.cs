@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-
-namespace RentingSystem.Models
+﻿namespace RentingSystem.Models
 {
     public class AuthenticateResponse
     {

@@ -5,7 +5,7 @@
         method: "GET",
         contentType: ContentType
     }).done(function (data) {
-         $('#Item-table').dataTable({
+        $('#Item-table').dataTable({
             aaData: data,
             columns: [
                 { data: "itemId" },

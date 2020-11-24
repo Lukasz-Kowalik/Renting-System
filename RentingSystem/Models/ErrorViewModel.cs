@@ -1,5 +1,3 @@
-using System;
-
 namespace RentingSystem.Models
 {
     public class ErrorViewModel

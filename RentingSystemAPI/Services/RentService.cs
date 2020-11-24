@@ -1,11 +1,11 @@
-﻿using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.Interfaces;
+using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Services
 {

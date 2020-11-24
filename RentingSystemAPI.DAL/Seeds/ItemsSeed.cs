@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using RentingSystemAPI.BAL.Entities;
+﻿using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace RentingSystemAPI.DAL.Seeds
 {

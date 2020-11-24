@@ -1,9 +1,6 @@
-﻿
-
-namespace RentingSystemAPI.BAL.Entities
+﻿namespace RentingSystemAPI.BAL.Entities
 {
     public class Admin : Worker
     {
-        
     }
 }

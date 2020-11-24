@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RentingSystemAPI.BAL.Entities;
+using System.Collections.Generic;
 
 namespace RentingSystemAPI.DAL.Initializer
 {

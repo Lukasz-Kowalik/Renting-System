@@ -1,7 +1,7 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystem.Models;
+using System.Diagnostics;
 
 namespace RentingSystem.Controllers
 {

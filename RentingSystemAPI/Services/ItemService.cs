@@ -1,7 +1,7 @@
-﻿using RentingSystemAPI.DAL.Context;
+﻿using RentingSystemAPI.BAL.Entities;
+using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.Interfaces;
 using System.Linq;
-using RentingSystemAPI.BAL.Entities;
 
 namespace RentingSystemAPI.Services
 {
