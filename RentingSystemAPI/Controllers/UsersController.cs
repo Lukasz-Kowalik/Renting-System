@@ -60,7 +60,6 @@ namespace RentingSystemAPI.Controllers
         /// </remarks>
         /// <param name="registeredUser"></param>
         /// <returns>Response code</returns>
-
         [HttpPost]
         [Produces("application/json")]
         [Route("/RegisterUser")]
@@ -178,7 +177,7 @@ namespace RentingSystemAPI.Controllers
         [Route("AdminPanel")]
         public async Task<IActionResult> GetUserAdminList()
         {
-            var response = _userService.GetUserAdminList();
+            var response = await _userService.GetUserAdminList();
             return Ok(response);
         }
     }

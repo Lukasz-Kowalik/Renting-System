@@ -20,7 +20,8 @@ namespace RentingSystemAPI.Mapping
             CreateMap<Item, RentedItem>();
             CreateMap<Rent, RentedItemsResponse>();
             CreateMap<RentedItem, RentedItemsResponse>();
-            CreateMap<User, AdminPanelResponse>();
+            CreateMap<User, AdminPanelResponse>()
+                .ForMember(u => u.UserId, m => m.MapFrom(e => e.Id));
         }
     }
 }
