@@ -257,3 +257,4 @@ Procfile          text
 *.*ignore         text
 
 Renting-System\RentingSystem\src linguist-detectabl=false
+RentingSystem\wwwroot\css\ linguist-detectabl=false
