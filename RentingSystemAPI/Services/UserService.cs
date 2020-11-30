@@ -178,7 +178,7 @@ namespace RentingSystemAPI.Services
             try
             {
                 await _userManager.RemoveFromRoleAsync(user, oldUserRole);
-                await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
+                await _userManager.RemoveClaimAsync(user, new Claim(ClaimTypes.Role, oldUserRole));
                 await _context.SaveChangesAsync();
 
                 var accoutntType = ((AccountTypes)roleId).ToString();
