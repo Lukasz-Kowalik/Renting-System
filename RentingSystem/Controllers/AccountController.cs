@@ -128,6 +128,10 @@ namespace RentingSystem.Controllers
 
             if (user != null)
             {
+                var claims = await _userManager.GetClaimsAsync(user);
+                await _userManager.RemoveClaimsAsync(user, claims);
+                var roles = await _userManager.GetRolesAsync(user);
+                await _userManager.RemoveFromRolesAsync(user, roles);
                 var client = _httpClientFactory.CreateClient("API Client");
                 await _userService.LogOutAsync(client);
                 await _userManager.DeleteAsync(user);

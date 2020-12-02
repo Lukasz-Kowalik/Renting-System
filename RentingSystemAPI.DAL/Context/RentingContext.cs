@@ -20,11 +20,6 @@ namespace RentingSystemAPI.DAL.Context
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<AccountPermission>()
-                .HasOne(ap => ap.User)
-                .WithMany()
-                .HasForeignKey(p => p.AccountPermissionId);
-
             modelBuilder.ApplyConfiguration(new RollsInitializer());
         }
     }
