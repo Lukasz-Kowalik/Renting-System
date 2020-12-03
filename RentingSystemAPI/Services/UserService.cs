@@ -167,7 +167,8 @@ namespace RentingSystemAPI.Services
             {
                 return false;
             }
-            return await _userManager.CheckPasswordAsync(user, request.Password1);
+            var result = await _userManager.ChangePasswordAsync(user, request.Password1, request.Password2);
+            return result.Succeeded ? true : false;
         }
 
         public async Task ChangeUserRole(int userId, int roleId)

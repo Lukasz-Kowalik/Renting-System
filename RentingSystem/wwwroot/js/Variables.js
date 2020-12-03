@@ -1,6 +1,7 @@
 //-----------------API CALLS---------------
 const ContentType = "application/json; charset=utf-8";
 const APIHost = "http://localhost:8000/";
+const Host = "http://localhost:3000/";
 const Header = "Access-Control - Allow - Origin: ";
 const Items = APIHost + "Items/getList";
 const RentedItems = APIHost + "RentedItems";
@@ -15,6 +16,7 @@ const GetRentedItems = APIHost + "RentedItems/GetRentedItems";
 const ReturnItems = APIHost + "RentedItems/ReturnItems";
 const ResetPassword = APIHost + "Users/ResetPassword";
 const ChangeUserRole = APIHost + "Users/ChangeUserRole";
+const Login = Host + "Account/Login";
 
 //-----------------Another Variables---------------
 const USER_EMAIL = { email: sessionStorage.getItem('email') };
