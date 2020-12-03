@@ -46,10 +46,12 @@ namespace RentingSystemAPI.Services
             if (user != null)
             {
                 await _signInManager.SignOutAsync();
-                await _signInManager.PasswordSignInAsync(request.Email, request.Password, true, false);
-                var token = await GenerateJwtToken(user);
-
-                return new AuthenticateResponse(user, token);
+                var result = await _signInManager.PasswordSignInAsync(request.Email, request.Password, true, false);
+                if (result.Succeeded)
+                {
+                    var token = await GenerateJwtToken(user);
+                    return new AuthenticateResponse(user, token);
+                }
             }
 
             throw new Exception("Incorrect user");
