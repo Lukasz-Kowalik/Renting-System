@@ -35,7 +35,7 @@ services:
     container_name: DataBaseSQL
     image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
     environment:
-        ACCEPT_EULA: Y
+        ACCEPT_EULA: 'Y'
         SA_PASSWORD: Password2020
     ports:
         - "1433:1433"
