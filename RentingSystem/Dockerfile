@@ -10,9 +10,6 @@ WORKDIR /src
 COPY ["RentingSystem/RentingSystem.csproj", "RentingSystem/"]
 COPY ["RentingSystem.Services/RentingSystem.Services.csproj", "RentingSystem.Services/"]
 COPY ["RentingSystem.ViewModels/RentingSystem.ViewModels.csproj", "RentingSystem.ViewModels/"]
-COPY ["RentingSystemAPI/RentingSystemAPI.csproj", "RentingSystemAPI/"]
-COPY ["RentingSystemAPI.BAL/RentingSystemAPI.BAL.csproj", "RentingSystemAPI.BAL/"]
-COPY ["RentingSystemAPI.DAL/RentingSystemAPI.DAL.csproj", "RentingSystemAPI.DAL/"]
 RUN dotnet restore "RentingSystem/RentingSystem.csproj"
 COPY . .
 WORKDIR "/src/RentingSystem"

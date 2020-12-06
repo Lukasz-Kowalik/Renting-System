@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemAPI", "RentingSystemAPI\RentingSystemAPI.csproj", "{681CCE53-1C38-481C-AEDA-6AF8434726F3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystem", "RentingSystem\RentingSystem.csproj", "{5A74E15A-D0A0-4B16-A40A-FDE723D16F53}"
-	ProjectSection(ProjectDependencies) = postProject
-		{681CCE53-1C38-481C-AEDA-6AF8434726F3} = {681CCE53-1C38-481C-AEDA-6AF8434726F3}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RentingSystemAPI.DAL", "RentingSystemAPI.DAL\RentingSystemAPI.DAL.csproj", "{36925C4B-134E-47F2-8D50-B83BE8107852}"
 EndProject

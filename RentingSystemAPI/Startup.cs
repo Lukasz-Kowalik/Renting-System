@@ -18,6 +18,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 namespace RentingSystemAPI
 {
@@ -53,7 +54,6 @@ namespace RentingSystemAPI
             });
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
             app.UseRouting();
 
             app.UseCors(_origins);
@@ -148,6 +148,7 @@ namespace RentingSystemAPI
 
         private void InitializeDatabase(IApplicationBuilder applicationBuilder)
         {
+            Thread.Sleep(30000);
             using var serviceScope = applicationBuilder.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope();
@@ -156,22 +157,13 @@ namespace RentingSystemAPI
             try
             {
                 context.Database.Migrate();
+                //Thread.Sleep(60000);
+                DbInitializer.Initialize(context);
             }
             catch (Exception e)
             {
                 Debug.Write(e);
             }
-            finally
-            {
-                context.Database.GetPendingMigrations();
-                DbInitializer.Initialize(context);
-            }
-            //TODO change if be run by docker-compose up
-            //if (await context.Database.CanConnectAsync())
-            //{
-            //    await context.Database.GetPendingMigrationsAsync();
-            //    DbInitializer.Initialize(context);
-            //}
         }
     }
 }
