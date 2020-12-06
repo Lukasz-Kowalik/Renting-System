@@ -171,7 +171,7 @@ namespace RentingSystem.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> RestartPassword()
+        public async Task<IActionResult> ResetPassword()
         {
             var user = await _userManager.GetUserAsync(User);
 
