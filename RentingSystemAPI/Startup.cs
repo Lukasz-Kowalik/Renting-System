@@ -71,8 +71,6 @@ namespace RentingSystemAPI
         {
             #region dbConfig
 
-            // services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
-
             services.AddCors(options => options.AddPolicy(_origins, builder =>
             {
                 builder.WithOrigins(Configuration["Cors:https"],
@@ -84,7 +82,7 @@ namespace RentingSystemAPI
             //Default configuration
             var server = Configuration["DBServer"] ?? "DataBaseSQL";
             var port = Configuration["DBPort"] ?? "1433";
-            //using SA isn't good on production, better practice would be using account with lower permission
+            //using SA isn't good for production, better practice would be using an account with lower permission
             var user = Configuration["DBUser"] ?? "SA";
             var password = Configuration["DBPassword"] ?? "Password2020";
             var database = Configuration["Database"] ?? "Renting";
@@ -157,7 +155,6 @@ namespace RentingSystemAPI
             try
             {
                 context.Database.Migrate();
-                //Thread.Sleep(60000);
                 DbInitializer.Initialize(context);
             }
             catch (Exception e)
