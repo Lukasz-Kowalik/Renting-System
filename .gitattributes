@@ -256,5 +256,5 @@ Procfile          text
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
 
-RentingSystem/src linguist-detectabl
-RentingSystem/wwwroot/css/ linguist-detectabl
+RentingSystem/src linguist-vendored=false
+RentingSystem/wwwroot/css/ linguist-vendored=false
