@@ -1,3 +1,14 @@
+RentingSystem/wwwroot/* linguist-vendored
+RentingSystem/wwwroot/js/AdminPanel.js linguist-vendored=false
+RentingSystem/wwwroot/js/Cart.js linguist-vendored=false
+RentingSystem/wwwroot/js/Home.js linguist-vendored=false
+RentingSystem/wwwroot/js/Rented.js linguist-vendored=false
+RentingSystem/wwwroot/js/ResetPassword.js linguist-vendored=false
+RentingSystem/wwwroot/js/Variables.js linguist-vendored=false
+RentingSystem/wwwroot/js/bootstrap.bundle.min.js linguist-vendored=true
+RentingSystem/wwwroot/js/jquery*.js linguist-vendored=true
+
+
 # Auto detect text files and perform LF normalization
 # https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 *    text=auto
@@ -255,6 +266,3 @@ Procfile          text
 
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
-
-Renting-System/RentingSystem/wwwroot/css/* linguist-vendored
-Renting-System/RentingSystem/src/* linguist-vendored
