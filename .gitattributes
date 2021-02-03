@@ -1,4 +1,3 @@
-RentingSystem/src/* linguist-vendored
 RentingSystem/wwwroot/css/* linguist-vendored
 
 # Auto detect text files and perform LF normalization
