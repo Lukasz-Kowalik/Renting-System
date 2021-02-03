@@ -1,3 +1,6 @@
+RentingSystem/src/* linguist-vendored
+RentingSystem/wwwroot/css/* linguist-vendored
+
 # Auto detect text files and perform LF normalization
 # https://www.davidlaing.com/2012/09/19/customise-your-gitattributes-to-become-a-git-ninja/
 *    text=auto
@@ -255,6 +258,3 @@ Procfile          text
 
 # Ignore files (like .npmignore or .gitignore)
 *.*ignore         text
-
-RentingSystem/src linguist-vendored=false
-RentingSystem/wwwroot/css/ linguist-vendored=false
