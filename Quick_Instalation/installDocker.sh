@@ -16,3 +16,5 @@ sudo docker run hello-world
 sudo groupadd docker
 sudo usermod -aG docker $USER
 sudo systemctl enable docker
+# instal docker-compose
+sudo apt install docker-compose
