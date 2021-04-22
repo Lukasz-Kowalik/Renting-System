@@ -73,10 +73,7 @@ namespace RentingSystemAPI
 
             services.AddCors(options => options.AddPolicy(_origins, builder =>
             {
-                builder.WithOrigins(Configuration["Cors:https"],
-                        Configuration["Cors:http"])
-                    .AllowAnyHeader()
-                    .AllowAnyMethod();
+                builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
             })
             );
             //Default configuration
