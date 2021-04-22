@@ -7,6 +7,7 @@ RentingSystem/wwwroot/js/ResetPassword.js linguist-vendored=false
 RentingSystem/wwwroot/js/Variables.js linguist-vendored=false
 RentingSystem/wwwroot/js/bootstrap.bundle.min.js linguist-vendored=true
 RentingSystem/wwwroot/js/jquery*.js linguist-vendored=true
+RentingSystem/wwwroot/css/libs.css linguist-vendored=true
 
 
 # Auto detect text files and perform LF normalization
