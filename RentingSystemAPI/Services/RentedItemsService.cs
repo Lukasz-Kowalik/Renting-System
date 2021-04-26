@@ -58,13 +58,39 @@ namespace RentingSystemAPI.Services
             return list;
         }
 
-        public IEnumerable<RentedItemsResponse> GetAll()
+        public IEnumerable<RentedItemsResponseWithUsers> GetAll()
         {
-            //var rents = _context.Rents.Select(rent => new RentedItemsResponseWithUsers
-            //{
-            //}
+            var users = _context.Users
+                .Include(x => x.Rents)
+                .ThenInclude(r => r.RentedItems)
+                .ToList();
 
-            return null;
+            var result = new List<RentedItemsResponseWithUsers>();
+            foreach (var user in users)
+            {
+                foreach (var rent in user.Rents)
+                {
+                    foreach (var ri in rent.RentedItems)
+                    {
+                        result.Add(new RentedItemsResponseWithUsers
+                        {
+                            RentId = rent.RentId,
+                            Email = user.Email,
+                            ItemId = ri.ItemId,
+                            Name = _itemService.GetItemNameById(ri.ItemId),
+                            Quantity = ri.Quantity,
+                            IsReturned = ri.IsReturned,
+                            Category = _itemService.GetItemCategoryNameById(ri.ItemId),
+                            RentTime = rent.RentTime,
+                            WhenShouldBeReturned = rent.WhenShouldBeReturned,
+                            RentReturnTime = rent.RentReturnTime
+                        }
+                        );
+                    }
+                }
+            }
+
+            return result;
         }
 
         public async Task<bool> ReturnItems(ClaimsPrincipal userPrincipal, ReturnItemsRequest request)
@@ -74,6 +100,7 @@ namespace RentingSystemAPI.Services
             {
                 var rentedItem = _context.RentedItems
                     .FirstOrDefault(x => x.ItemId == request.ItemId && x.RentId == request.RentId);
+
                 rentedItem.IsReturned = true;
                 _context.RentedItems.Update(rentedItem);
                 await _context.SaveChangesAsync();

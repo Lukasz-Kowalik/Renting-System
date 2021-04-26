@@ -10,6 +10,8 @@ namespace RentingSystemAPI.Interfaces
     {
         IEnumerable<RentedItemsResponse> Get(ClaimsPrincipal userPrincipal, string userEmail = null);
 
+        IEnumerable<RentedItemsResponseWithUsers> GetAll();
+
         Task<bool> ReturnItems(ClaimsPrincipal userPrincipal, ReturnItemsRequest request);
     }
 }

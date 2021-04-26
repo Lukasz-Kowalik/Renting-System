@@ -38,9 +38,9 @@ namespace RentingSystemAPI.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetAllRentedItems")]
-        public ActionResult<IEnumerable<RentedItemsResponse>> GetAllRents(string email)
+        public ActionResult<IEnumerable<RentedItemsResponseWithUsers>> GetAllRents()
         {
-            var result = _rentedItemsService.Get(User, email);
+            var result = _rentedItemsService.GetAll();
             return Ok(result);
         }
 

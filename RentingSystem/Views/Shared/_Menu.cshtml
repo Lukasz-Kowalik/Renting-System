@@ -69,10 +69,15 @@
                 </li>
                 <li class="nav-item border-bottom shadow @Html.IsSelected("UserPanel", "Rented", "bg-primary")">
                     <a class="nav-link  text-white px-0"
-                       asp-action="Rented" asp-controller="UserPanel">Rented</a>
+                       asp-action="Rented" asp-controller="UserPanel">Your's rented items</a>
                 </li>
                 @if (User.IsInRole("Admin"))
                 {
+
+                    <li class="nav-item  border-bottom shadow @Html.IsSelected("UserPanel", "Index", "bg-primary")">
+                        <a class="nav-link  text-white px-0"
+                           asp-controller="UserPanel" asp-action="Index">User's rented items</a>
+                    </li>
 
                     <li class="nav-item  border-bottom shadow @Html.IsSelected("AdminPanel", "Index", "bg-primary")">
                         <a class="nav-link  text-white px-0"

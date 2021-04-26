@@ -17,6 +17,7 @@ const ReturnItems = APIHost + "RentedItems/ReturnItems";
 const ResetPassword = APIHost + "Users/ResetPassword";
 const ChangeUserRole = APIHost + "Users/ChangeUserRole";
 const Login = Host + "Account/Login";
+const GetAllRentedItems = APIHost + "RentedItems/GetAllRentedItems"
 
 //-----------------Another Variables---------------
 const USER_EMAIL = { email: sessionStorage.getItem('email') };
