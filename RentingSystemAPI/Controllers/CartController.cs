@@ -36,6 +36,7 @@ namespace RentingSystemAPI.Controllers
             {
                 var userId = _userService.GetUserId(User, email);
                 var userCart = _cartService.GetUserCart(userId);
+
                 var response = _mapper.Map<ItemListResponse[]>(userCart);
                 return Ok(response);
             }

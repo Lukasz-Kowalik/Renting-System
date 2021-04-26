@@ -7,5 +7,7 @@ namespace RentingSystemAPI.Interfaces
         string GetItemNameById(int id);
 
         Item GetItem(int id);
+
+        string GetItemCategoryNameById(int id);
     }
 }

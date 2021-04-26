@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20210426143750_AddCategory.cs" />
+    <Compile Remove="Migrations\20210426143750_AddCategory.Designer.cs" />
+    <Compile Remove="Migrations\20210426151820_AddCategory.cs" />
+    <Compile Remove="Migrations\20210426151820_AddCategory.Designer.cs" />
+    <Compile Remove="Migrations\20210426160639_AddCategory.cs" />
+    <Compile Remove="Migrations\20210426160639_AddCategory.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />

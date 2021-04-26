@@ -23,5 +23,11 @@ namespace RentingSystemAPI.Services
         {
             return _context.Items.FirstOrDefault(x => x.ItemId == id);
         }
+
+        public string GetItemCategoryNameById(int id)
+        {
+            var item = _context.Items.FirstOrDefault(i => i.ItemId == id);
+            return _context.Categories.FirstOrDefault(x => x.Id == item.CategoryId)?.Name;
+        }
     }
 }

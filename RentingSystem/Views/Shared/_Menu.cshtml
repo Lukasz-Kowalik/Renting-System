@@ -71,10 +71,14 @@
                     <a class="nav-link  text-white px-0"
                        asp-action="Rented" asp-controller="UserPanel">Rented</a>
                 </li>
-                <li class="nav-item  border-bottom shadow @Html.IsSelected("AdminPanel", "Index", "bg-primary")">
-                    <a class="nav-link  text-white px-0"
-                       asp-controller="AdminPanel" asp-action="Index">Borrowers</a>
-                </li>
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <li class="nav-item  border-bottom shadow @Html.IsSelected("AdminPanel", "Index", "bg-primary")">
+                        <a class="nav-link  text-white px-0"
+                           asp-controller="AdminPanel" asp-action="Index">Borrowers</a>
+                    </li>
+                }
                 <li class="nav-item border-bottom shadow ">
                     <a class="nav-link  text-white px-0"
                        asp-controller="Account" asp-action="LogOut">Logout</a>

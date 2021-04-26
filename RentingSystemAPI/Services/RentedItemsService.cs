@@ -45,6 +45,7 @@ namespace RentingSystemAPI.Services
                         RentId = rent.RentId,
                         ItemId = itemId,
                         Name = _itemService.GetItemNameById(itemId),
+                        Category = _itemService.GetItemCategoryNameById(itemId),
                         Quantity = rentedItem.Quantity,
                         RentTime = rent.RentTime,
                         WhenShouldBeReturned = rent.WhenShouldBeReturned,
@@ -55,6 +56,15 @@ namespace RentingSystemAPI.Services
             }
 
             return list;
+        }
+
+        public IEnumerable<RentedItemsResponse> GetAll()
+        {
+            //var rents = _context.Rents.Select(rent => new RentedItemsResponseWithUsers
+            //{
+            //}
+
+            return null;
         }
 
         public async Task<bool> ReturnItems(ClaimsPrincipal userPrincipal, ReturnItemsRequest request)

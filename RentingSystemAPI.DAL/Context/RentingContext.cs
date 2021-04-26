@@ -12,6 +12,7 @@ namespace RentingSystemAPI.DAL.Context
         public DbSet<RentedItem> RentedItems { get; set; }
         public DbSet<Cart> Carts { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
         public RentingContext(DbContextOptions<RentingContext> options) : base(options)
         {
         }

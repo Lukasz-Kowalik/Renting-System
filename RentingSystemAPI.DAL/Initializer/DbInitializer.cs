@@ -14,6 +14,7 @@ namespace RentingSystemAPI.DAL.Initializer
             {
                 return;   // DB has been seeded
             }
+            CategorySeed.Seed(context).GetAwaiter().GetResult();
             UserSeed.Seed(context).GetAwaiter().GetResult();
             ItemsSeed.Seed(context).GetAwaiter().GetResult();
             RentsSeed.Seed(context).GetAwaiter().GetResult();

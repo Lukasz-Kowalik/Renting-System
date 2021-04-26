@@ -17,6 +17,8 @@
                     { data: "rentTime" },
                     { data: "whenShouldBeReturned" },
                     { data: "rentReturnTime" },
+                    { data: "category" },
+
                     {
                         data: null,
                         render:

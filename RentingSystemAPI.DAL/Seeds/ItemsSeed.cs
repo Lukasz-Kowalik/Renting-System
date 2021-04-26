@@ -18,6 +18,7 @@ namespace RentingSystemAPI.DAL.Seeds
                     DocumentationURL = new Uri("https://www.cyfronika.com.pl/dokumentacje/smd_r_0402.pdf"),
                     Quantity = 50,
                     MaxQuantity = 50,
+                    CategoryId=1,
                     Description = @"Specyfikacja
                                   - Rezystancja: 510 kΩ
                                   - Tolerancja: 5 %
@@ -29,6 +30,7 @@ namespace RentingSystemAPI.DAL.Seeds
                     DocumentationURL = new Uri("https://cdn-shop.adafruit.com/datasheets/WS2811.pdf"),
                     Quantity = 70,
                     MaxQuantity = 80,
+                    CategoryId = 2,
                     Description = @"Specyfikacja:
                                         -Napięcie zasilania: 5 V
                                         -Pobór prądu If: do 50 mA
@@ -42,6 +44,7 @@ namespace RentingSystemAPI.DAL.Seeds
                     Name = @"Przewody z haczykami",
                     Quantity = 10,
                     MaxQuantity = 20,
+                    CategoryId = 4,
                     Description =
                         @"Zestaw 2 przewodów w kolorze czarnym i czerwonym o długości 25 cm zakończonych złączem z haczykiem. Dzięki konektorom ze sprężynką umożliwiają wielokrotne łączenie różnorakich elementów"
                 },
@@ -50,6 +53,7 @@ namespace RentingSystemAPI.DAL.Seeds
                     Name = @"Karta pamięci SanDisk microSD 32GB 80MB/s klasa 10 (bez adaptera) + system NOOBs dla Raspberry Pi 4B/3B+/3B/2B",
                     Quantity = 12,
                     MaxQuantity = 15,
+                    CategoryId = 3,
                     Description =
                         @"Karta pamięci microSD klasy 10, który pozwoli na pełne wykorzystanie atutów nowoczesnych smartfonów i tabletów. Urządzenie można wykorzystać jako nośnik pamięci w minikomputerze Raspberry Pi."
                 }

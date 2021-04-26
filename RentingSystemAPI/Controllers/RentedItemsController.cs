@@ -18,9 +18,27 @@ namespace RentingSystemAPI.Controllers
             _rentedItemsService = rentedItemsService;
         }
 
+        /// <summary>
+        /// Get rented items for user
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         [HttpGet]
         [Route("GetRentedItems")]
         public ActionResult<IEnumerable<RentedItemsResponse>> GetRents(string email)
+        {
+            var result = _rentedItemsService.Get(User, email);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Get rented items for all users
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetAllRentedItems")]
+        public ActionResult<IEnumerable<RentedItemsResponse>> GetAllRents(string email)
         {
             var result = _rentedItemsService.Get(User, email);
             return Ok(result);

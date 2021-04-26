@@ -11,6 +11,7 @@
                 { data: "itemId" },
                 { data: "name" },
                 { data: "quantity" },
+                { data: "category" },
                 {
                     data: null,
                     render:
@@ -31,7 +32,7 @@
         $('#Item-table tbody').on('click', 'button', function () {
             const row = $(this).closest('tr').find('td');
             const currentQuantity = parseInt(row.eq(2).text());
-            let quantity = row.eq(3).find("input").val();
+            let quantity = row.last().find("input").val();
 
             if (quantity <= 0) {
                 quantity = 1;

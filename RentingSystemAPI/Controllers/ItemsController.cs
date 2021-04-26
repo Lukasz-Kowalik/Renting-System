@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RentingSystemAPI.BAL.Entities;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Response;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RentingSystemAPI.Controllers
@@ -25,11 +24,17 @@ namespace RentingSystemAPI.Controllers
 
         [HttpGet("getList")]
         public async Task<ActionResult<IEnumerable<ItemListResponse>>> GetItemToList()
+
         {
-            var list = await _context.Items.ToListAsync();
+            var list = _context.Items.ToList();
+            var categories = _context.Categories.ToList();
+
             try
             {
-                var response = _mapper.Map<List<Item>, List<ItemListResponse>>(list);
+                var response = from i in list
+                               join c in categories on i.CategoryId equals c.Id
+                               select new ItemListResponse { Category = c.Name, Name = i.Name, ItemId = i.ItemId, Quantity = i.Quantity };
+
                 return Ok(response);
             }
             catch (Exception e)
