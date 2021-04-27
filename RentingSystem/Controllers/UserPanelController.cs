@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentingSystem.Models;
 
 namespace RentingSystem.Controllers
 {
@@ -16,6 +17,7 @@ namespace RentingSystem.Controllers
             return View();
         }
 
+        [Authorize(Policy = nameof(AccountTypes.Admin))]
         public IActionResult Index()
         {
             return View();

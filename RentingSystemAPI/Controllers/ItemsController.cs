@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Response;
+using RentingSystemAPI.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,13 @@ namespace RentingSystemAPI.Controllers
     {
         private readonly RentingContext _context;
         private readonly IMapper _mapper;
+        private readonly IItemService _itemService;
 
-        public ItemsController(RentingContext context, IMapper mapper)
+        public ItemsController(RentingContext context, IMapper mapper, IItemService itemService)
         {
             _context = context;
             _mapper = mapper;
+            _itemService = itemService;
         }
 
         [HttpGet("getList")]
@@ -42,6 +45,21 @@ namespace RentingSystemAPI.Controllers
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetItem(int id)
+        {
+            var item = _context.Items.FirstOrDefault(x => x.ItemId == id);
+            var result = new ItemResponse
+            {
+                Url = item.DocumentationURL,
+                Category = _itemService.GetItemCategoryNameById(id),
+                MaxQuantity = item.MaxQuantity,
+                Quantity = item.Quantity,
+                Name = item.Name
+            };
+            return Ok(result);
         }
     }
 }

@@ -16,8 +16,15 @@
                     data: null,
                     render:
                         function (data, type, full, meta) {
-                            return `<input type="number" value="1" min="1" max="${data.quantity}"/>
-                                    <button type="button" class="btn btn-primary ml-2">Add</button>`;
+                            return `
+
+<input type="number" value="1" min="1" max="${data.quantity}"/>
+<button type="button" class="btn btn-primary ml-2" >Add</button>
+
+<button type="button" class="btn btn-light ml-2" disabled>
+<a href="${Host}Items/${data.itemId}">
+Details</a></button>
+`;
                         }
                 }
             ],
@@ -56,6 +63,7 @@
                     data: JSON.stringify(item),
                     success: function () {
                         row.eq(2).html((currentQuantity - quantity).toString());
+                        alert(`Dodano ${quantity}`)
                     },
                     error: function () {
                         alert('Error in Operation');

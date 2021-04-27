@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Details";
+    @model RentingSystem.ViewModels.Vms.ItemModel
+}
+<div class="vh-100 container-fluid">
+    <div class="row ">
+        @await Html.PartialAsync("_Menu")
+        <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
+            <div>
+                <h1>Product Details</h1>
+            </div>
+
+            <div class="justify-content-center d-flex ">
+                <div class="
+      d-flex flex-column
+      align-self-center p-5
+      rounded bg-secondary display-card ultra-width">
+                    <div class="w-100 text-center container-fluid">
+                        <img src="~/images/example.png" class="mb-5"/>
+                        
+                        <h4 class="mb-3">Name: @Model.Name</h4>
+                        <h5>Category: @Model.Category</h5>
+                        <h5>Quantity: @Model.MaxQuantity</h5>
+                        <h6>MaxQuantity: @Model.Quantity</h6>
+                        <a href="@Model.Url">Documentation</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
