@@ -63,7 +63,7 @@ Details</a></button>
                     data: JSON.stringify(item),
                     success: function () {
                         row.eq(2).html((currentQuantity - quantity).toString());
-                        alert(`Dodano ${quantity}`)
+                        //  alert(`Dodano ${quantity}`)
                     },
                     error: function () {
                         alert('Error in Operation');
