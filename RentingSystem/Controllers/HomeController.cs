@@ -49,6 +49,7 @@ namespace RentingSystem.Controllers
                         .DeserializeAsync<ItemModel>
                         (contentStream, new System.Text.Json.JsonSerializerOptions
                         { IgnoreNullValues = true, PropertyNameCaseInsensitive = true });
+                    ViewData["ItemId"] = id;
                     return View(result);
                 }
                 catch (Exception)

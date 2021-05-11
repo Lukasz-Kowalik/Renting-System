@@ -3,8 +3,6 @@
     public enum AccountTypes
     {
         User = 1,
-        Customer,
-        Worker,
         Admin,
     }
 }

@@ -146,11 +146,11 @@ namespace RentingSystemAPI.Services
             await _userManager.AddToRoleAsync(users[0], nameof(AccountTypes.User));
             await _userManager.AddClaimAsync(users[0], new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
 
-            await _userManager.AddToRoleAsync(users[1], nameof(AccountTypes.Customer));
-            await _userManager.AddClaimAsync(users[1], new Claim(ClaimTypes.Role, nameof(AccountTypes.Customer)));
+            await _userManager.AddToRoleAsync(users[1], nameof(AccountTypes.User));
+            await _userManager.AddClaimAsync(users[1], new Claim(ClaimTypes.Role, nameof(AccountTypes.User)));
 
-            await _userManager.AddToRoleAsync(users[2], nameof(AccountTypes.Worker));
-            await _userManager.AddClaimAsync(users[2], new Claim(ClaimTypes.Role, nameof(AccountTypes.Worker)));
+            await _userManager.AddToRoleAsync(users[2], nameof(AccountTypes.Admin));
+            await _userManager.AddClaimAsync(users[2], new Claim(ClaimTypes.Role, nameof(AccountTypes.Admin)));
 
             await _userManager.AddToRoleAsync(users[3], nameof(AccountTypes.Admin));
             await _userManager.AddClaimAsync(users[3], new Claim(ClaimTypes.Role, nameof(AccountTypes.Admin)));

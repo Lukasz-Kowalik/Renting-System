@@ -22,9 +22,7 @@ $(document).ready(function () {
                                 return `
                                     <select id="roles">
                                       <option value="1"${1 === id ? 'selected' : ""}>User</option>
-                                      <option value="2"${2 === id ? 'selected' : ""}>Customer</option>
-                                      <option value="3"${3 === id ? 'selected' : ""}>Worker</option>
-                                      <option value="4"${4 === id ? 'selected' : ""}>Admin</option>
+                                      <option value="2"${2 === id ? 'selected' : ""}>Admin</option>
                                     </select>
                                     <button type="button" class="btn btn-primary ml-2">Save</button>`;
                             }

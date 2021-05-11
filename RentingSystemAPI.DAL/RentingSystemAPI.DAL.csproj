@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20210426151820_AddCategory.Designer.cs" />
     <Compile Remove="Migrations\20210426160639_AddCategory.cs" />
     <Compile Remove="Migrations\20210426160639_AddCategory.Designer.cs" />
+    <Compile Remove="Migrations\20210511185737_RemovedWorkerRole.cs" />
+    <Compile Remove="Migrations\20210511185737_RemovedWorkerRole.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

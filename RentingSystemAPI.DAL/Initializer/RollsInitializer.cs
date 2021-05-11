@@ -13,9 +13,7 @@ namespace RentingSystemAPI.DAL.Initializer
             var roles = new List<Role>
             {
                 new Role {Id = 1,Name = nameof(AccountTypes.User),NormalizedName  = nameof(AccountTypes.User).ToUpper()},
-                new Role {Id = 2,Name = nameof(AccountTypes.Customer),NormalizedName  = nameof(AccountTypes.Customer).ToUpper()},
-                new Role {Id = 3,Name = nameof(AccountTypes.Worker),NormalizedName  = nameof(AccountTypes.Worker).ToUpper()},
-                new Role {Id = 4,Name = nameof(AccountTypes.Admin),NormalizedName  = nameof(AccountTypes.Admin).ToUpper()},
+                new Role {Id = 2,Name = nameof(AccountTypes.Admin),NormalizedName  = nameof(AccountTypes.Admin).ToUpper()},
             };
             builder.HasData(roles);
         }

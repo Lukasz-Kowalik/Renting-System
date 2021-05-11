@@ -129,9 +129,7 @@ namespace RentingSystem
             services.AddAuthorization(config =>
             {
                 config.AddPolicy(nameof(AccountTypes.Admin), policy => policy.RequireClaim(ClaimTypes.Role, nameof(AccountTypes.Admin)));
-                config.AddPolicy(nameof(AccountTypes.Customer), policy => policy.RequireClaim(ClaimTypes.Role, nameof(AccountTypes.Customer)));
                 config.AddPolicy(nameof(AccountTypes.User), policy => policy.RequireClaim(ClaimTypes.Role, nameof(AccountTypes.User)));
-                config.AddPolicy(nameof(AccountTypes.Worker), policy => policy.RequireClaim(ClaimTypes.Role, nameof(AccountTypes.Worker)));
             });
 
             #endregion

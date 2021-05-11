@@ -24,16 +24,16 @@ namespace RentingSystemAPI.DAL.Seeds
               {
                   FirstName = "Jan",
                   LastName = "Pietrzak",
-                  Email = "Customer@poczta.com",
-                  UserName = "Customer@poczta.com",
+                  Email = "User2@poczta.com",
+                  UserName = "User2@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
                   SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               },  new User
               {
                   FirstName = "Mikołaj",
                   LastName = "Dudek",
-                  UserName = "Worker@poczta.com",
-                  Email = "Worker@poczta.com",
+                  UserName = "Admin2@poczta.com",
+                  Email = "Admin2@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
                   SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
               },  new User
