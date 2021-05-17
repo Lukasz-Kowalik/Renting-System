@@ -16,15 +16,15 @@
                     data: null,
                     render:
                         function (data, type, full, meta) {
-                            return `
-
-<input type="number" value="1" min="1" max="${data.quantity}"/>
-<button type="button" class="btn btn-primary ml-2" >Add</button>
-
-<button type="button" class="btn btn-light ml-2" disabled>
-<a href="${Host}Items/${data.itemId}">
-Details</a></button>
-`;
+                            let result = '';
+                           if(logged) 
+                             result+=`
+                                <input type="number" value="1" min="1" max="${data.quantity}"/>
+                                <button type="button" class="btn btn-primary ml-2" >Add</button>`                      
+                             result +=`
+                                <a href="${Host}Items/${data.itemId}" class="btn btn-light ml-2">
+                                Details</a>`
+                             return result;
                         }
                 }
             ],

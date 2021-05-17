@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+<div class="vh-100 container-fluid">
+    <div class="row">
+        @await Html.PartialAsync("_Menu")
+        <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
+            <div>
+                <h1>Item's categories:</h1>
+            </div>
+
+            <div>
+                <table id="Category-table" class="table table-striped table-bordered" style="width: 100%">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+               <a class="btn btn-primary" asp-controller="Category" asp-action="Add">Add</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script defer src="~/js/Category.js"></script>

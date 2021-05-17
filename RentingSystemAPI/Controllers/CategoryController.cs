@@ -37,18 +37,17 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(string name)
+        public IActionResult Post([FromForm] string name)
         {
             var category = new Category { Name = name };
             _categoryService.Add(category);
             return Ok();
         }
 
-        [HttpPatch("{id}")]
-        public IActionResult Patch(int id, string name)
+        [HttpPatch]
+        public IActionResult Patch([FromForm] int id, [FromForm] string name)
         {
-            _categoryService.Update(id, name);
-            return Ok();
+            return _categoryService.Update(id, name) ? Ok() : (IActionResult)NotFound();
         }
 
         [HttpDelete("{id}")]

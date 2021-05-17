@@ -18,6 +18,6 @@ const ResetPassword = APIHost + "Users/ResetPassword";
 const ChangeUserRole = APIHost + "Users/ChangeUserRole";
 const Login = Host + "Account/Login";
 const GetAllRentedItems = APIHost + "RentedItems/GetAllRentedItems"
-
+const Category = APIHost +"api/Category"
 //-----------------Another Variables---------------
 const USER_EMAIL = { email: sessionStorage.getItem('email') };

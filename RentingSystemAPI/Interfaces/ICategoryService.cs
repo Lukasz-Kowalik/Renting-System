@@ -13,7 +13,7 @@ namespace RentingSystemAPI.Interfaces
 
         void Add(Category category);
 
-        void Update(int id, string name);
+        bool Update(int id, string name);
 
         void Delete(int id);
     }

@@ -1,13 +1,14 @@
 ﻿@{
-    ViewData["Title"] = "Details";
-    @model RentingSystem.ViewModels.Vms.ItemModel
+    ViewData["Title"] = "Add category";
 }
 <div class="vh-100 container-fluid">
     <div class="row ">
         @await Html.PartialAsync("_Menu")
         <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
             <div>
-                <h1>Product Details</h1>
+                <h1>Edit category</h1>
+                <a class="btn btn-primary" asp-controller="Category" asp-action="Index">Back</a>
+
             </div>
 
             <div class="justify-content-center d-flex ">
@@ -16,17 +17,15 @@
       align-self-center p-5
       rounded bg-secondary display-card ultra-width">
                     <div class="w-100 text-center container-fluid">
-                        <img src="~/images/example.png" class="mb-5" />
-
-                        <h4 class="mb-3">Name: @Model.Name</h4>
-                        <h5>Category: @Model.Category</h5>
-                        <h5>Quantity: @Model.Quantity</h5>
-                        <h6>MaxQuantity: @Model.MaxQuantity</h6>
-                        <a href="@Model.Url">Documentation</a>
-                        <button class="btn btn-primary">Add</button>
+                        <form target="target">
+                            <label for="name">Name</label>
+                            <input id="name" typ="text" />
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script defer src="~/js/EditCategory.js"></script>

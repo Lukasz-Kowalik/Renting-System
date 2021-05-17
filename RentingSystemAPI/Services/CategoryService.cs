@@ -36,12 +36,17 @@ namespace RentingSystemAPI.Services
             return _context.Categories.FirstOrDefault(x => x.Id == id).Name;
         }
 
-        public void Update(int id, string name)
+        public bool Update(int id, string name)
         {
             var category = Get(id);
+            if (category is null)
+            {
+                return false;
+            }
             category.Name = name;
             _context.Categories.Update(category);
             _context.SaveChanges();
+            return true;
         }
 
         public void Delete(int id)

@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Add category";
+}
+<div class="vh-100 container-fluid">
+    <div class="row ">
+        @await Html.PartialAsync("_Menu")
+        <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
+            <div>
+                <h1>Add category</h1>
+                <a class="btn btn-primary" asp-controller="Category" asp-action="Index">Back</a>
+
+            </div>
+
+            <div class="justify-content-center d-flex ">
+                <div class="
+      d-flex flex-column
+      align-self-center p-5
+      rounded bg-secondary display-card ultra-width">
+                    <div class="w-100 text-center container-fluid">
+                        <form target="target"  >
+                            <label for="name">Name</label>
+                            <input id="name" typ="text"   />
+                            <button type="submit" class="btn btn-primary">Add new item</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script defer src="~/js/AddCategory.js"></script>
