@@ -105,7 +105,7 @@ namespace RentingSystemAPI.Services
                 _context.RentedItems.Update(rentedItem);
                 await _context.SaveChangesAsync();
 
-                var item = _itemService.GetItem(request.ItemId);
+                var item = _itemService.Get(request.ItemId);
                 item.Quantity += rentedItem.Quantity;
                 _context.Items.Update(item);
                 await _context.SaveChangesAsync();

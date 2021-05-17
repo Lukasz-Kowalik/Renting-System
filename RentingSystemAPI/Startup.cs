@@ -18,7 +18,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 
 namespace RentingSystemAPI
 {
@@ -114,6 +113,7 @@ namespace RentingSystemAPI
             services.AddScoped<IRentService, RentService>();
             services.AddScoped<IRentedItemsService, RentedItemsService>();
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             #endregion Scopes
 
@@ -143,7 +143,6 @@ namespace RentingSystemAPI
 
         private void InitializeDatabase(IApplicationBuilder applicationBuilder)
         {
-            Thread.Sleep(30000);
             using var serviceScope = applicationBuilder.ApplicationServices
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope();

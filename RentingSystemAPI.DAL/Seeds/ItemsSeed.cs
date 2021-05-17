@@ -15,7 +15,7 @@ namespace RentingSystemAPI.DAL.Seeds
                 new Item
                 {
                     Name = @"Rezystor SMD 1206 510kΩ",
-                    DocumentationURL = new Uri("https://www.cyfronika.com.pl/dokumentacje/smd_r_0402.pdf"),
+                    DocumentationUrl = new Uri("https://www.cyfronika.com.pl/dokumentacje/smd_r_0402.pdf"),
                     Quantity = 50,
                     MaxQuantity = 50,
                     CategoryId=1,
@@ -27,7 +27,7 @@ namespace RentingSystemAPI.DAL.Seeds
                 new Item
                 {
                     Name = @"Dioda LED 5mm RGB WS2811 adresowana",
-                    DocumentationURL = new Uri("https://cdn-shop.adafruit.com/datasheets/WS2811.pdf"),
+                    DocumentationUrl = new Uri("https://cdn-shop.adafruit.com/datasheets/WS2811.pdf"),
                     Quantity = 70,
                     MaxQuantity = 80,
                     CategoryId = 2,
