@@ -5,20 +5,32 @@
             url: GetAllRentedItems,
             method: "GET",
             contentType: ContentType,
-           
         }).done(function (data) {
             $('#Rented-table').dataTable({
+                order: [],
                 aaData: data,
-                columns: [
+                columns: [                    
                     { data: "rentId" },
                     { data: "itemId" },
                     { data: "email" },
                     { data: "name" },
                     { data: "quantity" },
                     { data: "category" },
-                    { data: "rentTime" },
-                    { data: "whenShouldBeReturned" },
-                    { data: "rentReturnTime" },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
                     {
                         data: null,
                         render:

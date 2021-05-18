@@ -14,6 +14,8 @@
     <Compile Remove="Migrations\20210426160639_AddCategory.Designer.cs" />
     <Compile Remove="Migrations\20210511185737_RemovedWorkerRole.cs" />
     <Compile Remove="Migrations\20210511185737_RemovedWorkerRole.Designer.cs" />
+    <Compile Remove="Migrations\20210517212713_MovedMaxReturnTimeToUser.cs" />
+    <Compile Remove="Migrations\20210517212713_MovedMaxReturnTimeToUser.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

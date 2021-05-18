@@ -9,5 +9,7 @@ namespace RentingSystemAPI.Interfaces
         Task<bool> Add(ClaimsPrincipal userPrincipal, string userEmail = null);
 
         Rent GetRent(int id);
+
+        Task<bool> Add(string userEmail);
     }
 }

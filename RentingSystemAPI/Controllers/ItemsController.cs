@@ -17,9 +17,7 @@ namespace RentingSystemAPI.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IItemService _itemService;
-
         private readonly ICategoryService _categoryService;
-        private readonly RentingContext _context;
 
         public ItemsController(IMapper mapper, IItemService itemService, ICategoryService categoryService)
         {

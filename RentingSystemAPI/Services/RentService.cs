@@ -58,6 +58,40 @@ namespace RentingSystemAPI.Services
             return true;
         }
 
+        public async Task<bool> Add(string userEmail)
+        {
+            try
+            {
+                var user = await _userService.GetUser(userEmail);
+
+                var cartItems = _cartService.GetUserCart(user.Id);
+                var rentedItems = _mapper.Map<RentedItem[]>(cartItems);
+
+                await using var transaction = await _context.Database.BeginTransactionAsync();
+                try
+                {
+                    var rents = new Rent { UserId = user.Id, RentedItems = rentedItems, WhenShouldBeReturned = DateTime.Now.AddDays(user.MaxReturnTimeInDays) };
+                    await _context.Rents.AddAsync(rents);
+                    await _context.SaveChangesAsync();
+
+                    _cartService.RemoveAllItems(user.Id);
+                    await _context.SaveChangesAsync();
+                    await transaction.CommitAsync();
+                }
+                catch (Exception e)
+                {
+                    await transaction.RollbackAsync();
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
+            return true;
+        }
+
         public Rent GetRent(int id)
         {
             return _context.Rents.FirstOrDefault(x => x.RentId == id);

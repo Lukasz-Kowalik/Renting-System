@@ -66,6 +66,7 @@ namespace RentingSystemAPI.Services
                 .ToList();
 
             var result = new List<RentedItemsResponseWithUsers>();
+            //To do change to linq
             foreach (var user in users)
             {
                 foreach (var rent in user.Rents)
@@ -90,7 +91,7 @@ namespace RentingSystemAPI.Services
                 }
             }
 
-            return result;
+            return result.OrderByDescending(x => x.RentId);
         }
 
         public async Task<bool> ReturnItems(ClaimsPrincipal userPrincipal, ReturnItemsRequest request)

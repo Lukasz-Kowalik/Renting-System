@@ -9,11 +9,9 @@ namespace RentingSystemAPI.BAL.Entities
         [Key]
         public int RentId { get; set; }
 
-        public int MaxReturnTimeInDays { get; set; } = 7;
-
         public DateTime RentTime { get; set; } = DateTime.Now;
 
-        public DateTime WhenShouldBeReturned { get; set; } = DateTime.Now.AddDays(7);
+        public DateTime WhenShouldBeReturned { get; set; } = DateTime.Now.AddDays(Constants.MaxDefaultReturnTime);
 
         public DateTime? RentReturnTime { get; set; } = null;
         public ICollection<RentedItem> RentedItems { get; set; }

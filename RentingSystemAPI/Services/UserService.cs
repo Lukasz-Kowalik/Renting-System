@@ -139,6 +139,16 @@ namespace RentingSystemAPI.Services
             }
         }
 
+        public async Task<User> GetUser(string email)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Email == email);
+            if (user is null)
+            {
+                throw new NullReferenceException("User doesn't exist");
+            }
+            return user;
+        }
+
         public async Task SeedRolesAsync()
         {
             var users = _context.Users.ToArray();
@@ -196,7 +206,12 @@ namespace RentingSystemAPI.Services
                 throw;
             }
         }
-
+        public async Task ChangeMaxDays(int userId,int days)
+        {
+            var user = GetById(userId);
+            user.MaxReturnTimeInDays = days;
+        await    _context.SaveChangesAsync();
+        }
         private async Task<string> GetUserRole(User user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);

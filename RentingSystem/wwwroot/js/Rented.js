@@ -1,4 +1,7 @@
 ﻿$(document).ready(function () {
+
+   
+
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     if (logged) {
         $.ajax({
@@ -15,9 +18,21 @@
                     { data: "name" },
                     { data: "quantity" },
                     { data: "category"},
-                    { data: "rentTime" },
-                    { data: "whenShouldBeReturned" },
-                    { data: "rentReturnTime" },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
+                    {
+                        render: function (data) {
+                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
                     
                 ]
             });

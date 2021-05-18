@@ -18,11 +18,11 @@ namespace RentingSystemAPI.Controllers
 
         [HttpPost]
         [Route("AddRents")]
-        public async Task<IActionResult> AddItems([FromQuery] string email = null)
+        public async Task<IActionResult> AddItems([FromQuery] string email)
         {
             try
             {
-                var result = await _rentService.Add(User, email);
+                var result = await _rentService.Add(email);
                 return result ? (IActionResult)Ok() : BadRequest();
             }
             catch (Exception)

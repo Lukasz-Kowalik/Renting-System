@@ -13,7 +13,16 @@ $(document).ready(function () {
                     { data: "userId" },
                     { data: "firstName" },
                     { data: "lastName" },
-                    { data: "email" },
+                    { data: "email" }, {
+
+                    data: null,
+                    render:
+                        function (data, type, full, meta) {
+
+                        const time = data.maxReturnTimeInDays;
+                            return `<input id="time-${data.userId}" typ="number" min="0" value="${time}">`;
+                    }
+                    },
                     {
                         data: null,
                         render:
@@ -35,11 +44,12 @@ $(document).ready(function () {
             const row = $(this).closest('tr').find('td');
 
             const userId = parseInt(row.eq(0).text());
-            const roleId = parseInt(row.eq(4).find("#roles option:selected").val());
-            console.log(userId, roleId);
+            const days = row.eq(4).find("input").val();
+            const roleId = parseInt(row.eq(5).find("#roles option:selected").val());
+         
             $.ajax({
                 type: "PATCH",
-                url: ChangeUserRole + `/${userId}/${roleId}`,
+                url: ChangeUserRole + `/${userId}/${roleId}/${days}`,
                 contentType: ContentType,
                 success: function () {
                     location.reload();

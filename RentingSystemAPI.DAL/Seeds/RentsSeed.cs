@@ -14,7 +14,6 @@ namespace RentingSystemAPI.DAL.Seeds
             {
                 new Rent
                 {
-                    MaxReturnTimeInDays = 7,
                     RentReturnTime = new DateTime(2019, 01, 20),
                     WhenShouldBeReturned = new DateTime(2020, 04, 07),
                     RentTime = new DateTime(2019, 02, 01),
@@ -22,7 +21,6 @@ namespace RentingSystemAPI.DAL.Seeds
                 },
                 new Rent
                 {
-                    MaxReturnTimeInDays = 7,
                     RentReturnTime = new DateTime(2019, 01, 20),
                     WhenShouldBeReturned = new DateTime(2019, 04, 07, 11, 13, 26),
                     RentTime = new DateTime(2019, 01, 24),
@@ -30,21 +28,18 @@ namespace RentingSystemAPI.DAL.Seeds
                 },
                 new Rent
                 {
-                    MaxReturnTimeInDays = 7,
                     RentTime = new DateTime(2020, 01, 20),
                     WhenShouldBeReturned = new DateTime(2020, 04, 07, 11, 1, 26),
                     UserId = 3
                 },
                 new Rent
                 {
-                    MaxReturnTimeInDays = 10,
                     RentTime = new DateTime(2020, 03, 31, 11, 13, 26),
                     WhenShouldBeReturned = new DateTime(2020, 04, 07, 11, 13, 26),
                     UserId = 2
                 },
                 new Rent
                 {
-                    MaxReturnTimeInDays = 7,
                     RentTime = new DateTime(2020, 03, 31, 11, 13, 26),
                     WhenShouldBeReturned = new DateTime(2020, 04, 07, 11, 13, 26),
                     UserId = 1

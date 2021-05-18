@@ -20,6 +20,8 @@ namespace RentingSystemAPI.Interfaces
 
         Task LogoutAsync();
 
+        Task<User> GetUser(string email);
+
         Task<string> Refresh(User user);
 
         Task<User> GetUserAsync(ClaimsPrincipal userPrincipal, string email = null);
@@ -33,5 +35,6 @@ namespace RentingSystemAPI.Interfaces
         Task ChangeUserRole(int userId, int roleId);
 
         Task<IEnumerable<AdminPanelResponse>> GetUserAdminList();
+        Task ChangeMaxDays(int userId, int days);
     }
 }

@@ -7,6 +7,7 @@ namespace RentingSystemAPI.BAL.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public int MaxReturnTimeInDays { get; set; } = 7;
 
         public ICollection<Rent> Rents { get; set; }
 

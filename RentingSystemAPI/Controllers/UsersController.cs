@@ -158,10 +158,11 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpPatch]
-        [Route("ChangeUserRole/{userId}/{roleId}")]
-        public async Task<IActionResult> ChangeUserRole(int userId, int roleId)
+        [Route("ChangeUserRole/{userId}/{roleId}/{days}")]
+        public async Task<IActionResult> ChangeUserRole(int userId, int roleId,int days)
         {
             await _userService.ChangeUserRole(userId, roleId);
+            await _userService.ChangeMaxDays(userId, days);
             return Ok();
         }
 

@@ -19,7 +19,8 @@ namespace RentingSystemAPI.DAL.Seeds
                   Email = "User@poczta.com",
                   UserName ="User@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
-                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA",
+                  MaxReturnTimeInDays=7
               },  new User
               {
                   FirstName = "Jan",
@@ -27,7 +28,8 @@ namespace RentingSystemAPI.DAL.Seeds
                   Email = "User2@poczta.com",
                   UserName = "User2@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
-                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA",
+                  MaxReturnTimeInDays=10
               },  new User
               {
                   FirstName = "Mikołaj",
@@ -35,7 +37,8 @@ namespace RentingSystemAPI.DAL.Seeds
                   UserName = "Admin2@poczta.com",
                   Email = "Admin2@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
-                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA",
+                  MaxReturnTimeInDays=10
               },  new User
               {
                   FirstName = "Emilia",
@@ -43,7 +46,8 @@ namespace RentingSystemAPI.DAL.Seeds
                   UserName = "Admin@poczta.com",
                   Email = "Admin@poczta.com",
                   PasswordHash="AQAAAAEAACcQAAAAEJJP869iaHGZecSbdoXZRVLh3G7tNj9faTUPfzR/b0XTAQnPSi7i/ENeMiFjx/HOYA==",
-                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA"
+                  SecurityStamp="5VXTQVJ4YXWZFV52BGXXY7UVXEJGPGRA",
+                  MaxReturnTimeInDays=20
               }
           };
             await context.AddRangeAsync(users);
