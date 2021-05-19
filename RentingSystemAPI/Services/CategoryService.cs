@@ -31,6 +31,12 @@ namespace RentingSystemAPI.Services
             return _context.Categories;
         }
 
+        public IEnumerable<Category> Get(int[] ids = null)
+        {
+            return ids.Length == 0 ? _context.Categories :
+             _context.Categories.Where(x => ids.Any(y => y == x.Id));
+        }
+
         public string GetCategoryName(int id)
         {
             return _context.Categories.FirstOrDefault(x => x.Id == id).Name;

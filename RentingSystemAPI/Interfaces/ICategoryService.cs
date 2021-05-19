@@ -11,6 +11,8 @@ namespace RentingSystemAPI.Interfaces
 
         IEnumerable<Category> Get();
 
+        IEnumerable<Category> Get(int[] ids = null);
+
         void Add(Category category);
 
         bool Update(int id, string name);

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using RentingSystemAPI.BAL.Entities;
-using RentingSystemAPI.DAL.Context;
 using RentingSystemAPI.DTOs.Request;
 using RentingSystemAPI.DTOs.Response;
 using RentingSystemAPI.Interfaces;
@@ -32,6 +31,27 @@ namespace RentingSystemAPI.Controllers
         {
             var list = _itemService.GatItems().ToList();
             var categories = _categoryService.Get().ToList();
+            try
+            {
+                var response = from i in list
+                               join c in categories on i.CategoryId equals c.Id
+                               select new ItemListResponse { Category = c.Name, Name = i.Name, ItemId = i.ItemId, Quantity = i.Quantity };
+
+                return Ok(response);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        [HttpPost("GetSortedList")]
+        public ActionResult<IEnumerable<ItemListResponse>> Get([FromForm] int[] ids)
+
+        {
+            var list = _itemService.GatItems().ToList();
+            var categories = _categoryService.Get(ids).ToList();
             try
             {
                 var response = from i in list
