@@ -15,6 +15,23 @@ services:
     healthcheck:
         test: "exit 0"
 
+  rentingsystemapi:
+    container_name: rentingsystemapi
+    image: ${DOCKER_REGISTRY-}rentingsystemapi
+    build:
+      context: .
+      dockerfile: RentingSystemAPI/Dockerfile
+    depends_on:
+        DataBaseSQL:
+            condition: service_healthy
+    environment:
+       - DBServer=DataBaseSQL
+       - ASPNETCORE_ENVIRONMENT=development
+    ports:
+        - "8000:80"
+        - "8001:443"
+    restart: unless-stopped
+   
   rentingsystem:
     container_name: rentingsystem
     image: ${DOCKER_REGISTRY-}rentingsystem
@@ -33,23 +50,6 @@ services:
     ports:
         - "3000:80"
         - "3001:443"
-    restart: unless-stopped
-   
-  rentingsystemapi:
-    container_name: rentingsystemapi
-    image: ${DOCKER_REGISTRY-}rentingsystemapi
-    build:
-      context: .
-      dockerfile: RentingSystemAPI/Dockerfile
-    depends_on:
-        DataBaseSQL:
-            condition: service_healthy
-    environment:
-       - DBServer=DataBaseSQL
-       - ASPNETCORE_ENVIRONMENT=development
-    ports:
-        - "8000:80"
-        - "8001:443"
     restart: unless-stopped
 
 volumes:

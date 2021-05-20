@@ -47,6 +47,15 @@ namespace RentingSystem.Controllers
             return Error();
         }
 
+        [Route("Items/Edit/{id}")]
+        public async Task<IActionResult> Edit(int id) { return View(); }
+
+        [Route("Items/Add")]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

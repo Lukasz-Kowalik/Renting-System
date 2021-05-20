@@ -58,8 +58,11 @@ namespace RentingSystemAPI.Services
         public void Delete(int id)
         {
             var category = Get(id);
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            if (category != null)
+            {
+                _context.Categories.Remove(category);
+                _context.SaveChanges();
+            }
         }
     }
 }

@@ -12,8 +12,8 @@ namespace RentingSystemAPI.BAL.Entities
         public int ItemId { get; set; }
 
         public string Name { get; set; }
-        public Uri DocumentationUrl { get; set; }
-        public Uri ImageUrl { get; set; }
+        public Uri? DocumentationUrl { get; set; }
+        public Uri? ImageUrl { get; set; }
         public int Quantity { get; set; }
         public int MaxQuantity { get; set; }
         public string Description { get; set; }

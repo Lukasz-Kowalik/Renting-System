@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Edit item";
     @model RentingSystem.ViewModels.Vms.ItemModel
 }
 <div class="vh-100 container-fluid">
@@ -7,12 +7,8 @@
         @await Html.PartialAsync("_Menu")
         <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
             <div>
-                <h1>Product Details</h1>
+                <h1>Edit item</h1>
                 <a class="btn btn-primary  pl-5 pr-5" asp-controller="Home" asp-action="Index">Back</a>
-                @if (User.IsInRole("Admin"))
-                {
-                    <a class="btn btn-primary  pl-5 pr-5" asp-controller="Item" asp-action="Edit/@Model.Id">Edit</a>
-                }
             </div>
 
             <div class="justify-content-center d-flex ">
@@ -21,22 +17,13 @@
       align-self-center p-5
       rounded bg-secondary display-card ultra-width">
                     <div class="w-100 text-center container-fluid">
-                        @if (Model.ImageUrl is null)
-                        {
-                            <img src="~/images/example.png" class="mb-5" />
-                        }
-                        else
-                        {
-                            <img src="@Model.ImageUrl" class="mb-5" />
-                        }
+                        <img src="~/images/example.png" class="mb-5" />
+
                         <h4 class="mb-3">Name: @Model.Name</h4>
                         <h5>Category: @Model.Category</h5>
                         <h5>Quantity: @Model.Quantity</h5>
                         <h6>MaxQuantity: @Model.MaxQuantity</h6>
-                        @if (Model.Url != null)
-                        {
-                            <a href="@Model.Url">Documentation link</a>
-                        }
+                        <a href="@Model.Url">Documentation</a>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@
         const formData = {
             name: $("#name").val(),
         };
-        
+
         $.ajax({
             type: "POST",
             url: Category,
@@ -12,6 +12,5 @@
             cache: false,
             dataType: "json"
         }).done(window.location.href = Host + "Category");
-
     });
 });

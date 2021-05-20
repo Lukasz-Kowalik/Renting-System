@@ -14,14 +14,12 @@ $(document).ready(function () {
                     { data: "firstName" },
                     { data: "lastName" },
                     { data: "email" }, {
-
-                    data: null,
-                    render:
-                        function (data, type, full, meta) {
-
-                        const time = data.maxReturnTimeInDays;
-                            return `<input id="time-${data.userId}" typ="number" min="0" value="${time}">`;
-                    }
+                        data: null,
+                        render:
+                            function (data, type, full, meta) {
+                                const time = data.maxReturnTimeInDays;
+                                return `<input id="time-${data.userId}" typ="number" min="0" value="${time}">`;
+                            }
                     },
                     {
                         data: null,
@@ -46,7 +44,7 @@ $(document).ready(function () {
             const userId = parseInt(row.eq(0).text());
             const days = row.eq(4).find("input").val();
             const roleId = parseInt(row.eq(5).find("#roles option:selected").val());
-         
+
             $.ajax({
                 type: "PATCH",
                 url: ChangeUserRole + `/${userId}/${roleId}/${days}`,

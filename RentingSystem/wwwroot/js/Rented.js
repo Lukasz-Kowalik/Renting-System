@@ -1,7 +1,4 @@
 ﻿$(document).ready(function () {
-
-   
-
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     if (logged) {
         $.ajax({
@@ -17,7 +14,7 @@
                     { data: "itemId" },
                     { data: "name" },
                     { data: "quantity" },
-                    { data: "category"},
+                    { data: "category" },
                     {
                         render: function (data) {
                             return moment(data).format('DD/MM/YYYY HH:mm');
@@ -33,10 +30,9 @@
                             return moment(data).format('DD/MM/YYYY HH:mm');
                         }
                     },
-                    
+
                 ]
             });
         });
-
     }
 });

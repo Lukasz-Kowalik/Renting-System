@@ -22,7 +22,8 @@ namespace RentingSystemAPI.Mapping
             CreateMap<RentedItem, RentedItemsResponse>();
             CreateMap<User, AdminPanelResponse>()
                 .ForMember(u => u.UserId, m => m.MapFrom(e => e.Id));
-            CreateMap<ItemRequest, Item>();
+            CreateMap<ItemRequest, Item>()
+                .ForMember(x => x.DocumentationUrl, y => y.MapFrom(u => u.Url));
             CreateMap<CategoryResponse, Category>().ReverseMap();
         }
     }

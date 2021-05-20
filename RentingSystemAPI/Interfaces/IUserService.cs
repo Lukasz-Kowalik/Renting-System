@@ -35,6 +35,7 @@ namespace RentingSystemAPI.Interfaces
         Task ChangeUserRole(int userId, int roleId);
 
         Task<IEnumerable<AdminPanelResponse>> GetUserAdminList();
+
         Task ChangeMaxDays(int userId, int days);
     }
 }

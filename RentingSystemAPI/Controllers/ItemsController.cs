@@ -73,7 +73,9 @@ namespace RentingSystemAPI.Controllers
             var item = _itemService.Get(id);
             var result = new ItemResponse
             {
+                Id = item.ItemId,
                 Url = item.DocumentationUrl,
+                ImageUrl = item.ImageUrl,
                 Category = _itemService.GetItemCategoryNameById(id),
                 MaxQuantity = item.MaxQuantity,
                 Quantity = item.Quantity,
@@ -83,7 +85,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(ItemRequest item)
+        public IActionResult Add([FromForm] ItemRequest item)
         {
             var newItem = _mapper.Map<Item>(item);
             _itemService.Add(newItem);
@@ -91,7 +93,7 @@ namespace RentingSystemAPI.Controllers
         }
 
         [HttpPut]
-        public IActionResult Update(ItemRequest item)
+        public IActionResult Update([FromForm] ItemRequest item)
         {
             var newItem = _mapper.Map<Item>(item);
             _itemService.UpdateItem(newItem);

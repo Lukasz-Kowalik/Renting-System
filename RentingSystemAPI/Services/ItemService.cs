@@ -41,9 +41,9 @@ namespace RentingSystemAPI.Services
 
         public async Task Add(Item item)
         {
-            item.RentedItems = new List<RentedItem>();
+            item.Quantity = item.MaxQuantity;
             await _context.Items.AddAsync(item);
-            await _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void Remove(int id)

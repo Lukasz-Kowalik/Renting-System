@@ -9,7 +9,7 @@
             $('#Rented-table').dataTable({
                 order: [],
                 aaData: data,
-                columns: [                    
+                columns: [
                     { data: "rentId" },
                     { data: "itemId" },
                     { data: "email" },

@@ -206,12 +206,14 @@ namespace RentingSystemAPI.Services
                 throw;
             }
         }
-        public async Task ChangeMaxDays(int userId,int days)
+
+        public async Task ChangeMaxDays(int userId, int days)
         {
             var user = GetById(userId);
             user.MaxReturnTimeInDays = days;
-        await    _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
+
         private async Task<string> GetUserRole(User user)
         {
             var userRoles = await _userManager.GetRolesAsync(user);

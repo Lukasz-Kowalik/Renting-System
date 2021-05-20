@@ -1,0 +1,56 @@
+﻿@{
+    ViewData["Title"] = "Add new item";
+    @model RentingSystem.ViewModels.Vms.ItemModel
+}
+<div class="vh-100 container-fluid">
+    <div class="row ">
+        @await Html.PartialAsync("_Menu")
+        <div class="col-lg-10 p-5 col-md-8 col-sm-12 p-0  d-flex  flex-column">
+            <div>
+                <h1>Add new item</h1>
+                <a class="btn btn-primary  pl-5 pr-5" asp-controller="Home" asp-action="Index">Back</a>
+            </div>
+
+            <div class="justify-content-center d-flex ">
+                <div class="
+      d-flex flex-column
+      align-self-center p-5
+      rounded bg-secondary display-card ultra-width">
+                    <div class="w-100 text-center container-fluid">
+                        <form>
+                            <div>
+                                <label for="url">Image URL:</label>
+                                <input class="form-control" id="url" typ="text" />
+                            </div>
+                            <div>
+                                <label for="name">Name:</label>
+                                <input class="form-control" id="name" typ="text" required />
+                            </div>
+                            <div>
+                                <label for="category">Category:</label>
+                                <select class="form-control" id="category" required>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="max-quantity">Max quantity:</label>
+                                <input class="form-control" id="max-quantity" typ="number" />
+                            </div>
+                            <div>
+                                <label for="documentation">Documentation URL:</label>
+                                <input class="form-control" id="documentation" typ="text" />
+                            </div>
+                            <div>
+                                <label for="description">Description:</label>
+                                <textarea class="form-control" id="description"></textarea>
+                            </div>
+                            <div class=" m-3">
+                                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="~/js/AddItem.js"></script>

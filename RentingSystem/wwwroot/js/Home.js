@@ -2,7 +2,7 @@
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     //First load
     let isFullTable = true;
-    
+
     if (isFullTable) {
         $.ajax({
             url: Items,
@@ -27,7 +27,9 @@
                                 <button type="button" class="btn btn-primary ml-2" >Add</button>`
                                 result += `
                                 <a href="${Host}Items/${data.itemId}" class="btn btn-light ml-2">
-                                Details</a>`
+                                Details</a>
+                                    <a href="#" id="remove" class="btn btn-danger ml-2" >
+                                        Remove</a >`
                                 return result;
                             }
                     }
@@ -71,15 +73,14 @@
             traditional: true,
             data: { ids: values }
         }).done(function (data) {
-           
             $('#Item-table').DataTable().clear().draw();
             $('#Item-table').DataTable().rows.add(data);
             $('#Item-table').DataTable().columns.adjust().draw();
-            
         });
     });
 
     if (logged) {
+        $("#btn-place").append(`<a class="btn btn-primary pl-5 pr-5" href="${Host}Items/Add" id="add-btn">Add</a>`)
         $('#Item-table tbody').on('click', 'button', function () {
             const row = $(this).closest('tr').find('td');
             const currentQuantity = parseInt(row.eq(2).text());
@@ -114,5 +115,21 @@
                 });
             }
         });
+        $('#Item-table tbody').on('click', '#remove', function () {
+            const row = $(this).closest('tr').find('td');
+            const Id = parseInt(row.eq(0).text());
+                $.ajax({
+                    type: "Delete",
+                    url: Item+"/"+Id,
+                    contentType: ContentType,
+                    success: function () {
+                        location.reload();
+                    },
+                    error: function () {
+                        alert('Error in Operation');
+                    }
+                });
+            }
+        );
     };
 });

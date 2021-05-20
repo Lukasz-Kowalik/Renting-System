@@ -33,7 +33,6 @@ namespace RentingSystemAPI.Services
                     g.UserId,
                     g.ItemId,
                     g.Name,
-                   
                 })
                 .Select(i =>
                     new Item

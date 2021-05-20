@@ -10,10 +10,10 @@ namespace RentingSystemAPI.Validators
             RuleFor(x => x.Password1)
                 .NotEmpty()
                 .NotNull();
-                RuleFor(x=>x.Password2)
-                .NotEmpty()
-                .NotNull();
-            RuleFor(x=>x.Email)
+            RuleFor(x => x.Password2)
+            .NotEmpty()
+            .NotNull();
+            RuleFor(x => x.Email)
               .NotEmpty()
                 .NotNull()
                 .EmailAddress();
