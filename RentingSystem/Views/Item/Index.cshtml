@@ -11,7 +11,7 @@
                 <a class="btn btn-primary  pl-5 pr-5" asp-controller="Home" asp-action="Index">Back</a>
                 @if (User.IsInRole("Admin"))
                 {
-                    <a class="btn btn-primary  pl-5 pr-5" asp-controller="Item" asp-action="Edit/@Model.Id">Edit</a>
+                    <a class="btn btn-primary  pl-5 pr-5" href="/Items/Edit/@Model.Id">Edit</a>
                 }
             </div>
 
@@ -30,13 +30,17 @@
                             <img src="@Model.ImageUrl" class="mb-5" />
                         }
                         <h4 class="mb-3">Name: @Model.Name</h4>
-                        <h5>Category: @Model.Category</h5>
+                        <h5>Category: @Model.Category.Name</h5>
                         <h5>Quantity: @Model.Quantity</h5>
                         <h6>MaxQuantity: @Model.MaxQuantity</h6>
                         @if (Model.Url != null)
                         {
                             <a href="@Model.Url">Documentation link</a>
                         }
+                      <div>
+                        <h6>Description</h6>
+                        <p>@Model.Description</p>
+                      </div>
                     </div>
                 </div>
             </div>

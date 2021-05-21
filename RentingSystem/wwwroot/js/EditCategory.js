@@ -1,13 +1,11 @@
 ﻿$(document).ready(function () {
     const pathname = window.location.pathname;
     const categoryId = pathname.charAt(pathname.length - 1);
-    console.log(categoryId)
     $.ajax({
         url: Category + `/${categoryId}`,
         method: "GET",
-        contentType: ContentType,
-    }).done(function (data) {
-        console.log(data.name)
+        contentType: ContentType,   
+    }).done (function (data) {
         $("#name").val(data.name);
     });
 
@@ -23,7 +21,9 @@
             url: Category,
             data: data,
             cache: false,
-            dataType: "json"
-        }).done(window.location.href = Host + "Category");
+            dataType: "json",
+            success: () => window.location.href = Host + "Category",
+            error: ()=> alert("Bad data")
+        });
     });
 });
