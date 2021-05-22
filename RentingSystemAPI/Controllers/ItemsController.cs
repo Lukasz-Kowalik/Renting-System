@@ -98,7 +98,7 @@ namespace RentingSystemAPI.Controllers
         {
             var validator = new ItemValidator();
             var validationResult = validator.Validate(item);
-            if (validationResult.IsValid )
+            if (validationResult.IsValid)
             {
                 var newItem = _mapper.Map<Item>(item);
                 _itemService.Add(newItem);
@@ -112,10 +112,18 @@ namespace RentingSystemAPI.Controllers
         {
             var validator = new ItemValidator();
             var validationResult = validator.Validate(item);
-            if (validationResult.IsValid )
+            if (validationResult.IsValid)
             {
-                var newItem = _mapper.Map<Item>(item);
-                _itemService.UpdateItem(newItem);
+                var oldItem = _itemService.Get(item.ItemId);
+                oldItem.ItemId = item.ItemId;
+                oldItem.Name = item.Name;
+                oldItem.DocumentationUrl = item.Url;
+                oldItem.ImageUrl = item.ImageUrl;
+                oldItem.MaxQuantity = item.MaxQuantity;
+                oldItem.Description = item.Description;
+                oldItem.CategoryId = item.CategoryId;
+
+                _itemService.UpdateItem(oldItem);
                 return Ok();
             }
             return BadRequest();
@@ -133,7 +141,5 @@ namespace RentingSystemAPI.Controllers
             _itemService.Add(id, quantity);
             return Ok();
         }
-
-      
     }
 }

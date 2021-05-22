@@ -1,5 +1,15 @@
 ﻿$(document).ready(function () {
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
+    $.fn.dataTable.render.multi = function (renderArray) {
+        return function (d, type, row, meta) {
+            for (var r = 0; r < renderArray.length; r++) {
+                d = renderArray[r](d, type, row, meta);
+            }
+
+            return d;
+        }
+    }
+
     if (logged) {
         $.ajax({
             url: GetRentedItems,
@@ -14,24 +24,25 @@
                     { data: "itemId" },
                     { data: "name" },
                     { data: "quantity" },
-                    { data: "category" },
+                    { data: "category" },             
                     {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        render: function (data, type, row) {
+                            return moment(row["rentTime"]).format('DD/MM/YYYY HH:mm');
                         }
                     },
                     {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
-                        }
-                    },
-                    {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
-                        }
-                    },
+                        render: function (data, type, row) {
+                            return moment(row["whenShouldBeReturned"]).format('DD/MM/YYYY HH:mm');
 
-                ]
+                        }
+                    },
+                    {
+                        render: function (data, type, row) {
+                            const temp = row["rentReturnTime"];
+                            return temp === null ? "" : moment(temp).format('DD/MM/YYYY HH:mm');
+                        }
+                    },
+                                  ]
             });
         });
     }

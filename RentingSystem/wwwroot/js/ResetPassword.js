@@ -5,7 +5,6 @@ $(document).ready(function () {
             password2: $("#new").val(),
             email: $("#email").val(),
         }
-        console.log(InputData);
         $.ajax({
             type: "PATCH",
             url: ResetPassword,

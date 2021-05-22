@@ -19,7 +19,6 @@
         contentType: ContentType,
     })
         .done(function (data) {
-            console.log(data)
             $("#url").val(data.imageUrl),
                 $("#name").val(data.name),
                 $("#category").val(data.category.id).change(),
@@ -47,7 +46,9 @@
             data: formData,
             cache: false,
             dataType: "json",
-            success: () => window.location.href = Host + "Items/" + Id
-        });
+            error: function () {
+                alert("Error");
+            }
+        }).done(window.location.href = Host + "Items/" + Id);
     });
 });

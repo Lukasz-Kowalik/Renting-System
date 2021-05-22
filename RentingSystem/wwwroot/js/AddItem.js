@@ -20,14 +20,16 @@
             Url: $("#documentation").val(),
             Description: $("#description").val()
         };
-        console.log(formData);
         $.ajax({
             type: "POST",
             url: Item,
             data: formData,
-            dataType: "json"
+            dataType: "json",
+            error: function () {
+                alert("Error");
+            }
         }).done(
-            //window.location.href = Host
+           window.location.href = Host
         );
     });
 });
