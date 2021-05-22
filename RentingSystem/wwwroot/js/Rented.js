@@ -1,14 +1,5 @@
 ﻿$(document).ready(function () {
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
-    $.fn.dataTable.render.multi = function (renderArray) {
-        return function (d, type, row, meta) {
-            for (var r = 0; r < renderArray.length; r++) {
-                d = renderArray[r](d, type, row, meta);
-            }
-
-            return d;
-        }
-    }
 
     if (logged) {
         $.ajax({
@@ -18,6 +9,7 @@
             data: USER_EMAIL
         }).done(function (data) {
             $('#Rented-table').dataTable({
+                order: [[0,"desc"]],
                 aaData: data,
                 columns: [
                     { data: "rentId" },

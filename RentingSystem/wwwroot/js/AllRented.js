@@ -17,18 +17,20 @@
                     { data: "quantity" },
                     { data: "category" },
                     {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        render: function (data, type, row) {
+                            return moment(row["rentTime"]).format('DD/MM/YYYY HH:mm');
                         }
                     },
                     {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        render: function (data, type, row) {
+                            return moment(row["whenShouldBeReturned"]).format('DD/MM/YYYY HH:mm');
+
                         }
                     },
                     {
-                        render: function (data) {
-                            return moment(data).format('DD/MM/YYYY HH:mm');
+                        render: function (data, type, row) {
+                            const temp = row["rentReturnTime"];
+                            return temp === null ? "" : moment(temp).format('DD/MM/YYYY HH:mm');
                         }
                     },
                     {
