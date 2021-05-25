@@ -1,31 +1,6 @@
 version: '2'
 
 services:
-  rentingsystem:
-    container_name: rentingsystem
-    image: ukix/rentingsystem:latest
-    depends_on:
-        - DataBaseSQL
-        - rentingsystemapi
-    environment:
-        - API_URL=rentingsystemapi:8000
-        - ASPNETCORE_ENVIRONMENT=development
-    ports:
-        - "3000:80"
-        - "3001:443"
-   
-  rentingsystemapi:
-    container_name: rentingsystemapi
-    image: ukix/rentingsystemapi:latest
-    depends_on:
-        - DataBaseSQL
-    environment:
-       - DBServer=DataBaseSQL
-       - ASPNETCORE_ENVIRONMENT=development
-    ports:
-        - "8000:80"
-        - "8001:443"
-
   DataBaseSQL:
     container_name: DataBaseSQL
     image: mcr.microsoft.com/mssql/server:2019-CU3-ubuntu-18.04
@@ -36,6 +11,40 @@ services:
         - "1433:1433"
     volumes:
         - ./DatabaseBackUp:/var/opt/mssql/bak
-    
+    restart: unless-stopped
+    healthcheck:
+        test: "exit 0"
+
+  rentingsystemapi:
+    container_name: rentingsystemapi
+    image: ukix/rentingsystemapi:latest
+    depends_on:
+        DataBaseSQL:
+            condition: service_healthy
+    environment:
+       - DBServer=DataBaseSQL
+       - ASPNETCORE_ENVIRONMENT=development
+    ports:
+        - "8000:80"
+        - "8001:443"
+    restart: unless-stopped
+   
+  rentingsystem:
+    container_name: rentingsystem
+    image: ukix/rentingsystem:latest
+    depends_on:
+        DataBaseSQL:
+            condition: service_healthy
+        rentingsystemapi:
+            condition: service_started
+
+    environment:
+        - API_URL=rentingsystemapi:8000
+        - ASPNETCORE_ENVIRONMENT=development
+    ports:
+        - "3000:80"
+        - "3001:443"
+    restart: unless-stopped
+
 volumes:
     DataBase:         
