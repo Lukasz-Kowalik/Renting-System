@@ -1,7 +1,7 @@
 //-----------------API CALLS---------------
 const ContentType = "application/json; charset=utf-8";
-const APIHost = "http://137.135.207.150:8000/";
-const Host = "http://137.135.207.150:3000/";
+const APIHost = "http://localhost:8000/";
+const Host = "http://localhost:3000/";
 const Header = "Access-Control - Allow - Origin: ";
 const Items = APIHost + "Items/getList";
 const RentedItems = APIHost + "RentedItems";

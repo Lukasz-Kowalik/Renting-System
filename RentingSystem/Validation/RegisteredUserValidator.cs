@@ -9,7 +9,7 @@ namespace RentingSystem.Validation
         private const string PasswordRequiredMessage = "Password is required.";
         private const string PasswordsDoNotMatchMessage = "Passwords do not match.";
         private const string PasswordLengthMessage = "Password should be have at least 8 character length.";
-        private const string PasswordRequirementMessage = "Select stronger password.(letters,numbers and symbols)";
+        private const string PasswordRequirementMessage = "Select stronger password.(letters(upper and lower case),numbers and symbols)";
 
         public RegisteredUserValidator()
         {
@@ -49,7 +49,7 @@ namespace RentingSystem.Validation
 
         private static bool IsPasswordIsStrong(string password)
         {
-            const string pattern = "^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))";
+            const string pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$";
             var regex = new Regex(pattern);
             return password != null && regex.IsMatch(password);
         }
