@@ -7,6 +7,8 @@
             contentType: ContentType
         }).done(function (data) {
             $('#Category-table').dataTable({
+                responsive: true,
+
                 aaData: data,
                 columns: [
                     { data: "id" },
@@ -32,22 +34,21 @@
             });
         });
         $('#Category-table tbody').on('click', 'button', function (e) {
-           
             e.preventDefault();
             const row = $(this).closest('tr').find('td');
             const id = parseInt(row.eq(0).text());
-           
-                $.ajax({
-                    type: "DELETE",
-                    url: Category + "/" + id,
-                    success: function () {
-                        location.reload();
-                    },
-                    error: function () {
-                        alert('Error in Operation');
-                    }
-                });
-            }
+
+            $.ajax({
+                type: "DELETE",
+                url: Category + "/" + id,
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert('Error in Operation');
+                }
+            });
+        }
         );
     }
 });

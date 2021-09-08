@@ -8,6 +8,8 @@ $(document).ready(function () {
             contentType: ContentType,
         }).done(function (data) {
             $('#User-table').dataTable({
+                responsive: true,
+
                 aaData: data,
                 columns: [
                     { data: "userId" },

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('#loginBtn').click(() => {
+    $('#loginBtn').on('click', () => {
         const InputData = {
             password1: $("#old").val(),
             password2: $("#new").val(),

@@ -7,6 +7,8 @@
             contentType: ContentType,
         }).done(function (data) {
             $('#Rented-table').dataTable({
+                responsive: true,
+
                 order: [],
                 aaData: data,
                 columns: [
@@ -17,17 +19,19 @@
                     { data: "quantity" },
                     { data: "category" },
                     {
+                        data: "rentTime",
                         render: function (data, type, row) {
                             return moment(row["rentTime"]).format('DD/MM/YYYY HH:mm');
                         }
                     },
                     {
+                        data: "whenShouldBeReturned",
                         render: function (data, type, row) {
                             return moment(row["whenShouldBeReturned"]).format('DD/MM/YYYY HH:mm');
-
                         }
                     },
                     {
+                        data: "rentReturnTime",
                         render: function (data, type, row) {
                             const temp = row["rentReturnTime"];
                             return temp === null ? "" : moment(temp).format('DD/MM/YYYY HH:mm');

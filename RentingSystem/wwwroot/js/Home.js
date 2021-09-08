@@ -2,14 +2,14 @@
     const logged = (typeof $.cookie('Identity.Cookie') !== 'undefined') && (sessionStorage.getItem("email") !== "");
     //First load
     let isFullTable = true;
-
     if (isFullTable) {
         $.ajax({
             url: Items,
             method: "GET",
             contentType: ContentType
         }).done(function (data) {
-            $('#Item-table').DataTable({
+             $('#Item-table').DataTable({
+                responsive: true,
                 aaData: data,
                 columns: [
                     { data: "itemId" },
@@ -39,6 +39,7 @@
                     'copy', 'csv', 'pdf', 'print'
                 ]
             });
+           
         });
     }
     $.ajax({
@@ -82,6 +83,7 @@
     if (logged) {
         $("#btn-place").append(`<a class="btn btn-primary pl-5 pr-5" href="${Host}Items/Add" id="add-btn">Add</a>`)
         $('#Item-table tbody').on('click', 'button', function () {
+            console.log("asdf")
             const row = $(this).closest('tr').find('td');
             const currentQuantity = parseInt(row.eq(2).text());
             let quantity = row.last().find("input").val();
@@ -116,20 +118,21 @@
             }
         });
         $('#Item-table tbody').on('click', '#remove', function () {
+            console.log("")
             const row = $(this).closest('tr').find('td');
             const Id = parseInt(row.eq(0).text());
-                $.ajax({
-                    type: "Delete",
-                    url: Item+"/"+Id,
-                    contentType: ContentType,
-                    success: function () {
-                        location.reload();
-                    },
-                    error: function () {
-                        alert('Error in Operation');
-                    }
-                });
-            }
+            $.ajax({
+                type: "Delete",
+                url: Item + "/" + Id,
+                contentType: ContentType,
+                success: function () {
+                    location.reload();
+                },
+                error: function () {
+                    alert('Error in Operation');
+                }
+            });
+        }
         );
     };
 });

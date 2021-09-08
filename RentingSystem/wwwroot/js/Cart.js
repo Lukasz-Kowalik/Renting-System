@@ -9,6 +9,8 @@
             data: USER_EMAIL
         }).done(function (data) {
             $('#Cart-table').dataTable({
+                responsive: true,
+              
                 aaData: data,
                 columns: [
                     { data: "itemId" },
@@ -29,6 +31,7 @@
         $('#Cart-table tbody').on('click', 'button', function () {
             const row = $(this).closest('tr').find('td');
             const currentQuantity = parseInt(row.eq(2).text());
+            console.log(currentQuantity)
             let quantity = row.eq(3).find("input").val();
             if (quantity <= 0) {
                 quantity = 1;
@@ -66,7 +69,7 @@
             }
         });
 
-        $('#rent-btn').click(() => {
+        $('#rent-btn').on('click', () => {
             $.ajax({
                 type: "POST",
                 url: RentItems + "?email=" + sessionStorage.getItem('email'),
